@@ -1,0 +1,539 @@
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #1e90ff42;
+    border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #5556;
+}
+
+.navbar .nav-item span {
+    border: 2px solid transparent;
+}
+
+.navbar .nav-item:hover span {
+    border: 2px solid white;
+}
+.navbar a {
+  text-decoration: none!important;
+}
+.login-modal-back {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.301);
+    z-index: 1001;
+    top: 0px;
+    left: 0px;
+    display: none;
+}
+
+.login-modal-container {
+    width: 400px;
+    min-height: 300px;
+    border-radius: 10px;
+    margin: 100px auto;
+    background: white;
+    overflow: hidden;
+    animation-name: jello;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+    transform-origin: center;
+}
+
+.jello {
+}
+
+
+@keyframes jello {
+  from,
+    11.1%,
+    to {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  22.2% {
+    -webkit-transform: skewX(-12.5deg) skewY(-12.5deg);
+    transform: skewX(-12.5deg) skewY(-12.5deg);
+  }
+
+  33.3% {
+    -webkit-transform: skewX(6.25deg) skewY(6.25deg);
+    transform: skewX(6.25deg) skewY(6.25deg);
+  }
+
+  44.4% {
+    -webkit-transform: skewX(-3.125deg) skewY(-3.125deg);
+    transform: skewX(-3.125deg) skewY(-3.125deg);
+  }
+
+  55.5% {
+    -webkit-transform: skewX(1.5625deg) skewY(1.5625deg);
+    transform: skewX(1.5625deg) skewY(1.5625deg);
+  }
+
+  66.6% {
+    -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
+    transform: skewX(-0.78125deg) skewY(-0.78125deg);
+  }
+
+  77.7% {
+    -webkit-transform: skewX(0.390625deg) skewY(0.390625deg);
+    transform: skewX(0.390625deg) skewY(0.390625deg);
+  }
+
+  88.8% {
+    -webkit-transform: skewX(-0.1953125deg) skewY(-0.1953125deg);
+    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);
+  }
+}
+
+
+
+.login-modal-header {
+    background: dodgerblue;
+    color: white;
+    padding: 10px;
+    position: relative;
+}
+
+.close-login-container {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.login-modal-body {
+    padding: 20px;
+}
+
+.login-modal-body input {
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    outline: none;
+    border:1px solid #aaa;
+    margin-bottom:20px;
+}
+
+.login-modal-body button {
+    width: 45%;
+    margin-top: 20px;
+    padding: 10px 0px;
+    font-family: sans-serif;
+}
+
+.login-modal-body button:first-child {
+}
+
+.signin-button {
+    background: linear-gradient(45deg, dodgerblue, #bcdeff);
+    color: white;
+    margin-right: 28px;
+}
+
+/* ---------------------------------------------------------------------------------------------- */
+
+.delete-con-modal-back {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.301);
+    z-index: 1001;
+    top: 0px;
+    left: 0px;
+    display: none;
+}
+
+.delete-con-modal-container {
+    width: 400px;
+    min-height: 200px;
+    border-radius: 10px;
+    margin: 100px auto;
+    background: white;
+    overflow: hidden;
+    animation-name: jello;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+    transform-origin: center;
+}
+
+
+@keyframes jello {
+  from,
+    11.1%,
+    to {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  22.2% {
+    -webkit-transform: skewX(-12.5deg) skewY(-12.5deg);
+    transform: skewX(-12.5deg) skewY(-12.5deg);
+  }
+
+  33.3% {
+    -webkit-transform: skewX(6.25deg) skewY(6.25deg);
+    transform: skewX(6.25deg) skewY(6.25deg);
+  }
+
+  44.4% {
+    -webkit-transform: skewX(-3.125deg) skewY(-3.125deg);
+    transform: skewX(-3.125deg) skewY(-3.125deg);
+  }
+
+  55.5% {
+    -webkit-transform: skewX(1.5625deg) skewY(1.5625deg);
+    transform: skewX(1.5625deg) skewY(1.5625deg);
+  }
+
+  66.6% {
+    -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
+    transform: skewX(-0.78125deg) skewY(-0.78125deg);
+  }
+
+  77.7% {
+    -webkit-transform: skewX(0.390625deg) skewY(0.390625deg);
+    transform: skewX(0.390625deg) skewY(0.390625deg);
+  }
+
+  88.8% {
+    -webkit-transform: skewX(-0.1953125deg) skewY(-0.1953125deg);
+    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);
+  }
+}
+
+
+
+.delete-con-modal-header {
+    background: black;
+    color: white;
+    padding: 10px;
+    position: relative;
+    text-indent: 32px;
+}
+
+.close-delete-con-container {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.delete-con-modal-body {
+    padding: 20px;
+}
+
+.delete-con-modal-body input {
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    outline: none;
+    border:1px solid #aaa;
+    margin-bottom:20px;
+}
+
+.delete-con-modal-body button {
+    width: 45%;
+    margin-top: 20px;
+    margin-right: 12px;
+    padding: 10px 0px;
+    font-family: sans-serif;
+}
+
+.delete-con-modal-body button:first-child {
+  background: white;
+  border: 1px solid red;
+  color: red;
+}
+.delete-con-modal-body button:nth-child(2n) {
+  background: white;
+  border: 1px solid green;
+  color: green;
+}
+
+.signin-button {
+    background: linear-gradient(45deg, dodgerblue, #bcdeff);
+    color: white;
+    margin-right: 28px;
+}
+.navbar .nav-item {
+    padding: 6px 10px;
+    color: black;
+    min-width: 150px;
+    font-size: 16px;
+    background: #dbdfe2;
+    border-radius: 3px;
+    margin:0px 5px;
+    text-align: center;
+    cursor: pointer;
+    transition-duration:.1s;
+    box-sizing:border-box;
+    position: relative;
+}
+
+.navbar .nav-item:hover {
+    background: dodgerblue;
+    color:white;
+}
+
+
+div#not {
+    width: 250px;
+    position: absolute;
+    min-height: 200px;
+    background: black;
+    top: 150%;
+    left: 44%;
+    transform: translateX(-25%);
+    box-shadow: 5px 5px 20px #000000d4;
+    display:none;
+    cursor: default;
+    border-radius: 4px;
+}
+
+div#not::before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    border: 10px solid transparent;
+    border-bottom: 10px solid #000000a8;
+    display: block;
+    position: absolute;
+    top: -20px;
+    left: 30%;
+    transform: translateX(0%);
+  
+}
+
+.active {
+  background: dodgerblue;
+  color:white;
+}
+.show {
+  display:block!important;
+}
+button {
+    padding: 4px 13px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    transform: translateY(-8px);
+    box-shadow: 2px 2px 10px #6e6e6e;
+    background: #4c7fdb;
+    color: white;
+    margin-right: 14px;
+    font-family:verdana;
+    font-weight:bold;
+}
+button:hover {
+    background:#2a68d3;
+}
+
+
+/* --------------------------------Delete comment Modal Styles-------------------------------------------------- */
+
+
+
+/* ---------------------------------------------------------------------------------------------- */
+
+.delete-comment-modal-back {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.301);
+    z-index: 1001;
+    top: 0px;
+    left: 0px;
+    display: none;
+}
+
+.delete-comment-modal-container {
+    width: 400px;
+    min-height: 200px;
+    border-radius: 10px;
+    margin: 100px auto;
+    background: white;
+    overflow: hidden;
+    transform: scale(1);
+    animation: showHoot .2s ease 0s 1;
+}
+
+@keyframes showHoot {
+    0%{
+        transform: scale(0);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+
+.delete-comment-modal-header {
+    background: black;
+    color: white;
+    padding: 10px;
+    position: relative;
+    text-indent: 32px;
+}
+
+.close-delete-comment-container {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.delete-comment-modal-body {
+    padding: 20px;
+}
+
+.delete-comment-modal-body input {
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    outline: none;
+    border:1px solid #aaa;
+    margin-bottom:20px;
+}
+
+.delete-comment-modal-body button {
+    width: 45%;
+    margin-top: 20px;
+    margin-right: 12px;
+    padding: 10px 0px;
+    font-family: sans-serif;
+}
+
+.delete-comment-modal-body button:first-child {
+  background: white!important;
+  border: 1px solid red;
+  color: red;
+}
+.delete-comment-modal-body button:first-child:hover {
+  background: red!important;
+  border: 1px solid red;
+  color: white;
+}
+.delete-comment-modal-body button:nth-child(2n) {
+  background: white!important;
+  border: 1px solid dodgerblue;
+  color: dodgerblue;
+}
+
+.delete-comment-modal-body button:nth-child(2n):hover {
+  background: dodgerblue!important;;
+  border: 1px solid dodgerblue;
+  color: white;
+}
+
+
+/* ----------------------Edit Poll Waning Modal---------------------------------------- */
+
+.edit-warning-modal-back {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.301);
+    z-index: 1001;
+    top: 0px;
+    left: 0px;
+    display: none;
+}
+
+.edit-warning-modal-container {
+    width: 400px;
+    min-height: 200px;
+    border-radius: 10px;
+    margin: 100px auto;
+    background: white;
+    overflow: hidden;
+    transform: scale(1);
+    animation: showHoot .2s ease 0s 1;
+}
+
+@keyframes showHoot {
+    0%{
+        transform: scale(0);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+
+.edit-warning-modal-header {
+    background: lightcoral;
+    color: white;
+    padding: 10px;
+    position: relative;
+    text-indent: 32px;
+}
+
+.close-edit-warning-container {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.edit-warning-modal-body {
+    padding: 20px;
+}
+
+.edit-warning-modal-body input {
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    outline: none;
+    border:1px solid #aaa;
+    margin-bottom:20px;
+}
+
+.edit-warning-modal-body button {
+    width: 45%;
+    margin-top: 20px;
+    margin-right: 12px;
+    padding: 10px 0px;
+    font-family: sans-serif;
+}
+
+.edit-warning-modal-body button:first-child {
+  background: white!important;
+  border: 1px solid red;
+  color: red;
+}
+.edit-warning-modal-body button:first-child:hover {
+  background: red!important;
+  border: 1px solid red;
+  color: white;
+}
+.edit-warning-modal-body button:nth-child(2n) {
+  background: white!important;
+  border: 1px solid dodgerblue;
+  color: dodgerblue;
+}
+
+.edit-warning-modal-body button:nth-child(2n):hover {
+  background: dodgerblue!important;;
+  border: 1px solid dodgerblue;
+  color: white;
+}

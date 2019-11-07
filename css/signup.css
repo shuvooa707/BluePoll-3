@@ -1,0 +1,308 @@
+* {
+    box-sizing: border-box;
+/*     overflow: hidden; */
+}
+input[type='checkbox'] {
+    transform: scale(1.5);
+    margin-top: 18px;
+}
+button,input[type='checkbox'] {
+    cursor:pointer;
+}
+button:active {
+    background:#ccc;
+}
+a,.show-more {
+    text-decoration:none;
+    color: dodgerblue;
+    cursor: pointer;
+}
+a:hover,.show-more:hover {
+    text-decoration: underline;
+}
+body {
+    overflow-y: scroll;
+    background-color: #f7fbf5;
+    margin: 0px;
+    padding: 0px;
+}
+
+.navbar {
+    background: white;
+    box-shadow: 0 5px 10px #ddd;
+    position: fixed;
+    top: 0px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px 0px;
+    z-index:100;
+}
+
+.navbar .nav-item {
+    padding: 6px 10px;
+    color: black;
+    min-width: 50px;
+    font-size: 16px;
+    background: white;
+    border-radius: 3px;
+    margin:0px 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.navbar .nav-item:hover {
+    background: #dbdfe2;
+}
+
+.container {
+    margin: 0px auto;
+/*     background: white; */
+    padding: 20px;
+    width: 80%;
+    /* height: auto; */
+    display: flex;
+/*     box-shadow: 0px 0px 16px #aaaabb57; */
+    /* overflow-y: auto; */
+}
+
+.main-content {
+    width:70%;
+    /* background: orange; */
+}
+.sidebar {
+    width: 30%;
+    background: purple;
+}
+
+/* ------------------------------Main Body---------------------------------- */
+#container{
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+    /* max-height: 1500px; */
+    overflow: hidden;
+    overflow-y: scroll;
+    /* height: auto; */
+    background: url("../img/login_page_bg.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    /* box-shadow: 0px 0px 3px #bababa; */
+    margin-left: auto;
+    margin-right: auto;
+    /* border-radius:5px; */
+}
+
+#content{
+    width: 269px;
+    height: auto;
+    background: white;
+    border-radius: 5px;
+    margin: 100px auto;
+    padding-bottom: 20px;
+    padding-top: 1px;
+    /* border: 1px solid #ffeb3ba1; */
+    /* border-left: 10px solid black; */
+    box-shadow: 3px 3px 8px #0000007a;
+}
+input{
+    width: 90%;
+    height: 45px;
+    /* border-radius: 5px; */
+    border: none;
+    outline: none;
+    font-size: 20px;
+    margin: 5px auto;
+    display: block;
+    padding-left: 10px;
+    background: #f1f1f1;
+}
+input:focus{    
+    box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    border-color: #66afe9;
+    outline:0;
+}
+input[type="submit"],button#signup{
+    width: 90%;
+    height: 45px;
+    border-radius: 5px;
+    font-size: 20px;
+    border: 1px solid yellow;
+    border: none;
+    margin: 20px 0px 0px 15px;
+    display: inline-block;
+    cursor: pointer;
+}
+input[type="submit"]:hover{
+    box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    border-color: #66afe9;
+    outline:0;
+    color:#282525;
+}
+#signup-selected-thumb{
+    display: block;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    border:3px solid white;
+    /* box-shadow:0px 0px 5px #aaa; */
+}
+.doesnotmatch{
+    border:1.5px solid red;
+    animation: passDontMatch .1s ease-in 0s 1;
+    position: relative;
+}
+
+@keyframes passDontMatch{
+    0%{
+        left:-40px;
+    }
+    40%{
+        left:40px;
+    }
+    80%{
+        left:-40px;
+    }
+    100%{
+        left:40px;
+    }
+}
+
+
+/*--------------------style code for signup box-------------- */
+
+#signupbox{
+    box-sizing: border-box;
+    width: 400px;
+    min-height: 500px;
+    height: auto;
+    padding: 10px 20px 10px 20px;
+    background: white;
+    border: 1.5px solid #141414;
+    margin: 30px auto 10px 58%;
+    border-radius: 5px;
+    position: relative;
+    top: 50px;
+}
+#signupbox h2 {
+    text-align: center;
+    color: #282525;
+}
+label {
+    margin-left: 15px;
+    margin-top: 20px;
+    /* font-weight: bold; */
+    font-size: 18px;
+    color: black;
+    /* text-shadow: 0px 0px 1px #282828; */
+    display: block;
+}
+label[for="imageCap"] {
+    text-align:center;
+    font-size:15px;
+}
+
+label[for="image"] {
+    cursor:pointer;
+}
+input{
+    font-size: 15px!important;
+    height: 34px;
+    color: #00000099;
+}
+input#firstname,input#lastname{
+    width: 41.5%;
+    display: inline-block;
+    margin-left: 19px;
+}
+label[for="age"],label[for="gender"]{
+    display:inline-block;
+    font-size:16px;
+    
+    
+}
+label[for="gender"]{
+    margin-left: 45px!important;
+}
+label[for="age"]{
+    display:inline-block;
+    margin-left:22px;
+    
+}
+#age, #gender{
+    width:41%;
+    display:inline-block;
+    margin-left:19px
+}
+select{
+    width: 89%;
+    height: 34px;
+    border-radius: 5px;
+    border: 1.5px solid #000d;
+    margin: 5px 10px 10px 20px;
+}
+option{
+    margin-left: 10px;
+}
+input[type="submit"],input[type="button"]{
+    margin-left: 15px;
+    color: white;
+    background: lightcoral;
+    height: 40px;
+    cursor: pointer;
+}
+#register{
+    height: 0px;
+    width: 0px;
+    visibility: hidden;    
+    margin: 0;
+}
+
+#unmatchalert{
+    font-style: italic;
+    font-size: 12px;
+    font-weight: normal;
+    color: red;
+    margin-top: 0px;
+    height: 10px;
+}
+#uniqueuser {
+    font-size: 13px;
+    font-weight: bold;
+    color: red;
+    margin-top: -5px;
+    height: 10px;
+    text-indent: 10px;
+    display: none;
+}
+input#image {
+    height: 26px;
+    width: 98px;
+    padding: 0px;
+    color: white;
+    border-color: #c9c229;
+    border-radius: 14px;
+    margin-left: 23px;
+    display: none;
+}
+
+.fieldempty{
+    border:1.5px solid red;
+    animation: fieldempty .1s ease-in 0s 9;
+    position: relative;
+}
+
+@keyframes fieldempty{
+    0%{
+        transform: rotateZ(3deg);
+    }
+    40%{
+        transform: rotateZ(-3deg);
+    }
+    80%{
+        transform: rotateZ(3deg);
+    }
+    100%{
+        transform: rotateZ(-3deg);
+    }
+}

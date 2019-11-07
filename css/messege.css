@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+/*     overflow: hidden; */
+}
+input[type='checkbox'] {
+    transform: scale(1.5);
+    margin-top: 18px;
+}
+button,input[type='checkbox'] {
+    cursor:pointer;
+}
+button:active {
+    background:#ccc;
+}
+a,.show-more {
+    text-decoration:none;
+    color: dodgerblue;
+    cursor: pointer;
+}
+a:hover,.show-more:hover {
+    text-decoration: underline;
+}
+body {
+    overflow-y: scroll;
+    background-color: #f7fbf5;
+    margin: 0px;
+    padding: 0px;
+}
+
+.navbar {
+    background: white;
+    box-shadow: 0 5px 10px #ddd;
+    position: fixed;
+    top: 0px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px 0px;
+    z-index:100;
+}
+
+.navbar .nav-item {
+    padding: 6px 10px;
+    color: black;
+    min-width: 50px;
+    font-size: 16px;
+    background: white;
+    border-radius: 3px;
+    margin:0px 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.navbar .nav-item:hover {
+    background: #dbdfe2;
+}
+.container {
+    width: 100%;
+    background: transparent;
+    margin-top:100px;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0px;
+}
+
+.left,.middle,.right {
+    background: #eee;
+    height: 90vh;
+}
+
+.threads {
+    min-width: 300px;
+}
+.messege {
+    min-width: 500px;
+    width: 700px;
+    max-width: 900px;
+    position: relative;
+    background: white;
+}
+
+.info {
+    min-width: 300px;
+}
+.messege-board {
+    width: 100%;
+    height: 90%;
+    background: rgba(30, 143, 255, 0.048);
+    overflow-y: auto;
+}
+
+.new-messege-container {
+    width: 100%;
+    height: 10%;
+    background: white;
+    border: 1px solid #aaa;
+    position: absolute;
+    bottom: 0px;
+    overflow: hidden;
+    padding: 15px;
+}
+
+.new-messege-container textarea {
+    height: 50px;
+    width: 80%;
+    border-radius: 5px;
+    outline: none;
+    padding: 10px;
+}
+.new-messege-container textarea:focus {
+    box-shadow:inset 0px 0px 1px #1e90ff8f;
+    transition-duration: .3s;
+    border: 1px solid dodgerblue;
+    box-shadow: 0px 0px 7px #1e90ffbf;
+}
+
+.new-messege-container button {
+    box-shadow: 2px 2px 5px #aaa;
+}
