@@ -2,6 +2,20 @@
     if ( isset($_GET["pollid"]) ) {
         $pollid = $_GET["pollid"];
         $poll = (new db())->single("polls",$pollid)->fetch(PDO::FETCH_OBJ);
+        if ( $poll->poll_status == "private" ) {
+            header("Location:index.php");
+        }
+        if( $poll->poll_likes == 0 && $poll->poll_dislikes == 0 ) {
+                $pollLikes = 90;
+                $pollDislikes = 90;
+        } else {
+            $pollLikes = (int)(($poll->poll_likes / ($poll->poll_likes + $poll->poll_dislikes) ) * 180);
+            $pollDislikes = (int)(($poll->poll_dislikes / ($poll->poll_likes + $poll->poll_dislikes) ) * 180);
+        }
+
+        $have_liked = (isset( $poll->liked ) && $poll->liked == 1) ? "liked" : "";
+        $have_disliked = (isset( $poll->disliked ) && $poll->disliked == 1 ) ? "disliked" : "";
+
         if( !isset($poll->poll_id) ) {
             header("Location:index.php");
         }
@@ -11,6 +25,14 @@
         header("Location:index.php");
     }
     // echo $polls;
+?>
+<?php
+    // delete seen notification
+    if( issLoggedIn() && isset($_GET["nitification"]) ) {
+        $notificationid = $_GET["nitification"];
+        $conn = (new db())->conn;
+        $conn->query("DELETE FROM notifications WHERE notification_id=".$notificationid);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,34 +84,76 @@
                                             </div>
                                             <div class='option-name' style='background-size: 0%;'>
                                                 <div class='name' style='display:inline-block; width:65%;'>$option->option_name</div>
-                                                <div class='vote' style='display:inline-block; width:30%;'><strong style='color: #686868;position:absolute;right:5px;' class='vote-percentage'></strong></div>
+                                                <div class='vote' style='display:inline-block; width:30%;'>
+                                                    <strong title='Click to See Who Votted' style='cursor:pointer;position:absolute;right:5px;' class='vote-percentage' onclick='showVotersList(this.parentElement.parentElement.parentElement)'>50%</strong>
+                                                </div>
                                             </div>
                                         </div>";
                                 }
+
+                            $poll_created_at = date_format(date_create(explode(" ",$poll->poll_created_at)[0]),"d - m - Y ");
                             echo 
-                            "<div class='poll-comments'>
-                                <div class='poll-comments-header' style='position:relative;'>
+                            "
+                            
+                            <div class='poll-info-box'>
+                                <div class='left'>
+                                    <img src='img/profile/$poll->poll_user_id.jpg' width='60px' height='60px' >
+                                    <a href='user.php?userid=$poll->poll_user_id' style='font-size:12px;display:block;'>$poll->poll_creator_name</a>
                                 </div>
+                                <div class='right'>
+                                    <div class='line'>
+                                        <div class='left' style='width:".$pollLikes."px;'></div>
+                                        <div class='right' style='width:".$pollDislikes."px;'></div>
+                                    </div>   
+                                    <div class='vote-like-dislike-box'>
+                                        <div class='poll-like-button $have_liked' onclick='likeDislike( \"like\",$poll->poll_id,this.parentElement.previousElementSibling,this )'>Like</div>
+                                    <div class='poll-dislike-button $have_disliked' onclick='likeDislike( \"dislike\",$poll->poll_id,this.parentElement.previousElementSibling,this )'>Dislike</div>
+                                </div>
+                                </div>                                
+                                <div class='poll-tag-date'>
+                                    <small class='poll-tags'><a  style='font-family:monospace;' href='search.php?searchkey=$poll->poll_category'>#$poll->poll_category</a></small>
+                                    <small class='poll-birthdate'>$poll_created_at</small>
+                                </div>
+                            </div>
+                            </div>
+                                                                        
+                            <div class='poll-comments'>
                                 <div class='poll-comments-body'>
                                     <div class='new-comment'>
                                         <textarea type='text' name='comment-box' id='comment-box' class='comment-box'></textarea>
                                         <button onclick='shootComment(this.parentElement)'>Shoot</button>                        
                                     </div>
                                     <div class='comments'>
-                                        <div style='font-family: verdana;word-spacing: -3px;font-size:15px;text-align:left;margin:10px 4px' class=''><span style='padding:3px;background:black;color:white;border-radius:4px;'>Comments</span></div>
+                                        <div class='comment-lebel'>Comments</span></div>
                                     ";
-                                        while( $comment = $comments->fetch(PDO::FETCH_OBJ) ) {
+                                    // var_dump($comments);
+                                        foreach( $comments as $comment ) {
+                                            $comment_id = $comment["comment_id"];
+                                            $comment_poll_id = $comment["comment_poll_id"];
+                                            $commentor_id = $comment["commentor_id"];
+                                            $comment_user_fullname = $comment["comment_user_fullname"];
+                                            $comment_content = $comment["comment_content"];
+                                            $comment_poll_id = $comment["comment_poll_id"];
+                                            if( $comment["canDelete"] ) {
+                                                $deleteButton = "<span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'>⛔</span>";                                    
+                                            } else {
+                                                $deleteButton = "";
+                                            }
                                             echo 
                                             "<!-- comment sample -->
-                                            <div class='comment' data-comment-id='$comment->comment_id'>
-                                            <a href='user.php?userid=$comment->comment_poll_id'>
+                                            <div class='comment' data-comment-id='$comment_id'>
+                                            <a href='user.php?userid=$comment_poll_id'>
                                                 <div class='commentor-avatar'>
-                                                        <img width='60px' height='60px' src='img/profile/$comment->commentor_id.jpg' alt='Commentor Picture'>
+                                                        <img width='60px' height='60px' src='img/profile/$commentor_id.jpg' alt='Commentor Picture'>
                                                 </div>
                                             </a>
                                                 <div class='comment-body'>
-                                                    <a href='user.php?userid=$comment->commentor_id' style='' class='user-link'>$comment->comment_user_fullname</a>
-                                                    $comment->comment_content
+                                                    <a href='user.php?userid=$commentor_id' style='' class='user-link'>$comment_user_fullname</a>
+                                                    <span class='comment-excerpt'>
+                                                        $comment_content
+                                                        <span class='show-more' title='click to read full comment'></span>
+                                                        $deleteButton
+                                                    </span> 
                                                 </div>
                                             </div>
                                             <!-- /comment sample -->";
@@ -104,10 +168,34 @@
         ?>
 
     </div>
-    
+    <!-- Who Votted List Popup Window -->
+        <div class="whoVotted-overlay">
+            <div class="whoVotted-container">
+                <div class="whoVotted-header">
+                    Voters List
+                    <span title='close' class="close-whoVotted-container" onclick="closeVotterList()">X</span>
+                </div>
+                <div class="voters">
+                    <!-- <div class="voter">
+                        <a href="user.php?userid=4">
+                            <img width="40px" height="40px" src="img\profile\3.jpg" alt="">
+                        </a>
+                        <strong title='Shuvo Sarker'><a href="user.php?userid=4">Shuvo Sarker</a></strong>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <!-- /Who Votted List Popup Window -->
+
+
     <div class="sidebar">
         
     </div>
+    <script>
+        function checkIsLoggedIn() {
+            return <?php if( issLoggedIn() ) echo 1; else echo 0;  ?>
+        }
+    </script>
         
     <?php require_once("components\modals.php"); ?>
     </body>

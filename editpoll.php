@@ -44,10 +44,21 @@
                         value="<?php echo $poll->poll_name?>"
                     >
                 </div>  
-                
+
                 <div class="poll-category-selector">
                     <select name="poll-category" id="poll-category">
                         <option value="">Choose Poll Category</option>
+                        <?php
+                            $category = (new db())->conn->query("select * from category");
+                            while(  $cat = $category->fetch(PDO::FETCH_OBJ) ) {                                
+                                if ( $poll->poll_category == $cat->category_name ) {
+                                    echo "<option value='$cat->category_name' selected>$cat->category_name</option>";                                
+                                    continue;
+                                }
+                                echo "<option value='$cat->category_name' >$cat->category_name</option>";
+                            }
+                        ?>
+                        <option value='AddNew' >Add New + </option>
                     </select>
                 </div>
                 <div class='poll-body'>

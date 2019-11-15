@@ -20,7 +20,7 @@ function updatePoll(updateButton) {
     var pollId = $(".poll").getAttribute("data-poll-id");    
     var pollTile = $("#newpollname").value;
     var options = $$(".options");
-    var category = $$(".poll-category").value;
+    var category = $("#poll-category").value;
     var newPoll = new FormData();
     var tmp = "";
     options.forEach((e, i) => {
@@ -55,7 +55,7 @@ function updatePoll(updateButton) {
         "pollCategory",
         category
     );
-
+        // alert(category);    
     var req = new XMLHttpRequest();
     req.open("POST", "backend.php", false);
     req.send(newPoll);

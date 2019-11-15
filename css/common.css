@@ -1,3 +1,6 @@
+* {
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 /* width */
 ::-webkit-scrollbar {
     width: 8px;
@@ -18,13 +21,85 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #5556;
 }
+* {
+    box-sizing: border-box;
+/*     overflow: hidden; */
+}
+input[type='checkbox'] {
+    transform: scale(1.5);
+    margin-top: 18px;
+    outline: none;
+}
+button,input[type='checkbox'] {
+    cursor:pointer;
+}
+button:active {
+    background:#ccc;
+}
+a,.show-more {
+    text-decoration:none;
+    color: dodgerblue;
+    cursor: pointer;
+}
+a:hover,.show-more:hover {
+    text-decoration: underline;
+}
+body {
+    overflow-y: scroll;
+    background-color: #f7fbf5;
+    margin: 0px;
+    padding: 0px;
+}
+
+.navbar {
+    background: white;
+    box-shadow: 0 5px 10px #ddd;
+    position: fixed;
+    top: 0px;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    padding: 10px 0px;
+    z-index:100;
+}
+.navbar .nav-item {
+    padding: 8px 10px;
+    color: black;
+    min-width: 150px;
+    font-size: 16px;
+    background: #dbdfe2;
+    border-radius: 3px;
+    margin:0px 5px;
+    text-align: center;
+    cursor: pointer;
+    transition-duration:.1s;
+    box-sizing:border-box;
+    position: relative;
+}
+.nav-item.notification span:nth-child(2n) {
+  /* visibility:hidden; */
+}
+.nav-item.notification:hover span:nth-child(2n) {
+/*     border-color: white; */
+}
+
+.navbar .nav-item:hover {
+    background: dodgerblue;
+    color:white;
+}
 
 .navbar .nav-item span {
     border: 2px solid transparent;
 }
+.nav-item .add-new-poll-icon {
+    border: 2px solid transparent;
+}
+.nav-item:hover .add-new-poll-icon {
+    border: 2px solid white;
+}
 
 .navbar .nav-item:hover span {
-    border: 2px solid white;
+    /* border: 2px solid white; */
 }
 .navbar a {
   text-decoration: none!important;
@@ -106,8 +181,9 @@
 .login-modal-header {
     background: dodgerblue;
     color: white;
-    padding: 10px;
+    padding: 20px 40px;
     position: relative;
+    font-size: 24px;
 }
 
 .close-login-container {
@@ -118,8 +194,17 @@
     color: #aaa;
 }
 
+.close-login-container {
+  color:white;
+}
+.close-login-container:hover {
+  color:lightcoral;
+  text-shadow:0px 0px 10px red;
+}
+
 .login-modal-body {
     padding: 20px;
+    position: relative;
 }
 
 .login-modal-body input {
@@ -132,7 +217,7 @@
 }
 
 .login-modal-body button {
-    width: 45%;
+    width: 43%;
     margin-top: 20px;
     padding: 10px 0px;
     font-family: sans-serif;
@@ -235,6 +320,10 @@
     cursor: pointer;
     color: #aaa;
 }
+.close-delete-con-container:hover {
+  color:white;
+  text-shadow:0px 0px 15px  #ffff;
+}
 
 .delete-con-modal-body {
     padding: 20px;
@@ -273,31 +362,12 @@
     color: white;
     margin-right: 28px;
 }
-.navbar .nav-item {
-    padding: 6px 10px;
-    color: black;
-    min-width: 150px;
-    font-size: 16px;
-    background: #dbdfe2;
-    border-radius: 3px;
-    margin:0px 5px;
-    text-align: center;
-    cursor: pointer;
-    transition-duration:.1s;
-    box-sizing:border-box;
-    position: relative;
-}
-
-.navbar .nav-item:hover {
-    background: dodgerblue;
-    color:white;
-}
-
 
 div#not {
-    width: 250px;
+    width: 300px;
     position: absolute;
     min-height: 200px;
+    max-height: 330px;
     background: black;
     top: 150%;
     left: 44%;
@@ -306,8 +376,15 @@ div#not {
     display:none;
     cursor: default;
     border-radius: 4px;
+    color: white!important;
+    text-decoration: unset!important;
+    /* overflow: hidden; */
+    /* overflow: hidden; */
+    z-index: 102;
 }
-
+div#not a:hover{
+    text-decoration: underline!important;
+}
 div#not::before {
     content: "";
     width: 0px;
@@ -321,7 +398,75 @@ div#not::before {
     transform: translateX(0%);
   
 }
+.notification-close {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 5px;
+  color: white;
+  cursor: pointer;
+}
+.notification-close:hover {
+  /* border:none!important; */
+}
+.notification-list-header {
+  position: relative;
+  padding: 5px 0px;
+  text-align: left;
+  text-indent: 10px;
+  overflow: hidden;
+  color: #f4f4f4;
+  margin: 0px 0px 5px 0px;
+  background: #414141;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.notification-list {
+  margin-top:10px;
+  width: 100%;
+}
+.notification-list {
+  /* overflow-y: auto; */
+  max-height: 250px;
+}
+.notification-list-body {
+  max-height: 250px;
+  overflow-y:auto;
+  border-bottom-left-radius:4px;
+  border-bottom-right-radius:4px;
+}
+.notification-list .single-notification {
+  width: 100%;
+  min-height: 50px;
+  background: #f1f6fa;
+  border-top: 1px solid #b4b4b4;
+  border-bottom: 1px solid #ffffff;
+  padding: 10px;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+.delete-notification {
+  color: black;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  /* display: none; */
+}
 
+.not-poll-link {
+  font-weight:bold;
+  color: black;
+  font-size:18px;
+}
+.not-poll-link:hover {
+  text-decoration: underline!important;
+  color: dodgerblue;
+}
+
+/*  ---------------------------------------------------------------------------------------------- */
 .active {
   background: dodgerblue;
   color:white;
@@ -329,13 +474,33 @@ div#not::before {
 .show {
   display:block!important;
 }
+
+.hide {
+  display:block!important;
+}
+.visible {
+  visibility:visible!important;
+}
+.high {
+  background: dodgerblue!important;
+  color: white!important;
+}
+.liked {
+  background: dodgerblue!important;
+  color:white!important;
+}
+.disliked {
+  background: lightcoral!important;
+  color:white!important;
+}
+/* ---------------------------------------------------------------------------------------------- */
 button {
     padding: 4px 13px;
     outline: none;
     border: none;
     border-radius: 3px;
     transform: translateY(-8px);
-    box-shadow: 2px 2px 10px #6e6e6e;
+    /* box-shadow: 2px 2px 10px #6e6e6e; */
     background: #4c7fdb;
     color: white;
     margin-right: 14px;
@@ -372,7 +537,7 @@ button:hover {
     background: white;
     overflow: hidden;
     transform: scale(1);
-    animation: showHoot .2s ease 0s 1;
+    animation: jello .9s ease 0s 1;
 }
 
 @keyframes showHoot {
@@ -536,4 +701,60 @@ button:hover {
   background: dodgerblue!important;;
   border: 1px solid dodgerblue;
   color: white;
+}
+
+
+/* ------------------------------------------------------- */
+
+.face-overlay {
+
+}
+
+.fade-overlay::after {
+    content:"";
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0px;
+    left:0px;
+    line-height:250px;
+    padding-top:0px;
+    font-size:24px;
+    background: #ffffffb5;
+    color:#ff24f9;
+    z-index:100;
+    /* animation: changeColor 2s linear infinite alternate; */
+    /*     opacity:.5; */
+}
+
+
+.fade-overlay::before {
+    /* content:"Plsease Wait...";
+    z-index: 101;
+    font-size:14px;
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    padding: 3px 5px;
+    background: black;
+    color: white;
+    border-radius: 5px;
+    margin-top: 150px;
+    text-align: center;
+    margin: 130px 50%;
+    transform: translateX(-50%); */
+}
+
+@keyframes changeColor {
+    0%{
+        color:#ff24f9;
+    }
+    50%{
+        color:purple;
+    }
+
+    100%{
+        color:dodgerblue;
+    }
 }

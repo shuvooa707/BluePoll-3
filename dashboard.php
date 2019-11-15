@@ -6,26 +6,13 @@
     // getting all the votes that this users has given
     $conn = (new db())->conn;
     $user_id = $_SESSION["pollsite_user_id"];
-    $sql = "SELECT \n"
+    $sql = "SELECT * FROM polls WHERE poll_user_id=".$user_id;
 
-        . "    \n"
-
-        . "    options.option_name, \n"
-
-        . "    (SELECT polls.poll_name FROM polls WHERE polls.poll_id = options.option_belongsto) AS poll_name,\n"
-
-        . "    (SELECT polls.poll_id FROM polls WHERE polls.poll_id = options.option_belongsto) AS poll_id\n"
-
-        . "FROM options JOIN votes on votes.vote_option_id = options.option_id \n"
-
-        . "    WHERE votes.vote_given_by = $user_id";
-
-
-    $r = $conn->query($sql);
+    $polls = $conn->query($sql);
     
-    $sql = "SELECT *,(SELECT COUNT(*) FROM comments WHERE polls.poll_id = comments.comment_poll_id) AS poll_comment_num from polls where poll_user_id=$user_id";
-
-    $cpolls = $conn->query($sql);
+    $sql = "SELECT *, (SELECT polls.poll_name FROM polls WHERE polls.poll_id = options.option_belongsto limit 1) AS poll_name, (SELECT poll_id FROM polls WHERE polls.poll_id = options.option_belongsto limit 1) AS poll_id FROM options JOIN votes ON options.option_id = votes.vote_option_id WHERE votes.vote_given_by = $user_id";
+    // print_r($sql);
+    $voted_polls = $conn->query($sql);
     // echo $polls;
 ?>
 <!DOCTYPE html>
@@ -58,26 +45,39 @@
                 </div>
                 <div class="cpl-body">
                     <?php
-                        while( $cpoll = $cpolls->fetch(PDO::FETCH_OBJ) ) {
-
+                        while( $poll = $polls->fetch(PDO::FETCH_ASSOC) ) {
+                            $poll_status = $poll["poll_status"];
+                            if ( $poll_status == 1 ) {
+                                $bgcolor = "green";
+                                $poll_status = "Public";
+                            } else {
+                                $bgcolor = "lightcoral";
+                                $poll_status = "Private";
+                            }
                             echo "
-                                <div class='poll' data-vote-id='23'>
+                                <div class='poll' data-poll-id='".$poll['poll_id']."'>
                                     <div class='poll-name'>
-                                        <strong><a href='poll.php?pollid=$cpoll->poll_id'>$cpoll->poll_name</a></strong>                                        
+                                        <strong><a href='poll.php?pollid=".$poll['poll_id']."'>".$poll['poll_name']."</a></strong>                                        
                                     </div>
                                     <div class='poll-stats'>
                                         <small  style='padding:3px 0px;display:inline-block; margin-right:5px;color:green; width:70px; border-right:2px solid #aaa;'>
-                                            1k Votes
+                                            
                                         </small> 
                                         <small style='color:blueviolet;'>
-                                            $cpoll->poll_comment_num Comment
+                                            
                                         </small><br>
                                         <small  style='padding:3px 0px;display:inline-block; margin-right:5px;color:dodgerblue; width:70px; border-right:2px solid #aaa;'>
-                                            100 Likes 
+                                             
                                         </small> 
                                         <small style='color:lightcoral;'>
-                                            2 Dislikes
+                                            
                                         </small>
+                                    </div>
+                                    <div class='poll-control'>
+                                        <button class='delete' onclick='deletePollConf(this.parentElement.parentElement)'>Delete</button>
+                                        <button class='private' style='width:74px; padding:5px 0px;background:$bgcolor;' onclick='changeVisibility(this.parentElement.parentElement,this)'>".$poll_status."</button>
+                                        <button class='edit' onclick='editConf()'>Edit</button>
+                                        <button class='analyze' onclick='analyze(this.parentElement.parentElement)'>Analyze</button>
                                     </div>
                                 </div> ";
                         }
@@ -91,11 +91,11 @@
             <!-- this is a list contains all the polls that you have votted -->
             <div id="votted-poll-list">
                 <div class="vpl-header">
-                    Polls You Have Votted
+                    Polls You Have Votted <span title="click" style='transform:rotate(0deg)' onclick='mmVottedList(this)'>▼</span>
                 </div>
                 <div class="vpl-body">
                     <?php
-                        while( $v = $r->fetch(PDO::FETCH_OBJ) ) {
+                        while( $v = $voted_polls->fetch(PDO::FETCH_OBJ) ) {
                             if( !strlen($v->poll_name) ) {
                                 continue;
                             }
@@ -113,7 +113,7 @@
             </div>
             <!-- /this is a list contains all the polls that you have votted -->
        
-
+            <?php require_once("components/modals.php") ?>
         </div>
     </body>
 </html>

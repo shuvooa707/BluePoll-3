@@ -229,11 +229,11 @@ textarea:focus {
 }   
 
 .new-option-cancel {
-    padding: 0px 7px 2px 7px;
+    padding: 4px 7px 4px 7px;
     /* padding: 5px; */
     border-radius: 50%;
     background: #e8e8e8;
-    color: lightcoral;
+    color: red;
     cursor: pointer;
     font-size: 15px;
 }

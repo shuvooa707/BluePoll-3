@@ -24,8 +24,8 @@ function saveNewPoll( saveButton) {
     options.forEach( (e,i) => {
         tmp = tmp + e.value.trim() + "|";
     });
-
-    if (pollTile.length < 1 || options[0].value.length < 1 ) {
+    // alert(category.length);
+    if (pollTile.length < 1 || options[0].value.length < 1 || category.length < 1 ) {
        alert("Enter Data First");
        saveButton.disabled = false;
        return; 

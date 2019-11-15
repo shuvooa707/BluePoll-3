@@ -64,30 +64,8 @@ body {
     padding: 0px;
 }
 
-.navbar {
-    background: white;
-    box-shadow: 0 5px 10px #eee;
-    position: fixed;
-    top: 0px;
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    padding: 10px 0px;
-    z-index: 101;
-}
 
-.navbar .nav-item {
-    padding: 6px 10px;
-    color: black;
-    font-size: 16px;
-    background: #dbdfe2;
-    border-radius: 3px;
-    margin:0px 5px;
-    text-align: center;
-    cursor: pointer;
-    transition-duration:.1s;
-    box-sizing:border-box;
-}
+
 
 .navbar .nav-item:hover {
     background: dodgerblue;
@@ -100,7 +78,7 @@ body {
     border:2px solid transparent;
 }
 .navbar .nav-item:hover span {
-    border:2px solid white;
+/*     border:2px solid white; */
 }
 
 .not-count {/* display:none; */
@@ -206,6 +184,15 @@ body {
     display: none;
     background:#eee;
     border-radius: 5px;
+    animation:a .5s linear 0s 1;
+}
+@keyframes a {
+    0%{
+        opacity:0;
+    }
+    100%{
+        opacity:1;
+    }
 }
 
 .about-row {
@@ -221,18 +208,18 @@ body {
 
 
 .tab-polls .poll {
-    width: 400px;
+    width: 214px;
     padding:5px 0px;
     text-align: left;
     text-indent: 10px;
     /* background: linear-gradient(to left,#ddd, #eee); */
-    background: #f080801a;
+    /* background: #f080801a; */
     margin: 10px;
-    border-bottom: 2.5px solid #1e90ff9e;
+    border-bottom: 2.5px solid #9E9E9E;
 }
 
 
 .tab-polls .poll:nth-child(2n) {
-    background: #8090f01a;
-    border-bottom: 2.5px solid #f08080;
+    /* background: #8090f01a; */
+    border-bottom: 2.5px solid #9E9E9E;
 }

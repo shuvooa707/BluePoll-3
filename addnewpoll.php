@@ -51,11 +51,11 @@
                         <div class='option' data-option-id='' data-option-vote=''>
                             <div class='new-option-name'>
                                 <input type="text" name="newoption1" id="newoption1"  class='options' placeholder="Option 1...">
-                                <span class="new-option-cancel" onclick="this.parentElement.remove()">x</span>
+                                <span class="new-option-cancel" onclick="this.parentElement.remove()">✖</span>
                             </div>
                             <div class='new-option-name'>
                                 <input type="text" name="newoption2" id="newoption2" class='options' placeholder="Option 2...">
-                                <span class="new-option-cancel" onclick="this.parentElement.remove()">x</span>
+                                <span class="new-option-cancel" onclick="this.parentElement.remove()">✖</span>
                             </div>
                         </div>
                     </div>

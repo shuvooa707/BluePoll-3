@@ -1,0 +1,100 @@
+*{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.container {
+    margin: 80px auto;
+    background: white;
+    padding: 20px;
+    width: 80%;
+    /* display: flex; */
+    box-shadow: 0px 0px 16px #aaaabb57;
+    overflow-y: auto;
+}
+
+
+.search-box {
+    width: 100%;
+    /* min-height: 120px; */
+    background: rgba(211, 213, 214, 0.267);
+    position: relative;
+    padding: 10px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    /* flex-direction: column; */
+}
+@media screen and (max-width:700px)
+{
+   .search-box { 
+        flex-direction: column;
+   }
+   #searchkey {
+       width:100%!important;
+   }
+   .search-box button {
+        padding:10px 20px!important;
+        width:100px!important;
+   }
+}
+.search-box #searchkey {
+    width: 80%;
+    max-height: 41px;
+    display: block;
+    padding: 8px;
+    /* left: 50%; */
+    top: 5px;
+    margin-bottom: 10px;
+    position: relative;
+    /* transform: translateX(-50%); */
+    border-radius: 4px;
+    border: 1px solid dodgerblue;
+    outline: none;
+    float: left;
+    margin-right: 20px;
+}
+form {
+    width:100%;
+}
+form button{
+    padding:10px 0px;
+}
+
+.search-box #searchkey:focus {
+    box-shadow: 0px 0px 5px dodgerblue;
+}
+ button {
+    margin: unset;
+    padding: unset;
+    top:unset;
+    left: unset;
+    transform: unset;
+    width: 15%;
+    max-height: 34px;
+    /* padding: 9px 0px; */
+    /* margin:10px auto; */
+    /* left: 50%; */
+    top: 5px;
+    position: relative;
+    /* transform: translateX(-50%); */
+    border-radius: 4px;
+    border:#aaa;
+    box-shadow: unset;
+    font-family:font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.search-result {    
+    width: 100%;
+    min-height: 80px;
+    background: rgba(211, 213, 214, 0.267);
+    position: relative;
+    padding: 10px;
+    padding-bottom: 20px;
+    text-align: justify;
+}
+.search-result .result {
+    background:#eee;
+    padding:15px 15px;
+}
+
+.poll-link {
+    display: block;
+}

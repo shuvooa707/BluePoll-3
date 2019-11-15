@@ -5,6 +5,7 @@
 input[type='checkbox'] {
     transform: scale(1.5);
     margin-top: 18px;
+    outline: none;
 }
 button,input[type='checkbox'] {
     cursor:pointer;
@@ -26,7 +27,7 @@ body {
     margin: 0px;
     padding: 0px;
 }
-
+/* 
 .navbar {
     background: white;
     box-shadow: 0 5px 10px #ddd;
@@ -37,7 +38,7 @@ body {
     justify-content: space-between;
     padding: 10px 0px;
     z-index:100;
-}
+} */
 
 .navbar .nav-item {
     padding: 6px 10px;
@@ -85,6 +86,7 @@ body {
     margin: 10px auto;
     box-shadow: 0px 0px 5px #bbb;
     text-align: right;
+    position: relative;
 }
 .poll .delete-poll  {
     background: lightcoral;
@@ -159,6 +161,13 @@ body {
 .option:last-child {
     border-bottom:none;
 }
+.vote {
+    color:#1e90ffc2;
+    transition: color .5s ease-out;
+}
+.vote:hover {
+    color: lightcoral!important;
+}
 
 .expand-poll {
     display: inline-block;
@@ -193,6 +202,7 @@ input#comment-box {
     background: linear-gradient(-69deg, #ccc, #eee);
     padding: 0px 0 3px 0px;
     border-top: 15px solid #587088;
+    padding-bottom: 0px;
 }
 .poll-comments-header {
     width: 100%;
@@ -231,7 +241,7 @@ textarea {
     width: 370px;
     height:60px;
     resize: vertical;
-    word-spacing: -1px;
+    word-spacing: 1px;
     letter-spacing: -.5px;
     transition-duration:.2s;
 }
@@ -241,20 +251,25 @@ textarea:focus {
 
 }
 .comment-lebel {
-    font-size: 11px;
-    position:absolute;
-    left: 3px;
-    top: 2px;
+    font-size: 13px;
+    box-shadow: 2px 2px 5px #aaa9;
     font-family:sans-serif;
-    /* text-decoration:underline; */
-    background: white;
+    background: linear-gradient(to top,#aaaaaa4f,#eee);
     color: black;
-    padding: 0px 2px;
+    padding: 5px 8px;
+    margin-left: 10px;
     border-radius: 3px;
     font-weight: bold;
-    border: 1px solid black;
+    display: inline-block;
+    border: 1px solid #00000036;
+    margin: 15px 10px;
 }
 
+.comments {
+    text-align: left;
+    margin:10px 0px;
+    margin-bottom: 0px;
+}
 .comment {
     width: 100%;
     border-bottom:1px dotted olive;
@@ -265,12 +280,13 @@ textarea:focus {
     position: relative;
     /* top: 10px; */
 }
+
 .comment:last-child{
     border-bottom:none;
 }
 .commentor-avatar {
     display: block;
-    width: 20%;
+    width: 12%;
     /* background: red; */
     float: left;
     max-height: 60px;
@@ -278,8 +294,8 @@ textarea:focus {
 }
 .comment-body {
     display: block;
-    background: #eee;
-    width: 80%;
+    background: white;
+    width: 88%;
     min-height: 60px;
     float: left;
     font-size: 12px;
@@ -288,6 +304,41 @@ textarea:focus {
     text-align:justify;
     font-family: sans-serif;
 }
+
+
+.comment-body .delete-comment {
+    display: inline-block;
+    border-radius:4px;
+    color:orange;
+    background: white;
+    position: absolute;
+    right:5px;
+    top:50%;
+    transform: translateY(-50%);
+    padding: 4px 2px;
+    cursor: pointer;
+    /* font-weight: bold; */
+    font-size: 13px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* border:1px solid black; */
+    display: none;
+}
+
+.comment-body .delete-comment:hover {
+    background: orange;
+    color:white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+
+}
+.comment-body .delete-comment:active {
+    color:red;
+    background: white;
+}
+.comment-body:hover .delete-comment {
+    display: inline-block;
+}
+
 
 .user-link {
     color:dodgerblue;
@@ -307,4 +358,383 @@ textarea:focus {
     background-size: 10%;
     background-repeat:no-repeat;
     transition:1s linear;
+}
+
+/* -------------------Comment Box --------------------------------------- */
+
+
+.poll-info-box {
+    width: 100%;
+    height: 126px;
+    margin: 0px;
+    padding: 10px 0px;
+    padding-bottom: 0px;
+    background: linear-gradient(10deg,#fff,#efefef);
+    position: relative;
+    text-align: center;
+}
+.poll-info-box .left {
+    /* text-align: left; */
+}
+.poll-info-box .left img {
+    border-radius: 2px;
+    box-shadow: 2px 2px 3px #e6e6e6;
+    border: 3px solid white;
+}
+.poll-info-box .left a {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 13px;
+    display: block;
+    margin: 0px;
+    margin-top: -4px;
+    font-weight: bold;
+}
+.poll-info-box .right {
+    width:60%;
+    height: 100px;
+    float: left;
+    /* background: rgba(0, 128, 0, 0.102); */
+    margin: 0px;
+    padding-left: 80px;
+}
+.poll-info-box .left {
+    width:40%;
+    height: 100px;
+    float: left;
+    /* background: rgba(255, 0, 0, 0.041); */
+    margin: 0px;
+    position: relative;
+}
+
+.poll-info-box .right .vote-line {
+    width: 180px;
+    height: 2.5px;
+    background: transparent;
+    border-left: 80px solid #00800069;
+    border-right: 100px solid #ff000070;
+    margin-top: 5px;
+}
+.vote-like-dislike-box {
+    width: 180px;
+    height: 50px;
+    text-align: center;
+    overflow: hidden;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.vote-like-dislike-box .poll-like-button {
+    width: 53px;
+    height: 25px;
+    line-height: 25px;
+    display: inline-block;
+    color: #1e90ffb8;
+    border: 1px solid #1e90ffb8;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.vote-like-dislike-box .poll-like-button:hover {
+    box-shadow:inset 0px 0px 20px #1e90ff2c;
+}
+.vote-like-dislike-box .poll-dislike-button {
+    width: 54px;
+    height: 25px;
+    line-height: 25px;
+    display: inline-block;
+    color: #ff0000ba;
+    border: 1px solid #ff0000ba;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.vote-like-dislike-box .poll-dislike-button:hover {
+    box-shadow:inset 0px 0px 20px #ff000018;
+}
+.vote-like-dislike-box .poll-birthdate {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    font-size: 11px;
+    color: rgb(52, 52, 52);
+    /* letter-spacing: -2px; */
+    /* font-style: italic; */
+    right:20px;
+    font-weight: bold;
+    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 0px;
+    background: rgba(170, 170, 170, 0.438);
+    border-radius: 7px;
+    padding: 2px 7px;
+    margin-bottom: 2px;
+}
+.poll-liked {
+    background: dodgerblue;
+    color:white!important;
+}
+
+
+.poll-tag-date {
+    clear: both;
+    display: flex;
+    justify-content: space-between;
+}
+.poll-tag-date .poll-birthdate {
+    display: inline-block;
+    font-size: 12px;
+    color: rgb(119, 119, 119);
+    /* font-style: italic; */
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 2px;
+    margin-right: 10px;
+}
+.poll-tag-date .poll-tags {
+    display: inline-block;
+    font-size: 12px;
+    color: rgb(119, 119, 119);
+    /* font-style: italic; */
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: monospace!important;
+    letter-spacing: 2px;
+    margin-left: 10px;
+}
+
+.poll-info-box .right .line {
+    /* margin: 100px auto; */
+    color: white;
+/*     display: inline-block; */
+    /* border-top: 50px solid indigo; */
+    /* border-left: 50px solid red; */
+    /* border-right: 50px solid beige; */
+    /* border-bottom: 50px solid green; */
+    width: 180px;
+    /* height: 4px; */
+    overflow: hidden;
+/*     position: absolute; */
+/*     right: 5px; */
+}
+
+.poll-info-box .right .left {
+    height: 4px;
+    background: #b0c9b2;
+    width: 107px;
+    /* display: inline-block; */
+    float: left;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.poll-info-box .right .right {
+    height: 4px;
+    background: #f0b3b3;
+    width: 42px;
+    display: inline-block;
+    float: left;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+/* ------------------------------------------------------------------------------ */
+
+.whoVotted-overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.308);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1001;
+    display: none;
+}
+
+.whoVotted-overlay .whoVotted-container {
+    min-width: 100px;
+    width: 250px;
+    min-height: 200px;
+    overflow: auto;
+    background: white;
+    margin: 150px auto;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    animation: showHoot .35s ease 0s 1;
+}
+
+@keyframes showHoot {
+    0%{
+        transform: scale(0);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+.whoVotted-container-wait-opverlay::before {    
+    content:"";
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0px;
+    left:0px;
+    line-height:250px;
+    padding-top:0px;
+    font-size:24px;
+    background:#ffffff;
+    color:#ff24f9;
+    z-index:100;
+}
+
+.whoVotted-container-wait-opverlay::after {
+    content:"Plsease Wait...";
+    z-index: 101;
+    font-size:14px;
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:120px;
+    padding: 3px 5px;
+    background: white;
+    border: 1px solid #00000066;
+    color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+    margin: 30px 50%;
+    transform: translateX(-50%);
+    animation: changeColor 2s linear infinite alternate;
+}
+
+.whoVotted-header {
+    background: dodgerblue;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: left;
+    text-indent: 20px;
+    color: white;
+    font-weight: verdana;
+    position: relative;
+}
+
+.close-whoVotted-container {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    cursor: pointer;
+    color: white;
+    padding: 3px;
+}
+.close-whoVotted-container:hover {
+    color: black
+}
+.whoVotted-container .voters {
+    padding: 10px;
+    padding-bottom: 50px;
+    max-height: 600px;
+    overflow: auto;
+}
+.whoVotted-container .voter  {
+    width: 100%;
+    height: auto;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    /* border-bottom: 1px solid silver; */
+}
+
+.whoVotted-container .voter:last-child  {
+   margin-bottom:30px;
+}
+.whoVotted-container .voter img {
+    border-radius: 50%;
+    float: left;
+    margin-right: 10px;
+}
+.whoVotted-container .voter strong {
+    display: inline-block;
+    margin-top: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+    text-shadow: 0px 0px 2px #aaa;
+}
+/* ------------------------------------------------------------------------------------------ */
+
+
+.comment-delete-fade-overlay::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.637);
+    position: absolute;
+    top:0px;
+    left:0px;
+    z-index: 1;
+}
+
+.comment-delete-fade-overlay::after {
+    content: "Deleteing Comment...";
+    /* background: rgba(0, 0, 0, 0.438); */
+    color: rgb(216, 149, 149);
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    position: absolute;
+    text-align: center;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    z-index: 2;
+
+}
+
+
+.poll-overlay::after {
+    content:"";
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0px;
+    left:0px;
+    line-height:250px;
+    padding-top:0px;
+    font-size:24px;
+    background:rgba(255, 255, 255, 0.65);
+    color:#ff24f9;
+    z-index:3;
+    animation: changeColor 2s linear infinite alternate;
+/*     opacity:.5; */
+}
+
+
+.poll-overlay::before {
+    content:"Plsease Wait...";
+    z-index: 4;
+    font-size:24px;
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:200px;
+    padding: 8px 5px;
+    background: black;
+    color: white;
+    border-radius: 5px;
+    margin-top: 150px;
+    text-align: center;
+    margin: 130px 50%;
+    transform: translateX(-50%);
+}
+@keyframes changeColor {
+    0%{
+        color:#ff24f9;
+    }
+    50%{
+        color:purple;
+    }
+
+    100%{
+        color:dodgerblue;
+    }
 }

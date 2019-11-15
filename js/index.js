@@ -12,7 +12,15 @@ window.onload = function () {
             e.style.transition = "1s linear"; 
         });
     },1001);
+    alignPolls();
 }
+
+window.addEventListener("keydown", () => {
+    // 	console.log(window.event);
+    if (window.event.key == "Escape") {
+        closeVotterList();
+    }
+});
 
 
 function bringCheckboxAtMiddle() {
@@ -57,16 +65,19 @@ function shootComment(nc) {
 
     if (req.responseText != "commentNotSaved") {
         var newComment = `<div class="comment" data-comment-id='${req.responseText}'>
-        <div class="commentor-avatar">
-            <a href="user.php?userid=${$('.user').getAttribute('data-user-id')}">
-                <img width="60px" height="60px" src="img/profile/${$('.user').getAttribute('data-user-id')}.jpg" alt="">
-            </a>
-        </div>
-        <div class="comment-body">
-            <a href="user.php?userid=${$('.user').getAttribute('data-user-id')}" style="" class="user-link">${$('.user').getAttribute('data-user-name')}</a>
-            ${newCommentContent}
-        </div>
-    </div>`;
+                            <div class="commentor-avatar">
+                                <a href="user.php?userid=${$('.user').getAttribute('data-user-id')}">
+                                    <img width="60px" height="60px" src="img/profile/${$('.user').getAttribute('data-user-id')}.jpg" alt="">
+                                </a>
+                            </div>
+                            <div class="comment-body">
+                                <a href="user.php?userid=${$('.user').getAttribute('data-user-id')}" style="" class="user-link">${$('.user').getAttribute('data-user-fullname')}</a>
+                                <span class='comment-excerpt'>
+                                    ${newCommentContent}
+                                    <span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'>⛔</span>
+                                </span>
+                            </div>
+                        </div>`;
 
     var comments = nc.parentElement.parentElement.parentElement.querySelector(".comments");
     comments.innerHTML += newComment;
@@ -118,35 +129,46 @@ function vote(option) {
         // showLogin();
         return;
     }
+    console.log(option);
+    
     option.target.parentElement.parentElement.classList.add("poll-overlay");
+    var pollID = option.target.parentElement.parentElement.parentElement.parentElement.getAttribute("data-poll-id");
+    console.log(pollID);
+    
     var optionID = option.target.parentElement.parentElement.getAttribute("data-option-id");
     var allPotion = [...option.target.parentElement.parentElement.parentElement.querySelectorAll("input")];
     var currentClicked = option.target;
     
     allPotion.forEach( e => {
+        // checking the voted option
         if( e == currentClicked && e.checked == true ) {
-            updateVoteOnline( e, optionID, 1 );
+            updateVoteOnline( e, pollID,optionID, 1 );
             e.checked = 1;
+        // unchecking the voted option
         } else if (e == currentClicked && e.checked == false) {
             e.parentElement.parentElement.setAttribute("data-option-vote", e.parentElement.parentElement.getAttribute("data-option-vote") - 2);
-            updateVoteOnline(e, optionID, 0);
+            updateVoteOnline(e,  pollID,optionID, 0);
             e.checked = 0;
         } else if (e != currentClicked && e.checked == true) {
-            updateVoteOnline(e, e.parentElement.parentElement.getAttribute("data-option-id"), 0);
+            updateVoteOnline(e,  pollID,e.parentElement.parentElement.getAttribute("data-option-id"), 0);
             e.parentElement.parentElement.setAttribute("data-option-vote", e.parentElement.parentElement.getAttribute("data-option-vote")-2);
             e.checked = 0;
         }
     });
 }
 
-function updateVoteOnline( option,optionID, checked ) {
-    var po =  $(".poll-overlay");
+function updateVoteOnline(option, pollID,optionID, checked ) {
+    // var po =  $(".poll-overlay");
     var req = new XMLHttpRequest();
     req.open("POST", "backend.php", true);
     var data = new FormData();
     data.append(
         "operation",
         "updateOptionVote"
+    );
+    data.append(
+        "pollID",
+        pollID
     );
     data.append(
         "optionID",
@@ -159,6 +181,8 @@ function updateVoteOnline( option,optionID, checked ) {
     
     req.onreadystatechange = function () {
         if (req.readyState == 4 && req.status == 200) {
+            console.log(req);
+            
             var singleOption = option.parentElement.parentElement;
             if ( req.responseText != 0 ) {           
                 singleOption.setAttribute("data-option-vote", parseInt(singleOption.getAttribute("data-option-vote")) + 1);            
@@ -178,7 +202,7 @@ function updateVoteOnline( option,optionID, checked ) {
                     }
                 });
             }
-            if (po) {
+            if ( po = $(".poll-overlay") ) {
                 setTimeout( ()=>{
                     po.classList.remove("poll-overlay")},1000);
             }
@@ -232,10 +256,13 @@ function checkVoted() {
 
 
 function login( node ) {
+    
+    node.classList.add("poll-overlay");
+    
     var username = node.querySelector("#username").value;
     var password = node.querySelector("#password").value;
     var req = new XMLHttpRequest();
-    req.open("POST", "backend.php", false);
+    req.open("POST", "backend.php", true);
     var data = new FormData();
     data.append(
         "operation",
@@ -251,19 +278,34 @@ function login( node ) {
     );
     req.send(data);
     
-    if (req.responseText == "login success" ) {
-        window.location.reload();
-    } else {
-        alert(req.responseText);
+    req.onreadystatechange = function() {
+        if ( this.readyState == 4 && this.status == 200 ) {
+            if (req.responseText == "login success") {
+                node.classList.remove("poll-overlay");
+                node.innerHTML = "<h2>Login Successfull </h2>"
+                window.location.reload();
+            } else {
+                node.classList.remove("poll-overlay");
+                alert("Login Failed Please Try Again");
+            }
+        } else {
+            
+        }
     }
+
+    
 }
 
 
 function alignPolls() {
-    var poll = $$(".poll");
-    console.log(poll[0].parentElement.clientHeight);
+    if( poll = $$(".poll") && $$(".poll").length ) {
+        var poll = $$(".poll");
+        console.log(poll[0].parentElement.clientHeight);
+    } else {
+        return;
+    }
     
-} alignPolls();
+}
 
 
 function centerifyCheckBox() {
@@ -276,6 +318,7 @@ function centerifyCheckBox() {
 
 
 function showVotersList(node) {
+
     if (!checkIsLoggedIn()) {
         // showLogin();
         return;
@@ -288,11 +331,11 @@ function showVotersList(node) {
     //                     <strong><a href="user.php?userid=4">Shuvo Sarker</a></strong>
     //                 </div>`;
     var wo = $(".whoVotted-overlay");
-    wo.addEventListener("click",function(){
-        if( window.event.target != $(".whoVotted-container") ) {
-            // wo.classList.remove("show");
-        }
-    });
+    // wo.addEventListener("click",function(){
+    //     if( window.event.target != $(".whoVotted-container") ) {
+    //         // wo.classList.remove("show");
+    //     }
+    // });
     // get the votters
     var optionid = node.getAttribute("data-option-id");
 
@@ -300,20 +343,24 @@ function showVotersList(node) {
     req.open("GET","backend.php?operation=getVoterList&optionid="+optionid,true);
 
     req.onreadystatechange = function (params) {
-        if( this.status == 200 && this.readyState == 4 ) {
-            if( data != "no votes" ) {
-                var data = JSON.parse(this.responseText);
-                console.log(data);
-                data.forEach( e => {
-                    aVoter += `<div class="voter">
-                                    <a href="user.php?userid=${e.user_id}">
-                                        <img width="40px" height="40px" src="img\\profile\\${e.user_id}.jpg" alt="">
-                                    </a>
-                                    <strong><a href="user.php?userid=${e.user_id}">${e.user_name}</a></strong>
-                                </div>`;
-                });              
-                $(".voters").innerHTML =  aVoter;  
+        if (this.status == 200 && this.readyState == 4) {
+            var data = this.responseText[0] == "[" ? JSON.parse(this.responseText) : [];
+            data.forEach(e => {
+                aVoter += `<div class="voter">
+                                <a href="user.php?userid=${e.user_id}">
+                                    <img width="40px" height="40px" src="img\\profile\\${e.user_id}.jpg" alt="">
+                                </a>
+                                <strong><a href="user.php?userid=${e.user_id}">${e.user_name}</a></strong>
+                            </div>`;
+            });
+            console.log(data);
+
+            if (data.length == 0) {
+                $(".voters").innerHTML = "<h4 style='text-align:center'>No Vote Yet</h4>";
+            } else {
+                $(".voters").innerHTML = aVoter;
             }
+
         }
     }
     req.send();
@@ -321,9 +368,10 @@ function showVotersList(node) {
     
     // push inside $(".votters")
     wo.classList.add("show");
+
 }
 
-function likeDislike( which,pollid,pollline ) {
+function likeDislike( which,pollid,pollline,btn ) {
     var req = new XMLHttpRequest();
     
     if( which == "like" ) {
@@ -334,14 +382,26 @@ function likeDislike( which,pollid,pollline ) {
     
     req.onreadystatechange = function () {
         if( this.status == 200 && this.readyState == 4 ) {
-            if( this.responseText == "liked" ) {
-                console.log(pollline);
-                var cs = window.getComputedStyle(pollline);
-                leftWidth = cs.getPropertyValue("border-left-width");
-                rightWidth = cs.getPropertyValue("border-right-width");
-                pollline.style.BorderLeftWidth = (parseInt(leftWidth) + 1) + "px";
-                pollline.style.BorderRightWidth = (parseInt(rightWidth) - 1) + "px";
-                console.log(parseInt(leftWidth) + 1);
+            var tmp = JSON.parse(this.responseText);
+            console.log(tmp);
+            var likePercentage = (parseInt(tmp.likes) / (parseInt(tmp.likes) + parseInt(tmp.dislikes)) * 150) + "px";
+            var dislikePercentage = (parseInt(tmp.dislikes) / (parseInt(tmp.likes) + parseInt(tmp.dislikes)) * 150) + "px";
+
+            if (tmp.status == "liked") {
+                btn.classList.add("liked");
+                if (other_btn = btn.parentElement.querySelector(".disliked")) {
+                    other_btn.classList.remove("disliked");
+                    pollline.querySelector(".left").style.width = likePercentage;
+                    pollline.querySelector(".right").style.width = dislikePercentage;
+                }
+            }
+            if (tmp.status == "disliked") {
+                btn.classList.add("disliked");
+                if (other_btn = btn.parentElement.querySelector(".liked")) {
+                    other_btn.classList.remove("liked");
+                    pollline.querySelector(".left").style.width = likePercentage;
+                    pollline.querySelector(".right").style.width = dislikePercentage;
+                }
             }
         }
     }
@@ -394,4 +454,9 @@ function okDeleteComment( node ) {
         alert("Something Went Worng! Please try Again");
     }
 
+}
+function showPollControlOptions(node) {
+    console.log(node);
+    
+    
 }
