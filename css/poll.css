@@ -422,6 +422,8 @@ textarea:focus {
     margin-top: 10px;
     display: flex;
     justify-content: flex-end;
+    font-weight: bold;
+    letter-spacing: .5px;
 }
 .vote-like-dislike-box .poll-like-button {
     width: 53px;
@@ -432,7 +434,11 @@ textarea:focus {
     border: 1px solid #1e90ffb8;
     font-size: 14px;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    /* font-family: verdana; */
+    font-weight: bold;
 }
 .vote-like-dislike-box .poll-like-button:hover {
     box-shadow:inset 0px 0px 20px #1e90ff2c;
@@ -446,7 +452,9 @@ textarea:focus {
     border: 1px solid #ff0000ba;
     font-size: 14px;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 4px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 .vote-like-dislike-box .poll-dislike-button:hover {
     box-shadow:inset 0px 0px 20px #ff000018;
@@ -505,16 +513,16 @@ textarea:focus {
 .poll-info-box .right .line {
     /* margin: 100px auto; */
     color: white;
-/*     display: inline-block; */
+    /*     display: inline-block; */
     /* border-top: 50px solid indigo; */
     /* border-left: 50px solid red; */
     /* border-right: 50px solid beige; */
     /* border-bottom: 50px solid green; */
     width: 180px;
-    /* height: 4px; */
+    height: 4px;
     overflow: hidden;
-/*     position: absolute; */
-/*     right: 5px; */
+    /*     position: absolute; */
+    /*     right: 5px; */
 }
 
 .poll-info-box .right .left {
@@ -535,6 +543,7 @@ textarea:focus {
     float: left;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
+    padding: 0px;
 }
 
 /* ------------------------------------------------------------------------------ */

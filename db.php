@@ -104,7 +104,8 @@
         public function single( $table,$id ) {
             session_start();
             if( isset($table) ) {
-                if( $user_id = $_SESSION["pollsite_user_id"] ) {
+            if( isset($_SESSION["pollsite_user_id"]) ) {
+                $user_id = $_SESSION["pollsite_user_id"];
                     $sqlString = "SELECT *,                    
                                     (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id AND likes.like_liker_id = $user_id) AS liked,
                                     (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = polls.poll_id AND dislikes.dislike_disliker_id = $user_id) AS disliked,
@@ -113,6 +114,11 @@
                                     (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = polls.poll_id) AS poll_dislikes
                                 FROM polls WHERE poll_id=$id LIMIT 1";
                 } else {
+                    $sqlString = "SELECT *,
+                                (select concat(user_firstname,' ',user_lastname) FROM users where users.user_id = polls.poll_user_id) AS poll_creator_name,
+                                (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id) AS poll_likes,
+                                (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = polls.poll_id) AS poll_dislikes
+                            FROM polls WHERE poll_id=$id LIMIT 1";
 
                 }
                 // return $sqlString;
@@ -188,7 +194,8 @@
         // get all the Public polls from the database
         public function getAllPoll() {
             $conn = new mysqli("localhost","root","","bluepoll");
-            if( $user_id = $_SESSION["pollsite_user_id"] ) {
+            if( isset($_SESSION["pollsite_user_id"]) ) {
+                $user_id = $_SESSION["pollsite_user_id"];
                 $sqlString = "SELECT *,
                                 (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id AND likes.like_liker_id = $user_id) AS liked,
                                 (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = polls.poll_id AND dislikes.dislike_disliker_id = $user_id) AS disliked,
