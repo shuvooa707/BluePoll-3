@@ -7,6 +7,8 @@
 
         $db = new db();
         $polls = $db->getAllPoll();
+        
+        // drawing every poll
         foreach( $polls as $poll ) {            
             // $poll_rating_left = $poll[""];
 
@@ -26,7 +28,9 @@
             $have_liked = (isset( $poll["liked"] ) && $poll["liked"] == 1) ? "liked" : "";
             $have_disliked = (isset( $poll["disliked"] ) && $poll["disliked"] == 1 ) ? "disliked" : "";
             if ( 1 && $poll["owned"] ) {
-                $deleteButton = "<span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'>⛔</span>";
+                $deleteButton = "<span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'>
+                                    <span style='' class='flaticon-garbage'></span>
+                                </span>";
             } else {
                 $deleteButton = "";
             }
@@ -40,12 +44,28 @@
             }
         echo "
             <div class='poll' data-poll-id='$poll_id'>
+                <div class='poll-tool-container'>
+                    <div class='tool-option save'>
+                        Save <span style='' class='flaticon-star'></span> 
+                    </div>
+                    <div class='tool-option hide'>
+                        Hide                        
+                        <span style='' class='flaticon-glasses'></span>     
+                    </div>
+                    <div class='tool-option report'>
+                        Report
+                        <span style='' class='flaticon-hand'></span>     
+                    </div>
+                </div>
                 <div class='poll-header'>
                     <a href='poll.php?pollid=$poll_id' title='Click expand this poll'><span class='expand-poll'>⛶</span></a> 
                     $poll_name 
-                    <span class='poll-tool-option' title='click' style='transform: rotate(0deg);' onclick='showPollControlOptions(this)'>☰</span>
+                    <span class='poll-tool-option' title='click' style='transform: rotate(0deg);' onclick='showPollControlOptions(this.parentElement.parentElement,this)'>
+                        <span style='' class='flaticon-settings'></span> 
+                    </span>
                 </div>
                 <div class='poll-body'>";
+                // printing all the options for each poll
                 while( $option = $poll_options->fetch_assoc() ) {
                     $poll_rating_right;
                     $option_name = substr($option["option_name"],0,95);
@@ -72,11 +92,13 @@
                             </div>
                         </div>";
                 }
-                echo "
-                
-                <div class='poll-addnew-option-box' style='display:none;'>
-                    <input type='text'  class='add-new-option' >
-                    <button  class='add-new-option-button'>+</button>
+                echo "                
+                <div class='poll-addnew-option-box' style=''>
+                    <button  class='cancel-new-option-button' >
+                        <span style='' class='flaticon-cancel'></span>
+                    </button>
+                    <input type='text'  class='add-new-option' placeholder='Write New Option...' >
+                    <button  class='add-new-option-button'>⊕</button>
                 </div>
                 <div class='poll-info-box'>
                     <div class='left'>
@@ -89,8 +111,12 @@
                             <div class='right' style='width:".$pollDislikes."px;'></div>
                         </div>
                         <div class='vote-like-dislike-box'>
-                            <div class='poll-like-button $have_liked' onclick='likeDislike( \"like\",$poll_id,this.parentElement.previousElementSibling,this )'>Like</div>
-                            <div class='poll-dislike-button $have_disliked' onclick='likeDislike( \"dislike\",$poll_id,this.parentElement.previousElementSibling,this )'>Dislike</div>
+                            <div class='poll-like-button $have_liked' onclick='likeDislike( \"like\",$poll_id,this.parentElement.previousElementSibling,this )'>
+                                <span style='' class='flaticon-like'></span>
+                            </div>
+                            <div class='poll-dislike-button $have_disliked' onclick='likeDislike( \"dislike\",$poll_id,this.parentElement.previousElementSibling,this )'>
+                                <span style='' class='flaticon-dislike'></span>                            
+                            </div>
                         </div>                        
                     </div>
                 </div>
@@ -111,14 +137,16 @@
                         <div class='comments'>
                             <div style=''  class='comment-lebel'>Comments</div>
                             <!-- comment sample -->";
-
+                            // printing all the comment for each poll
                             while( $comment = $poll_comments->fetch_assoc() ) {
                                 $comment_user_fullname = $comment["comment_user_fullname"];
                                 $comment_content = $comment["comment_content"];
                                 $comment_id = $comment["comment_id"];
                                 $commentor_id = $comment["comment_user_id"];
                                 if ( issLoggedIn() && ($comment["comment_user_id"] == $_SESSION["pollsite_user_id"]) ) {
-                                    $deleteButton = "<span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'>⛔</span>";
+                                    $deleteButton = "<span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'>
+                                                        <span style='' class='flaticon-garbage'></span>
+                                                    </span>";
                                 } else if ( !$poll["owned"] ){
                                     $deleteButton = "";
                                 } else {
@@ -151,23 +179,7 @@
         }
     ?>
     </div>
-    <div class="sidebar">
-        <form action="search.php">
-            <div class="search-box">
-                <label for="#searchkey">Search</label>
-                <input type="text" placeholder="search..." name="searchkey" id="searchkey">
-                <button type="submit">Search</button>
-            </div>
-        </form>
-        <div class="top-polls-container">
-            <div class="tpc-header">
-                Top Polls
-            </div>
-            <div class="tpc-body">
-                
-            </div>
-        </div>
-    </div>
+    <?php require_once("sidebar.php"); ?>
     
 </div>
 

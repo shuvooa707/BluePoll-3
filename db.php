@@ -10,6 +10,7 @@
         public function getAllNotifications(  ) {
             $user_id = isset($_SESSION["pollsite_user_id"]) ? $_SESSION["pollsite_user_id"] : "";
             $sqlString = "SELECT * FROM `notifications` JOIN polls ON polls.poll_id = notification_poll_id WHERE polls.poll_user_id = ".$user_id;
+            // return $sqlString;
             $result = $this->conn->query($sqlString);
             $notifications = array();
             while ( $notification = $result->fetch(PDO::FETCH_ASSOC) ) {
@@ -59,6 +60,21 @@
                     }                   
                 }
                 if( $notification["notification_action"] == "newDislike") {
+                    $sqlString = "SELECT poll_name, poll_id, dislike_id, (SELECT concat(users.user_firstname,' ',users.user_lastname) FROM users where users.user_id = dislikes.dislike_disliker_id) AS user_name, (SELECT users.user_id FROM users where users.user_id = dislikes.dislike_disliker_id) AS user_id FROM polls,users,dislikes WHERE dislike_id = ".$notification["notification_object_id"];
+                    $result3 = $this->conn->query($sqlString);
+                       if ( $result3 = $result3->fetch(PDO::FETCH_ASSOC) ) {  
+                           if( $result3["user_id"] == $user_id ) {
+                                continue;
+                            }                              
+                            $notification["user_id"] = $result3["user_id"];
+                            $notification["user_name"] = $result3["user_name"];
+                            $notification["poll_name"] = $result3["poll_name"];
+                            $notification["poll_id"] = $result3["poll_id"];
+                            $notification["dislike_id"] = $notification["notification_object_id"]; 
+                            $notifications[] = $notification;
+                    }                   
+                }
+                if( $notification["notification_action"] == "newOptionRequest") {
                     $sqlString = "SELECT poll_name, poll_id, dislike_id, (SELECT concat(users.user_firstname,' ',users.user_lastname) FROM users where users.user_id = dislikes.dislike_disliker_id) AS user_name, (SELECT users.user_id FROM users where users.user_id = dislikes.dislike_disliker_id) AS user_id FROM polls,users,dislikes WHERE dislike_id = ".$notification["notification_object_id"];
                     $result3 = $this->conn->query($sqlString);
                        if ( $result3 = $result3->fetch(PDO::FETCH_ASSOC) ) {  
@@ -216,7 +232,7 @@
 
             while( $poll = $results->fetch_assoc() ) {
                 $poll_id = $poll['poll_id'];
-                $poll["options"]  = $this->myconn->query( "SELECT option_id,option_name,option_belongsto,option_addedby_id,option_created_at,(select count(*) from votes where vote_option_id=option_id) AS option_votes FROM options WHERE option_belongsto = $poll_id" );
+                $poll["options"]  = $this->myconn->query( "SELECT option_id,option_name,option_belongsto,option_addedby_id,option_created_at,(select count(*) from votes where vote_option_id=option_id) AS option_votes FROM options WHERE option_belongsto = $poll_id ORDER BY option_votes DESC" );
                 $comments = $this->myconn->query( "SELECT *,CONCAT(users.user_firstname, ' ',users.user_lastname) AS comment_user_fullname FROM comments JOIN users ON comment_user_id=users.user_id where comment_poll_id=".$poll['poll_id'] );
 
                 // if( hasSingleCommentDeleteAuthority($comments["comment_user_id"] ) {

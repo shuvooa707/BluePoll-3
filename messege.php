@@ -9,7 +9,10 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         
         <link rel="stylesheet" href="css/messege.css">
-        <link rel="stylesheet" href="css/common.css">
+         <!-- this file contains all the link tags for common CSS files -->
+        <?php
+            require_once("common_stylesheet_links.php");
+        ?>
 
         <script src="js/poll.js" defer></script>
         <script src="js/common.js" defer></script>

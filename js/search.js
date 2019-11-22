@@ -64,3 +64,72 @@ function mark(params) {
         return acc.join(" ");
     }
 } mark();
+
+
+function sortSearchResult(node) {
+    var result = $$(".result");
+    console.log(node.value);
+    // sort by name
+    if( node.value == "name" ) {
+        result = result.sort((a, b) => {
+            console.log(a.querySelector(".poll-link").innerText[0]);
+            return a.querySelector(".poll-link").innerText[0].charCodeAt(0) - b.querySelector(".poll-link").innerText[0].charCodeAt(0);
+        });
+        // console.log(result);
+        var parent = result[0].parentElement;
+        parent.innerHTML = ` <div class="search-result-header" >
+                                <select name="" id="" class='sort-order' onchange='sortSearchResult(this)'>
+                                    <option value="date">Date</option>
+                                    <option value="name" selected disabled>Name</option>
+                                    <option value="view">Views</option>
+                                    <option value="vote">Votes</option>
+                                </select>
+                            </div >`;
+        result.forEach(r => {
+            parent.appendChild(r);
+        });
+    }
+    //  sort by date
+    if (node.value == "date") {
+        result = result.sort((a, b) => {
+            var time1 = a.querySelector(".poll-link-date").innerText.split(":")[1].trim();
+            time1 = new Date(time1.split("-")[0] + ":" + time1.split("-")[1] + ":20" + time1.split("-")[2]).getTime();
+            var time2 = b.querySelector(".poll-link-date").innerText.split(":")[1].trim();
+            time2 = new Date(time2.split("-")[0] + ":" + time2.split("-")[1] + ":20" + time2.split("-")[2]).getTime();
+
+            return time1 - time2;
+        });
+        // console.log(result);
+        var parent = result[0].parentElement;
+        parent.innerHTML = ` <div class="search-result-header" >
+                                <select name="" id="" class='sort-order' onchange='sortSearchResult(this)'>
+                                    <option value="date"  selected disabled>Date</option>
+                                    <option value="name">Name</option>
+                                    <option value="view">Views</option>
+                                    <option value="vote">Votes</option>
+                                </select>
+                            </div >`;
+        result.forEach(r => {
+            parent.appendChild(r);
+        });
+    }
+    //  sort by votes
+    if (node.value == "vote") {
+        result = result.sort((a, b) => {
+            return parseInt(a.querySelector(".poll-link-vote").innerText.split("Votes : ")[1]) - parseInt(b.querySelector(".poll-link-vote").innerText.split("Votes : ")[1]);
+        });
+        console.log(result);
+        var parent = result[0].parentElement;
+        parent.innerHTML = ` <div class="search-result-header" >
+                                <select name="" id="" class='sort-order' onchange='sortSearchResult(this)'>
+                                    <option value="date">Date</option>
+                                    <option value="name">Name</option>
+                                    <option value="view">Views</option>
+                                    <option value="vote selected disabled">Votes</option>
+                                </select>
+                            </div >`;
+        result.forEach(r => {
+            parent.appendChild(r);
+        });
+    }
+}

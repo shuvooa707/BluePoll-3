@@ -75,10 +75,22 @@ body {
     transition-duration:.1s;
     box-sizing:border-box;
     position: relative;
+    line-height: 19px;
 }
-.nav-item.notification span:nth-child(2n) {
-  /* visibility:hidden; */
+
+.navbar .nav-item::before {
+    content:"";
+    width:10px;
+    height:100%;
+    position:absolute;
+    left:-8px;
+    top:0px;
+    background:#9e9e9ea6;
 }
+.nav-item.notification:hover path {
+    fill: white!important;
+}
+
 .nav-item.notification:hover span:nth-child(2n) {
 /*     border-color: white; */
 }
@@ -122,10 +134,7 @@ body {
     margin: 100px auto;
     background: white;
     overflow: hidden;
-    animation-name: jello;
-    animation-duration: 1s;
-    animation-fill-mode: both;
-    animation-iteration-count: 1;
+    animation: showHoot .2s ease 0s 1;
     transform-origin: center;
 }
 
@@ -252,10 +261,7 @@ body {
     margin: 100px auto;
     background: white;
     overflow: hidden;
-    animation-name: jello;
-    animation-duration: 1s;
-    animation-fill-mode: both;
-    animation-iteration-count: 1;
+    animation: showHoot .2s ease 0s 1;
     transform-origin: center;
 }
 
@@ -486,13 +492,14 @@ div#not::before {
   color: white!important;
 }
 .liked {
-  background: dodgerblue!important;
-  color:white!important;
+/*   background: dodgerblue!important; */
+  color:dodgerblue!important;
 }
 .disliked {
-  background: lightcoral!important;
-  color:white!important;
+/*   background: lightcoral!important; */
+  color:red!important;
 }
+
 /* ---------------------------------------------------------------------------------------------- */
 button {
     padding: 4px 13px;
@@ -537,7 +544,7 @@ button:hover {
     background: white;
     overflow: hidden;
     transform: scale(1);
-    animation: jello .9s ease 0s 1;
+    animation: showHoot  .1s ease 0s 1;
 }
 
 @keyframes showHoot {
@@ -707,7 +714,8 @@ button:hover {
 /* ------------------------------------------------------- */
 
 .face-overlay {
-
+  position:relative;
+  z-index:99;
 }
 
 .fade-overlay::after {
@@ -757,4 +765,105 @@ button:hover {
     100%{
         color:dodgerblue;
     }
+}
+
+
+.whoVotted-overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.308);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1001;
+    display: none;
+}
+
+
+/* ---------------------------------------------------------------------------------------------- */
+
+.sidebar {
+    width: 20%;
+    min-width: 250px;
+    background: #ececec;
+}
+.sidebar form div label::before {
+    content:"";
+    width:10px;
+    height:100%;
+    position:absolute;
+    top: 0px;
+    left:-10px;
+    background:silver;
+    z-index: 3;
+}
+.sidebar form div label::after {
+    content:"";
+    position:absolute;
+    top: 31px;
+    left: -7px;
+    /* background:silver; */
+    border: 7px solid transparent;
+    border-left: 7px solid #b0b0b0;
+    transform: rotate(-406deg);
+    z-index: 1;
+}
+
+.tpc-header::before {
+    content:"";
+    width:10px;
+    height:100%;
+    position:absolute;
+    top: 0px;
+    left:-10px;
+    background:silver;
+    z-index: 3;
+}
+.tpc-header::after {
+    content:"";
+    position:absolute;
+    top: 31px;
+    left: -7px;
+    /* background:silver; */
+    border: 7px solid transparent;
+    border-left: 7px solid #b0b0b0;
+    transform: rotate(-406deg);
+    z-index: 1;
+}
+
+
+.sidebar .top-polls-container {
+    max-height: 300px;
+}
+.sidebar .tpc-header {
+    background: silver;
+    padding: 10px;
+    /* margin-top: 1px; */
+}
+
+.sidebar .tpc-body {
+    background: #ffff;
+    padding:10px;
+    border: 1px solid #aaa;
+}
+.sidebar .tpc-body .top-poll {
+    background: #eaeaea;
+    border:1px solid #aaa;
+    /* padding: 5px; */
+    margin: 5px;
+    border-radius: 4px;
+}
+
+.sidebar .tpc-body .top-poll .top-poll-title {
+    max-height: 47px;
+    overflow: hidden;
+    padding: 6px;
+    background: #f4f4f4;
+    border-bottom: 1px dotted #ccc;
+}
+.sidebar .tpc-body .top-poll .top-poll-info {
+    background: #f4f4f4;
+    font-size: 13px;
+    text-align: end;
+    padding: 5px 5px 5px 0px;
 }

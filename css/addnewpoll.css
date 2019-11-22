@@ -35,33 +35,13 @@ body {
     padding: 0px;
 }
 
-.navbar {
-    background: white;
-    box-shadow: 0 5px 10px #ddd;
-    position: fixed;
-    top: 0px;
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    padding: 10px 0px;
-    z-index:100;
+
+
+.navbar .new-poll {
+    background:dodgerblue;
+    color:white;
 }
 
-.navbar .nav-item {
-    padding: 6px 10px;
-    color: black;
-    min-width: 50px;
-    font-size: 16px;
-    background: white;
-    border-radius: 3px;
-    margin:0px 5px;
-    text-align: center;
-    cursor: pointer;
-}
-
-.navbar .nav-item:hover {
-    background: #dbdfe2;
-}
 
 .container {
     margin: 80px auto;
@@ -229,16 +209,16 @@ textarea:focus {
 }   
 
 .new-option-cancel {
-    padding: 4px 7px 4px 7px;
+    /* padding: 4px 7px 4px 7px; */
     /* padding: 5px; */
     border-radius: 50%;
-    background: #e8e8e8;
-    color: red;
+    /* background: #e8e8e8; */
+    color: #fc5d5d;
     cursor: pointer;
     font-size: 15px;
 }
 .new-option-cancel:hover {
-    background:#ddd;
+    /* background:#ddd; */
     color:red;
 }
 .add-new-option-button {
@@ -273,9 +253,16 @@ textarea:focus {
     padding:10px 0px;
     width: 200px;
     transform: none;
+    background: white;
+    color: #aaa;
+    /* background: linear-gradient(45deg, silver, #aaa); */
+    border: 1.5px solid #aaa;
 }
 .savebutton:hover {
-    /* background: #eee; */
+    background: white;
+    color: #0c0c0c;
+    /* background: linear-gradient(45deg, silver, #aaa); */
+    border: 1.5px solid #aaa;
 }
 
 .poll-category-selector {

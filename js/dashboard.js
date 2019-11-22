@@ -107,3 +107,42 @@ function mmVottedList(node) {
     }
     
 }
+
+
+
+function allowOption(node) {
+    console.log(node);
+    node.classList.add("face-overlay");
+    var poptionid = node.getAttribute("data-poption-id");
+    var req = new XMLHttpRequest();
+    req.open("POST", "backend.php", true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send("operation=changeAllowOption&poptionid_id=" + poptionid);
+
+    req.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText == "option added") {
+                node.remove();
+            }
+        }
+    }
+}
+
+function deleteOption(node) {    
+    console.log(node);
+    node.classList.add("face-overlay");
+    var poptionid = node.getAttribute("data-poption-id");
+    var req = new XMLHttpRequest();
+    req.open("POST", "backend.php", true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send("operation=deleteRequestedOption&poptionid_id=" + poptionid);
+
+    req.onreadystatechange = function () {
+        if(this.readyState == 4 && this.status == 200) {
+            if (this.responseText.trim() == "option deleted" ) {
+                console.log(this.responseText);   
+                node.remove();
+            }
+        }
+    }
+}

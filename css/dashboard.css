@@ -1,25 +1,31 @@
 * {
     box-sizing: border-box;
-/*     overflow: hidden; */
+    /*     overflow: hidden; */
 }
+
 input[type='checkbox'] {
     transform: scale(1.5);
     margin-top: 18px;
 }
+
 button,input[type='checkbox'] {
-    cursor:pointer;
+    cursor: pointer;
 }
+
 button:active {
-    background:#ccc;
+    background: #ccc;
 }
+
 a,.show-more {
-    text-decoration:none;
+    text-decoration: none;
     color: dodgerblue;
     cursor: pointer;
 }
+
 a:hover,.show-more:hover {
     text-decoration: underline;
 }
+
 body {
     overflow-y: scroll;
     background-color: #f7fbf5;
@@ -27,33 +33,9 @@ body {
     padding: 0px;
 }
 
-.navbar {
-    background: white;
-    box-shadow: 0 5px 10px #ddd;
-    position: fixed;
-    top: 0px;
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    padding: 10px 0px;
-    z-index:100;
-}
-
-.navbar .nav-item {
-    padding: 6px 10px;
-    color: black;
-    font-size: 16px;
-    background: white;
-    border-radius: 3px;
-    margin:0px 5px;
-    text-align: center;
-    cursor: pointer;
-}
-.navbar .nav-item span {
-    border: 2px solid transparent;
-}
-.navbar .nav-item:hover {
-    background: #dbdfe2;
+.navbar .dashboard {
+    background: dodgerblue;
+    color: white;
 }
 
 .container {
@@ -77,10 +59,11 @@ body {
     border-radius: 5px;
     box-shadow: 5px 5px 20px #ccc;
     max-height: 400px;
-    height:400px;
+    height: 400px;
     overflow: hidden;
     transition: .3s ease-out;
 }
+
 #votted-poll-list .vpl-header {
     background: black;
     border-bottom: 2px solid white;
@@ -106,14 +89,15 @@ body {
     right: 2px;
     font-size: 24px;
     transition: .3s ease-in;
-    color:black;
-    width:30px;
-    height:30px;
-    text-align:center;
-    line-height:35px;
-    background:white;
-    border-radius:50%;
+    color: black;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 35px;
+    background: white;
+    border-radius: 50%;
 }
+
 #votted-poll-list .vpl-body {
     text-align: center;
     max-height: 310px;
@@ -125,22 +109,21 @@ body {
     padding: 8px;
     padding-right: 5px;
 }
+
 #votted-poll-list .vpl-body .vote {
     text-align: left;
     padding: 11px;
     padding-right: 5px;
 }
+
 #votted-poll-list .vpl-body .vote:nth-child(odd) {
     background: #ecf7ff;
 }
 
-
 /* ----------------------------------------------- */
-
-
 #created-poll-list {
     margin-right: 20px;
-    width: 690px;
+    min-width: 687px;
     /* padding: 5px; */
     padding-top: 0;
     /* border:1px solid rgba(255, 30, 180, 0.562); */
@@ -153,6 +136,7 @@ body {
     border-radius: 5px;
     box-shadow: 5px 5px 20px #ccc;
 }
+
 #created-poll-list .cpl-header {
     background: black;
     border-bottom: 2px solid white;
@@ -178,6 +162,7 @@ body {
     padding-right: 5px;
     position: relative;
 }
+
 #created-poll-list .cpl-body .poll:nth-child(odd) {
     position: relative;
     background: #fff1f1;
@@ -188,14 +173,17 @@ body {
     width: 45%;
     padding-right: 18px;
 }
+
 .poll-stats {
     display: inline-block;
     width: 26%;
 }
+
 .poll-control {
     display: inline-block;
     width: 25%;
 }
+
 .poll-control button {
     text-align: center;
     margin-bottom: 5px;
@@ -211,30 +199,130 @@ body {
 
 .delete {
     color: white;
-    background: darkred;
+    background: #cd0000;
 }
+
 .delete:hover {
     background: rgb(110, 0, 0);
 }
+
 .edit {
     background: cornflowerblue;
 }
+
 .edit:hover {
     background: rgb(85, 126, 202);
 }
+
 .private {
     background: green;
 }
-.private:hover{
+
+.private:hover {
     background: rgb(1, 87, 1);
 }
+
 .analyze {
     background: indigo!important;
     color: white;
 }
+
 .poll-stats small {
     color: #6e6e6e;
-    font-size:13px;
-    font-weight:bold;
+    font-size: 13px;
+    font-weight: bold;
     /* font-family:sans-serif; */
 }
+
+/* --------------------------------------------------------- */
+.proposed-poll-option {
+    min-width: 300px;
+    width: 300px;
+    /* height: 400px; */
+    /* padding: 5px; */
+    padding-top: 0;
+    /* border:1px solid rgba(30, 143, 255, 0.562); */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 20px #ccc;
+    max-height: 400px;
+    height: 400px;
+    overflow: hidden;
+    transition: .3s ease-out;
+    position: relative;
+}
+
+.proposed-poll-option .ppo-header {
+    background: black;
+    border-bottom: 2px solid white;
+    color: white;
+    text-align: center;
+    padding: 20px 17px;
+    text-align: left;
+    overflow: hidden;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.proposed-poll-option .ppo-body {
+    text-align: center;
+    max-height: 310px;
+    overflow: auto;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 5px;
+}
+
+.ppo-body .poption {
+    text-align: left;
+    padding: 11px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+}
+
+.ppo-body .poption:nth-child(odd) {
+    background: #ecf7ff;
+}
+
+.proposed-poll-option > div.ppo-body > div > div > button {
+    margin-top: 20px;
+    padding: 6px 15px;
+    opacity: .8;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 1px;
+    margin-right: 3px;
+    /* margin-left: 3px; */
+    position: unset;
+    transform: unset;
+}
+
+.proposed-poll-option > div.ppo-body > div > div > button:hover {
+    opacity: 1;
+}
+
+.face-overlay {
+    position: relative;
+    z-index: 99;
+}
+.face-overlay::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 250px;
+    padding-top: 0px;
+    font-size: 24px;
+    background: #ffffff;
+    color: #ff24f9;
+    z-index: 100;
+    opacity: 0.7;
+}
+
+/* ----------------------------------------------------------------- */

@@ -44,8 +44,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/user.css">
+    <!-- this file contains all the link tags for common CSS files -->
+    <?php
+        require_once("common_stylesheet_links.php");
+        ?>
+    <link rel="stylesheet" href="css/user.css">        
+    
     <title><?php echo $user->user_name; ?></title>
     <script src="js\common.js" defer></script>
     <script src="js\user.js" defer></script>
@@ -63,12 +67,20 @@
             <div class="tab-drawer">
                     <div data-target='.tab-about' class="tab-switcher tab-switcher-about active">About</div>
                     <div data-target='.tab-polls' class="tab-switcher tab-switcher-polls">Polls</div>
-                    <div data-target='.tab-bio' class="tab-switcher tab-switcher-bio">Bio</div>
+                    <?php
+                        if( issLoggedIn() && $user_id == $userid ) {
+                            echo "
+                            <div data-target='.tab-bio' class='tab-switcher tab-switcher-bio'>Control</div>
+                            ";
+                        }
+                    ?>
             </div>
-            <div class="tab tab-about show">
-                
+            <div class="tab tab-about show">                
+                <div class="profile-picture">
+                    <img src="img/profile/1.jpg" alt="">
+                </div>
             <?php
-                    echo " <h4>Who is <strong>$user->user_name</strong></h4>
+                    echo "
                         <div class='about-row'><strong>Name : </strong>$user->user_name</div>
                         <div class='about-row'><strong>Age : </strong>$user->user_age</div>
                         <div class='about-row'><strong>Email : </strong>$user->user_email</div>
@@ -94,10 +106,16 @@
                         ";
                     }
                 ?>
-            </div>
-            <div class="tab tab-bio">
-                Bio's Tab
-            </div>
+            </div>                    
+            <?php
+                if( issLoggedIn() && $user_id == $userid ) {
+                    echo "
+                        <div class='tab tab-bio'>
+                            saved polls 
+                        </div>
+                        ";
+                }
+            ?>
         </div>
     </div>
 

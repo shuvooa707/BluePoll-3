@@ -455,8 +455,70 @@ function okDeleteComment( node ) {
     }
 
 }
-function showPollControlOptions(node) {
-    console.log(node);
-    
-    
+function showPollControlOptions(poll,node) {
+    // console.log(poll);
+    if ( poll.querySelector(".poll-tool-container").classList.contains("show") ) {
+        // poll.querySelector(".poll-tool-container").style.animation = "dis .3s linear 0s 1";
+        var cont = poll.querySelector(".poll-tool-container")
+        cont.style.height = "0px";
+        setTimeout(function(){
+            cont.style.height = "100px"
+            cont.classList.remove("show");
+            // poll.querySelector(".poll-tool-container").style.animation = "unset";
+        },290);
+    } else {
+        poll.querySelector(".poll-tool-container").classList.toggle("show");
+    }
 }
+
+
+$$(".add-new-option-button").forEach(e => {
+    e.onclick = ToggleAddNewOptionInput;
+});
+
+$$(".cancel-new-option-button").forEach(e => {
+    e.onclick = ToggleAddNewOptionInput;
+});
+
+function ToggleAddNewOptionInput( node ) {
+
+    var addNewOptionButton = this.parentElement.querySelector(".add-new-option-button");
+    if (addNewOptionButton.innerText.trim() == "⊕" ) {
+        this.innerText = "Add";
+        this.parentElement.classList.toggle("showAddNewOption");
+        this.onclick = addNewOptionOnline.bind(this);
+    }
+    else if (addNewOptionButton.innerText.trim() == "Add" ) {
+        this.parentElement.classList.toggle("showAddNewOption");
+        addNewOptionButton.innerText = "⊕";
+        addNewOptionButton.onclick = ToggleAddNewOptionInput;
+        addNewOptionButton.previousElementSibling.value = "";
+    }
+}
+
+function addNewOptionOnline() {
+    console.log(this.previousElementSibling);
+    if ( this.previousElementSibling.value.length > 1 ) { 
+        var pollid = this.parentElement.parentElement.parentElement.getAttribute("data-poll-id");         
+        var optionname = this.previousElementSibling.value;       
+        // console.log(optionname);        
+        this.parentElement.classList.add("comment-delete-fade-overlay");
+
+        var req = new XMLHttpRequest();
+        req.open("POST", "backend.php", true);
+        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        req.onreadystatechange = function () {
+            if (this.status == 200 && this.readyState == 4) {
+                if (this.responseText == "option requested") {
+                    
+                }
+            }
+        }
+        req.send("operation=requestNewOption&pollid="+pollid+"&optionname="+optionname,);
+    } else {
+        
+    }
+}
+
+
+

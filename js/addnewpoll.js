@@ -3,7 +3,9 @@ function addnewoption() {
     var newOption = `
                     <div class='new-option-name'>
                         <input type="text" class='options' name="newoption${optionCount}" id="newoption${optionCount}" placeholder="Option ${optionCount}...">
-                        <span class="new-option-cancel"  onclick="this.parentElement.remove()">x</span>
+                        <span class="new-option-cancel"  onclick="this.parentElement.remove()">
+                            <span style='' class='flaticon-cancel'></span>
+                        </span>
                     </div>`;
     
     document.querySelector("#slate").innerHTML =  newOption;

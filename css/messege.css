@@ -54,6 +54,11 @@ body {
 .navbar .nav-item:hover {
     background: #dbdfe2;
 }
+.navbar .massege {
+    background:dodgerblue!important;
+    color:white!important;
+}
+
 .container {
     width: 100%;
     background: transparent;

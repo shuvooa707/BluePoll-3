@@ -13,6 +13,11 @@
     $sql = "SELECT *, (SELECT polls.poll_name FROM polls WHERE polls.poll_id = options.option_belongsto limit 1) AS poll_name, (SELECT poll_id FROM polls WHERE polls.poll_id = options.option_belongsto limit 1) AS poll_id FROM options JOIN votes ON options.option_id = votes.vote_option_id WHERE votes.vote_given_by = $user_id";
     // print_r($sql);
     $voted_polls = $conn->query($sql);
+
+
+    $sql = "SELECT DISTINCT poll_id, poll_name, proposed_option_name, proposed_option_poll_added_by,proposed_option_id, (SELECT CONCAT(users.user_firstname, ' ',users.user_lastname) FROM users WHERE users.user_id = proposed_option.proposed_option_poll_added_by) AS option_requested_by FROM proposed_option,polls,users WHERE proposed_option_poll_id = polls.poll_id AND polls.poll_user_id = $user_id";
+    // print_r($sql);
+    $option_requests = $conn->query($sql);
     // echo $polls;
 ?>
 <!DOCTYPE html>
@@ -22,12 +27,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         
-        <link rel="stylesheet" href="css/dashboard.css">
-        <link rel="stylesheet" href="css/common.css">
+        <!-- this file contains all the link tags for common CSS files -->
+        <?php
+            require_once("common_stylesheet_links.php");
+        ?>
+        
+        <link rel="stylesheet" href="css/dashboard.css">        
+
 
         <script src="js/common.js" defer></script>
         <script src="js/dashboard.js" defer></script>
-        <title>Poll Site</title>
+        <title>Dashboard</title>
     </head>
     <body>
 
@@ -85,6 +95,36 @@
                 </div>
             </div>
             <!-- /this is a list contains all the polls that you have Created -->
+
+            <!-- this is a list contains all the proposed options for your poll -->
+                <div class="proposed-poll-option">
+                    <div class="ppo-header">
+                        Options Request
+                    </div>
+                    <div class="ppo-body">
+                        <?php 
+                            while ( $row = $option_requests->fetch(PDO::FETCH_ASSOC) ) {
+                                echo "
+                                <div class='poption' data-poption-id='".$row["proposed_option_id"]."'>
+                                    <strong><a href='poll.php?pollid=".$row["poll_id"]."'>".$row["poll_name"]."</a></strong>
+                                    <div class='poption-name' style='text-indent:10px;color:#646464;'>".$row["proposed_option_name"]."</div>
+                                    <div class='poption-added-by' style='text-align:right;color:#646464;'>
+                                        by <a href='user.php?userid=".$row["proposed_option_poll_added_by"]."' style='color:#1e90ff8c;'>".$row["option_requested_by"]."</a>
+                                    </div>
+                                    <div class='poption-added-at' style='text-align:right;color:#64646485;'>
+                                        20-1-2019
+                                    </div>
+                                        <div style='padding: 0px 5px;font-size:14px;font-style:italic;'>
+                                            <button style='background:dodgerblue' onclick='allowOption(this.parentElement.parentElement)'>Allow</button>
+                                            <button style='background:lightcoral' onclick='deleteOption(this.parentElement.parentElement)'>Delete</button>
+                                        </div>
+                                </div>
+                                ";
+                            }
+                        ?>
+                    </div>                    
+                </div>
+            <!-- /this is a list contains all the  proposed options for your poll -->
             
             
 

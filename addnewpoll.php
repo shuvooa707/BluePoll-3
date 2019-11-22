@@ -15,8 +15,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         
-        <link rel="stylesheet" href="css/addnewpoll.css">
-        <link rel="stylesheet" href="css/common.css">
+        <!-- this file contains all the link tags for common CSS files -->
+        <?php
+            require_once("common_stylesheet_links.php");
+        ?>
+
+        <link rel="stylesheet" href="css/addnewpoll.css">        
 
         <script src="js/addnewpoll.js" defer></script>
         <script src="js/common.js" defer></script>
@@ -51,11 +55,15 @@
                         <div class='option' data-option-id='' data-option-vote=''>
                             <div class='new-option-name'>
                                 <input type="text" name="newoption1" id="newoption1"  class='options' placeholder="Option 1...">
-                                <span class="new-option-cancel" onclick="this.parentElement.remove()">✖</span>
+                                <span class="new-option-cancel" onclick="this.parentElement.remove()">
+                                    <span style='' class='flaticon-cancel'></span>
+                                </span>
                             </div>
                             <div class='new-option-name'>
                                 <input type="text" name="newoption2" id="newoption2" class='options' placeholder="Option 2...">
-                                <span class="new-option-cancel" onclick="this.parentElement.remove()">✖</span>
+                                <span class="new-option-cancel" onclick="this.parentElement.remove()">
+                                    <span style='' class='flaticon-cancel'></span>
+                                </span>
                             </div>
                         </div>
                     </div>

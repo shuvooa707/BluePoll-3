@@ -40,39 +40,65 @@ body {
     z-index:100;
 } */
 
-.navbar .nav-item {
-    padding: 6px 10px;
-    color: black;
-    min-width: 50px;
-    font-size: 16px;
-    background: white;
-    border-radius: 3px;
-    margin:0px 5px;
-    text-align: center;
-    cursor: pointer;
-}
 
-.navbar .nav-item:hover {
-    background: #dbdfe2;
-}
 
 .container {
+    height: 800px;
     margin: 80px auto;
     background: white;
     padding: 20px;
     width: 80%;
     display: flex;
+    justify-content: space-between;
+    padding-bottom: 50px;
+    /* height: auto; */
     box-shadow: 0px 0px 16px #aaaabb57;
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }
 
 .main-content {
-    width:70%;
+    width: 35%;
     /* background: orange; */
 }
 .sidebar {
-    width: 30%;
-    background: #eee;
+    width: 20%;
+    min-width: 250px;
+    padding-bottom: 50px;
+    background: #ececec;
+}
+.sidebar .top-polls-container {
+    max-height: 300px;
+}
+.sidebar .tpc-header {
+    background: silver;
+    padding: 10px;
+}
+
+.sidebar .tpc-body {
+    background: #ffff;
+    padding:10px;
+    border: 1px solid #aaa;
+}
+.sidebar .tpc-body .top-poll {
+    background: #eaeaea;
+    border:1px solid #aaa;
+    /* padding: 5px; */
+    margin: 5px;
+    border-radius: 4px;
+}
+
+.sidebar .tpc-body .top-poll .top-poll-title {
+    max-height: 47px;
+    overflow: hidden;
+    padding: 6px;
+    background: #f4f4f4;
+    border-bottom: 1px dotted #ccc;
+}
+.sidebar .tpc-body .top-poll .top-poll-info {
+    background: #f4f4f4;
+    font-size: 13px;
+    text-align: end;
+    padding: 5px 5px 5px 0px;
 }
 
 .poll {
@@ -430,8 +456,8 @@ textarea:focus {
     height: 25px;
     line-height: 25px;
     display: inline-block;
-    color: #1e90ffb8;
-    border: 1px solid #1e90ffb8;
+    /* color: #1e90ffb8; */
+    /* border: 1px solid #1e90ffb8; */
     font-size: 14px;
     cursor: pointer;
     border-radius: 5px;
@@ -448,8 +474,8 @@ textarea:focus {
     height: 25px;
     line-height: 25px;
     display: inline-block;
-    color: #ff0000ba;
-    border: 1px solid #ff0000ba;
+    /* color: #ff0000ba; */
+    /* border: 1px solid #ff0000ba; */
     font-size: 14px;
     cursor: pointer;
     border-radius: 4px;
@@ -570,6 +596,7 @@ textarea:focus {
     overflow: hidden;
     position: relative;
     animation: showHoot .35s ease 0s 1;
+    box-shadow: 46px 49px 44px #5a5a5a;
 }
 
 @keyframes showHoot {
@@ -747,3 +774,56 @@ textarea:focus {
         color:dodgerblue;
     }
 }
+
+
+/* -------------------------------search box---------------------------------------------- */
+
+
+.search-box {
+    width: 100%;
+    min-height: 80px;
+    background: rgba(211, 213, 214, 0.267);
+    position: relative;
+    padding: 10px;
+    padding-bottom: 20px;
+}
+.search-box #searchkey {
+    width: 100%;
+    display: block;
+    padding: 10px;
+    /* left: 50%; */
+    top: 5px;
+    margin-bottom: 10px;
+    position: relative;
+    /* transform: translateX(-50%); */
+    border-radius: 8px;
+    border: 0;
+    outline:none;
+    border:1px solid transparent;
+    transition:all .4s;
+}
+.search-box #searchkey:focus {
+    border:1px solid dodgerblue;
+    box-shadow:0px 0px 7px dodgerblue;
+}
+
+.search-box button {
+    margin: unset;
+    padding: unset;
+    top:unset;
+    left: unset;
+    transform: unset;
+    width: 100%;
+    padding: 9px 0px;
+    /* margin:10px auto; */
+    /* left: 50%; */
+    top: 5px;
+    position: relative;
+    /* transform: translateX(-50%); */
+    border-radius: 4px;
+    border:#aaa;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+/* -----------------------------------------/search box--------------------------------------- */

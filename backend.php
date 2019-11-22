@@ -270,6 +270,75 @@
         exit(0);
     }
 
+    if( isset($_POST["operation"]) && $_POST["operation"] == "changeAllowOption" && issLoggedIn() ) {
+        // sleep(2);
+        $user_id = $_SESSION["pollsite_user_id"];
+        $poptionid_id = filter_var($_POST["poptionid_id"], FILTER_VALIDATE_INT);
+        $conn = (new db())->conn;
+        $sql = "SELECT poll_user_id FROM polls where polls.poll_id = (select proposed_option_poll_id from proposed_option where proposed_option_id = ".$poptionid_id." LIMIT 1)";
+        $u = $conn->query($sql)->fetch(PDO::FETCH_ASSOC)["poll_user_id"];
+        // poll owner and the allower is the same
+        if ( $u == $user_id ) {
+            for ($i=0; $i < 3; $i++) { 
+                $conn->query("BEGIN");
+                $sql = "SELECT * FROM proposed_option where proposed_option_id = ".$poptionid_id." LIMIT 1";
+                // echo $sql;
+                $r = $conn->query($sql);
+                if( $r ) {
+                    $r = $r->fetch(PDO::FETCH_ASSOC);
+                    $sql = "INSERT INTO options VALUES (null,'".$r['proposed_option_name']."',".$r['proposed_option_poll_id'].",".$r['proposed_option_poll_added_by'].",null,0,null)";
+                    $r = $conn->query($sql);
+                    if( $r ) {
+                        $sql = "DELETE FROM `proposed_option` WHERE proposed_option_id = ".$poptionid_id;
+                        $r = $conn->query($sql);
+                        if( $r ) {
+                            $conn->query("COMMIT");
+                            echo "option added";
+                            break;
+                        }
+                    } else {
+                        $conn->query("ROLLBACK");
+                        echo "option not added";
+                    }
+                }
+            }
+        }
+        // echo $sql;            
+
+        exit(0);
+    }
+    
+    if( isset($_POST["operation"]) && $_POST["operation"] == "deleteRequestedOption" && issLoggedIn() ) {
+        sleep(2);
+        $conn = (new db())->conn;    
+        $poptionid_id = filter_var($_POST["poptionid_id"], FILTER_VALIDATE_INT);
+        $sql = "DELETE FROM `proposed_option` WHERE proposed_option_id = ".$poptionid_id;
+        $r = $conn->query($sql);
+        if ( $r ) {
+            echo "option deleted";
+        } else {
+            echo "option not deleted";
+        }
+    }
+
+    if( isset($_POST["operation"]) && $_POST["operation"] == "requestNewOption" && issLoggedIn() ) {
+        // $optionid = $_POST["optionid"];
+        $user_id = $_SESSION["pollsite_user_id"];  
+        $pollid = $_POST["pollid"];
+        $optionname = htmlentities($_POST["optionname"]);
+        
+        $conn = (new db())->conn;  
+        $sql = "INSERT INTO `proposed_option` VALUES (null,'".$optionname."',".$pollid.",".$user_id.",null)";
+        $r = $conn->query($sql);  
+        if ( $r ) {
+            echo "option requested";
+            // print_r( $conn->lastInsertId() );
+            registerNotification($user_id,'newOptionRequest',$pollid,$conn->lastInsertId());
+        } else {
+            echo $sql;
+        }
+    }
+
 ?>
 
 
@@ -284,8 +353,8 @@
             $sqlString = "INSERT INTO notifications VALUES(null,$user_id,'$type',$pollID,$objectID,null)";
         } else if( $type == "newDislike" ) {
             $sqlString = "INSERT INTO notifications VALUES(null,$user_id,'$type',$pollID,$objectID,null)";
-        } else {
-            $sqlString = "INSERT INTO notifications VALUES(null,$user_id,'$type',$pollID,null,null)";
+        } else if( $type == "newOptionRequest" ){
+            $sqlString = "INSERT INTO notifications VALUES(null,$user_id,'$type',$pollID,$objectID,null)";
         }
         $r = $conn->query($sqlString);
         if( !$r )

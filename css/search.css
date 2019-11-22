@@ -79,7 +79,7 @@ form button{
     border-radius: 4px;
     border:#aaa;
     box-shadow: unset;
-    font-family:font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .search-result {    
     width: 100%;
@@ -88,11 +88,35 @@ form button{
     position: relative;
     padding: 10px;
     padding-bottom: 20px;
+    padding-top: 50px;
     text-align: justify;
+}
+.search-result .search-result-header {
+    position: absolute;
+    top:0px;
+    left: 0px;
+    background: white;
+    /* padding: 16px 10px; */
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 50px;
+    line-height: 47px;
+    padding: 0px 20px;
+}
+.search-result .search-result-header .sort-order {
+    padding: 6.5px 10px;
+    border-radius: 5px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    display: inline-block;
+    cursor: pointer;
 }
 .search-result .result {
     background:#eee;
     padding:15px 15px;
+}
+.search-result .result:first-child {
+    margin-top: 50px;
 }
 
 .poll-link {

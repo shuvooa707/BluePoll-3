@@ -80,6 +80,10 @@ body {
 .navbar .nav-item:hover span {
 /*     border:2px solid white; */
 }
+.navbar .profile {
+    background:dodgerblue;
+    color:white;
+}
 
 .not-count {/* display:none; */
     font-weight:bold;
@@ -165,6 +169,19 @@ body {
 
 }
 
+.tab-about .profile-picture {
+    width: 120px;
+    height: 120px;
+    border: 8px solid white;
+    outline:1px solid #aaa;
+    position: relative;
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+.tab-about .profile-picture img{
+    width:100%;
+    height: 100%;
+}
 .active {
     background:#eee;
     color: black;
@@ -175,7 +192,7 @@ body {
 
 .tab-container .tab {
     border: 1px solid black;
-    text-align: center;
+    text-align: start;
     padding: 10px;
     padding-top: 25px;
     position: relative;
@@ -202,6 +219,7 @@ body {
     text-indent: 10px;
     background: linear-gradient(to left,#ddd, #eee);
     margin: 10px;
+    border-top: 2.5px solid #bbbbbb6b;
     border-bottom: 2.5px solid #bbb;
 }
 

@@ -14,8 +14,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         
-        <link rel="stylesheet" href="css/common.css">
-        <link rel="stylesheet" href="css/index.css">
+        <!-- this file contains all the link tags for common CSS files -->
+        <?php
+            require_once("common_stylesheet_links.php");
+        ?>
+        <link rel="stylesheet" href="css/index.css">        
 
         <script src="js/common.js" defer></script>
         <script src="js/index.js" defer></script>

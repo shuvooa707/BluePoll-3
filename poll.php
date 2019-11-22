@@ -41,9 +41,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         
+        
+        <!-- this file contains all the link tags for common CSS files -->
+        <?php
+            require_once("common_stylesheet_links.php");
+        ?>
         <link rel="stylesheet" href="css/poll.css">
-        <link rel="stylesheet" href="css/common.css">
 
+        
         <script src="js/poll.js" defer></script>
         <script src="js/common.js" defer></script>
         <title>Poll</title>
@@ -60,10 +65,12 @@
             <?php
                 if( checkAuthority( $pollid ) ) {
                     $editButton = "<div style='display:inline-block;padding:10px;text-align:right;padding-right:10px;' title='click to edit this poll' class='edit-poll'>
-                                      <a style='padding:3px 6px;background:black;color:white;border-radius:3px;' href='#' onclick='editConf($poll->poll_id)'>Edit</a>
+                                      <a style='padding:3px 6px;background:black;color:white;border-radius:3px;' href='#' onclick='editConf($poll->poll_id)'>
+                                        Edit<span style='' class='flaticon-edit'></span> 
+                                      </a>
                                    </div>
                                    <div onclick='deletePollConf()' style='display:inline-block;text-align:right;padding-right:10px;' title='click to delete this poll' class='delete-poll'>
-                                      Delete
+                                      Delete<span style='' class='flaticon-garbage'></span> 
                                    </div>                                   
                                    ";
                 } else {
@@ -106,8 +113,12 @@
                                         <div class='right' style='width:".$pollDislikes."px;'></div>
                                     </div>   
                                     <div class='vote-like-dislike-box'>
-                                        <div class='poll-like-button $have_liked' onclick='likeDislike( \"like\",$poll->poll_id,this.parentElement.previousElementSibling,this )'>Like</div>
-                                    <div class='poll-dislike-button $have_disliked' onclick='likeDislike( \"dislike\",$poll->poll_id,this.parentElement.previousElementSibling,this )'>Dislike</div>
+                                        <div class='poll-like-button $have_liked' onclick='likeDislike( \"like\",$poll->poll_id,this.parentElement.previousElementSibling,this )'>
+                                            <span style='' class='flaticon-like'></span>                                            
+                                        </div>
+                                    <div class='poll-dislike-button $have_disliked' onclick='likeDislike( \"dislike\",$poll->poll_id,this.parentElement.previousElementSibling,this )'>
+                                            <span style='' class='flaticon-dislike'></span>                                        
+                                    </div>
                                 </div>
                                 </div>                                
                                 <div class='poll-tag-date'>
@@ -167,6 +178,8 @@
                     </div>";
         ?>
 
+    <?php require_once("sidebar.php"); ?>        
+
     </div>
     <!-- Who Votted List Popup Window -->
         <div class="whoVotted-overlay">
@@ -188,9 +201,6 @@
         <!-- /Who Votted List Popup Window -->
 
 
-    <div class="sidebar">
-        
-    </div>
     <script>
         function checkIsLoggedIn() {
             return <?php if( issLoggedIn() ) echo 1; else echo 0;  ?>
