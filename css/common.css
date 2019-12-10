@@ -782,11 +782,14 @@ button:hover {
 
 /* ---------------------------------------------------------------------------------------------- */
 
+
+
 .sidebar {
     width: 20%;
     min-width: 250px;
     background: #ececec;
 }
+
 .sidebar form div label::before {
     content:"";
     width:10px;
@@ -794,7 +797,7 @@ button:hover {
     position:absolute;
     top: 0px;
     left:-10px;
-    background:silver;
+    background: #ececec;
     z-index: 3;
 }
 .sidebar form div label::after {
@@ -804,7 +807,7 @@ button:hover {
     left: -7px;
     /* background:silver; */
     border: 7px solid transparent;
-    border-left: 7px solid #b0b0b0;
+    border-left: 7px solid #b6b6b6;
     transform: rotate(-406deg);
     z-index: 1;
 }

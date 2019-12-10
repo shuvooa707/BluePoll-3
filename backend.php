@@ -176,7 +176,7 @@
         $r = $conn->query($sql)->fetch_assoc()["found"];
         // print_r($r->num_rows);
         if( $r ) {
-            echo "Poll Can Be Liked Only Once";
+            echo "\"{status:'Poll Can Be Liked Only Once'}\"";
             exit(0);
         }
         $sql = "INSERT INTO likes (`like_poll_id`, `like_liker_id`) VALUES($poll_id,$poll_liker_id)";        

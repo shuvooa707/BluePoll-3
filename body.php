@@ -56,6 +56,10 @@
                         Report
                         <span style='' class='flaticon-hand'></span>     
                     </div>
+                    <div class='tool-option share'>
+                        Share
+                        <span style='' class='flaticon-hand'></span>     
+                    </div>
                 </div>
                 <div class='poll-header'>
                     <a href='poll.php?pollid=$poll_id' title='Click expand this poll'><span class='expand-poll'>⛶</span></a> 
@@ -98,7 +102,7 @@
                         <span style='' class='flaticon-cancel'></span>
                     </button>
                     <input type='text'  class='add-new-option' placeholder='Write New Option...' >
-                    <button  class='add-new-option-button'>⊕</button>
+                    <button  class='add-new-option-button'>✚</button>
                 </div>
                 <div class='poll-info-box'>
                     <div class='left'>

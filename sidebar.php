@@ -7,7 +7,7 @@
 
     <div class="sidebar">
         <form action="search.php">
-            <div style='background: silver;padding: 10px;height: 39px;position: relative;'>
+            <div style='background: linear-gradient(-69deg, #ccc, #eee);padding: 10px;height: 39px;position: relative;'>
                     <label for="#searchkey">Search  </label>
             </div>
             <div class="search-box">
@@ -17,7 +17,7 @@
             </div>
         </form>
         <div class="top-polls-container">
-            <div class="tpc-header" style='background: silver;padding: 10px;height: 39px;position: relative;'>
+            <div class="tpc-header" style='padding: 10px;height: 39px;position: relative;'>
                 Top Polls
             </div>
             <div class="tpc-body">

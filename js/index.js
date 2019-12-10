@@ -383,6 +383,10 @@ function likeDislike( which,pollid,pollline,btn ) {
     req.onreadystatechange = function () {
         if( this.status == 200 && this.readyState == 4 ) {
             var tmp = JSON.parse(this.responseText);
+            if ( tmp.status == "Poll Can Be Liked Only Once" ) {
+                console.log(tmp);
+                return 0;
+            }
             console.log(tmp);
             var likePercentage = (parseInt(tmp.likes) / (parseInt(tmp.likes) + parseInt(tmp.dislikes)) * 150) + "px";
             var dislikePercentage = (parseInt(tmp.dislikes) / (parseInt(tmp.likes) + parseInt(tmp.dislikes)) * 150) + "px";
@@ -483,14 +487,14 @@ $$(".cancel-new-option-button").forEach(e => {
 function ToggleAddNewOptionInput( node ) {
 
     var addNewOptionButton = this.parentElement.querySelector(".add-new-option-button");
-    if (addNewOptionButton.innerText.trim() == "⊕" ) {
+    if (addNewOptionButton.innerText.trim() == "✚" ) {
         this.innerText = "Add";
         this.parentElement.classList.toggle("showAddNewOption");
         this.onclick = addNewOptionOnline.bind(this);
     }
     else if (addNewOptionButton.innerText.trim() == "Add" ) {
         this.parentElement.classList.toggle("showAddNewOption");
-        addNewOptionButton.innerText = "⊕";
+        addNewOptionButton.innerText = "✚";
         addNewOptionButton.onclick = ToggleAddNewOptionInput;
         addNewOptionButton.previousElementSibling.value = "";
     }
