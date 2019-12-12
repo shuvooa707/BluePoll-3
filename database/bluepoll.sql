@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2019 at 11:59 AM
+-- Generation Time: Dec 12, 2019 at 07:18 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -109,13 +109,15 @@ INSERT INTO `dislikes` (`dislike_id`, `dislike_poll_id`, `dislike_disliker_id`, 
 (39, 73, 3, '2019-11-13 12:56:04'),
 (40, 52, 3, '2019-11-13 12:56:04'),
 (41, 27, 3, '2019-11-13 12:56:05'),
-(51, 102, 3, '2019-11-15 06:44:17'),
 (52, 89, 7, '2019-11-15 06:44:40'),
 (53, 91, 7, '2019-11-15 06:44:43'),
 (54, 100, 7, '2019-11-15 06:44:45'),
 (55, 89, 6, '2019-11-15 06:45:04'),
 (185, 90, 7, '2019-11-17 16:45:25'),
-(186, 105, 6, '2019-11-17 16:46:39');
+(195, 90, 4, '2019-11-26 11:07:40'),
+(209, 102, 6, '2019-11-26 11:59:20'),
+(210, 103, 6, '2019-11-26 11:59:21'),
+(212, 105, 6, '2019-11-26 11:59:33');
 
 --
 -- Triggers `dislikes`
@@ -125,6 +127,15 @@ CREATE TRIGGER `remove_like` BEFORE INSERT ON `dislikes` FOR EACH ROW BEGIN
 	DELETE FROM likes 
     	WHERE likes.like_poll_id = new.dislike_poll_id AND 
         	  likes.like_liker_id = new.dislike_disliker_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `remove_notification_for_dislike` AFTER DELETE ON `dislikes` FOR EACH ROW BEGIN
+	DELETE FROM 
+    	notifications 
+    WHERE
+    	notifications.notification_object_id = old.dislike_id;
 END
 $$
 DELIMITER ;
@@ -147,25 +158,16 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`like_id`, `like_poll_id`, `like_liker_id`, `like_liked_at`) VALUES
-(206, 102, 7, '2019-11-15 06:44:44'),
-(207, 90, 6, '2019-11-15 06:45:00'),
-(208, 91, 6, '2019-11-15 06:45:00'),
-(209, 102, 6, '2019-11-15 06:45:01'),
-(210, 100, 6, '2019-11-15 06:45:02'),
-(246, 103, 4, '2019-11-15 07:39:43'),
-(296, 102, 4, '2019-11-15 08:45:59'),
-(300, 100, 4, '2019-11-15 08:51:30'),
-(321, 91, 3, '2019-11-17 10:15:44'),
-(323, 100, 3, '2019-11-17 10:15:46'),
-(332, 91, 4, '2019-11-17 14:38:01'),
-(335, 90, 4, '2019-11-17 15:10:37'),
-(342, 105, 3, '2019-11-17 16:45:56'),
-(343, 103, 6, '2019-11-17 16:46:46'),
-(345, 89, 4, '2019-11-17 18:53:18'),
-(346, 105, 4, '2019-11-19 06:49:52'),
-(347, 89, 3, '2019-11-21 10:02:14'),
-(348, 103, 3, '2019-11-21 17:45:01'),
-(351, 90, 3, '2019-11-21 17:57:07');
+(356, 107, 3, '2019-11-26 11:10:04'),
+(357, 103, 3, '2019-11-26 11:10:23'),
+(370, 100, 3, '2019-11-26 11:13:01'),
+(372, 91, 3, '2019-11-26 11:38:32'),
+(373, 102, 3, '2019-11-26 11:38:36'),
+(374, 105, 3, '2019-11-26 11:38:40'),
+(377, 100, 6, '2019-11-26 11:59:18'),
+(381, 91, 6, '2019-11-26 12:36:07'),
+(383, 90, 6, '2019-11-26 12:42:28'),
+(384, 90, 3, '2019-12-03 14:26:31');
 
 --
 -- Triggers `likes`
@@ -176,6 +178,15 @@ CREATE TRIGGER `remove_dislike` BEFORE INSERT ON `likes` FOR EACH ROW BEGIN
     	WHERE dislikes.dislike_poll_id = new.like_poll_id AND 
         	  dislikes.dislike_disliker_id = new.like_liker_id;
 
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `remove_notification_for_like` AFTER DELETE ON `likes` FOR EACH ROW BEGIN
+	DELETE FROM 
+    	notifications 
+    WHERE
+    	notifications.notification_object_id = old.like_id;
 END
 $$
 DELIMITER ;
@@ -194,6 +205,34 @@ CREATE TABLE `notifications` (
   `notification_object_id` int(11) DEFAULT NULL,
   `notification_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`notification_id`, `notification_actor_id`, `notification_action`, `notification_poll_id`, `notification_object_id`, `notification_date`) VALUES
+(718, 6, 'newOptionRequest', 100, 100, '2019-11-26 13:03:12'),
+(719, 3, 'newComment', 103, 213, '2019-11-26 13:18:02'),
+(720, 3, 'newComment', 91, 214, '2019-11-26 13:18:23'),
+(721, 3, 'newComment', 91, 215, '2019-11-26 13:18:36'),
+(722, 3, 'newComment', 91, 216, '2019-11-26 13:18:37'),
+(724, 3, 'newComment', 91, 218, '2019-11-26 13:18:39'),
+(725, 3, 'newComment', 91, 219, '2019-11-26 13:18:40'),
+(726, 3, 'newComment', 91, 220, '2019-11-26 13:18:41'),
+(727, 3, 'newComment', 91, 221, '2019-11-26 13:18:42'),
+(728, 3, 'newVote', 91, 1, '2019-11-26 13:53:54'),
+(729, 3, 'newVote', 91, 1, '2019-11-26 13:53:56'),
+(730, 3, 'newVote', 90, 1, '2019-11-29 17:31:32'),
+(731, 3, 'newVote', 102, 1, '2019-11-30 12:19:52'),
+(732, 3, 'newVote', 102, 1, '2019-11-30 12:19:58'),
+(733, 3, 'newOptionRequest', 90, 101, '2019-12-03 12:58:23'),
+(734, 3, 'newVote', 90, 1, '2019-12-03 13:22:41'),
+(735, 3, 'newVote', 90, 1, '2019-12-03 13:22:45'),
+(736, 3, 'newVote', 91, 1, '2019-12-03 13:22:52'),
+(737, 3, 'newVote', 90, 1, '2019-12-03 13:22:56'),
+(738, 3, 'newVote', 103, 1, '2019-12-03 14:23:05'),
+(739, 3, 'newComment', 90, 222, '2019-12-03 14:26:01'),
+(741, 3, 'newLike', 90, 384, '2019-12-03 14:26:31');
 
 -- --------------------------------------------------------
 
@@ -261,13 +300,12 @@ INSERT INTO `options` (`option_id`, `option_name`, `option_belongsto`, `option_a
 (449, 'Mozilla Firefox', 105, 4, '2019-11-17 16:44:33', 0, 'active'),
 (450, 'Opera', 105, 4, '2019-11-17 16:44:33', 0, 'active'),
 (451, 'Safari', 105, 4, '2019-11-17 16:44:33', 0, 'active'),
-(507, 'Ali Zafar', 90, 3, '2019-11-21 15:58:15', 0, 'active'),
-(508, 'Nusrat Fateh Ali Khan', 90, 3, '2019-11-21 15:58:15', 0, 'active'),
-(509, 'Atif Aslam', 90, 3, '2019-11-21 15:58:15', 0, 'active'),
-(510, 'Rahat Fateh Ali Khan', 90, 3, '2019-11-21 15:58:15', 0, 'active'),
-(514, 'Quratul Blouch', 90, 3, '2019-11-21 16:15:52', 0, NULL),
-(515, 'bknh,bhjk, gvhbjm kghvj', 90, 4, '2019-11-21 17:19:32', 0, NULL),
-(516, 'Torch Browser', 105, 3, '2019-11-22 06:46:43', 0, NULL);
+(516, 'Torch Browser', 105, 3, '2019-11-22 06:46:43', 0, NULL),
+(520, 'Ali Zafar', 90, 3, '2019-11-29 11:50:14', 0, 'active'),
+(521, 'Nusrat Fateh Ali Khan', 90, 3, '2019-11-29 11:50:14', 0, 'active'),
+(522, 'Atif Aslam', 90, 3, '2019-11-29 11:50:14', 0, 'active'),
+(523, 'Rahat Fateh Ali Khan', 90, 3, '2019-11-29 11:50:14', 0, 'active'),
+(524, 'Quratul Blouch', 90, 3, '2019-11-29 11:50:14', 0, 'active');
 
 --
 -- Triggers `options`
@@ -302,9 +340,9 @@ CREATE TABLE `polls` (
 --
 
 INSERT INTO `polls` (`poll_id`, `poll_category`, `poll_user_id`, `poll_name`, `poll_created_at`, `poll_likes`, `poll_dislikes`, `poll_view`, `poll_status`) VALUES
-(90, 'music', 3, 'Best Pakistani Singer', '2019-11-21 15:58:15', 0, 0, 0, 1),
+(90, 'music', 3, 'Best Pakistani Singer', '2019-11-29 11:50:14', 0, 0, 0, 1),
 (91, 'technology', 3, 'Best Phone of 2019', '2019-11-15 02:06:14', 0, 0, 0, 1),
-(100, 'cinema', 3, 'Best Film Christopher Nonal', '2019-11-15 02:08:37', 0, 0, 0, 1),
+(100, 'cinema', 3, 'Best Film Christopher Nonal', '2019-11-26 11:09:11', 0, 0, 0, 1),
 (102, 'technology', 4, 'Top Backend Frameworks', '2019-11-17 18:44:34', 0, 0, 0, 1),
 (103, 'cinema', 4, 'Best Movie Of All Time', '2019-11-15 06:47:30', 0, 0, 0, 1),
 (105, 'technology', 4, 'Best Web Browser', '2019-11-17 16:44:33', 0, 0, 0, 1);
@@ -404,9 +442,7 @@ CREATE TABLE `votes` (
 --
 
 INSERT INTO `votes` (`vote_id`, `vote_given_by`, `vote_option_id`, `vote_poll_id`) VALUES
-(538, 3, 374, 91),
 (552, 4, 373, 91),
-(554, 4, 397, 100),
 (555, 4, 432, 102),
 (559, 7, 376, 91),
 (560, 7, 433, 102),
@@ -420,11 +456,12 @@ INSERT INTO `votes` (`vote_id`, `vote_given_by`, `vote_option_id`, `vote_poll_id
 (585, 3, 448, 105),
 (586, 6, 450, 105),
 (587, 6, 441, 103),
-(592, 3, 436, 102),
 (593, 3, 400, 100),
-(600, 4, 508, 90),
-(601, 3, 510, 90),
-(602, 3, 438, 103);
+(603, 4, 399, 100),
+(611, 3, 436, 102),
+(614, 3, 376, 91),
+(615, 3, 521, 90),
+(616, 3, 439, 103);
 
 --
 -- Indexes for dumped tables
@@ -511,43 +548,43 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
 
 --
 -- AUTO_INCREMENT for table `dislikes`
 --
 ALTER TABLE `dislikes`
-  MODIFY `dislike_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `dislike_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
 
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=385;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=661;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=742;
 
 --
 -- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `option_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=517;
+  MODIFY `option_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=525;
 
 --
 -- AUTO_INCREMENT for table `polls`
 --
 ALTER TABLE `polls`
-  MODIFY `poll_id` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `poll_id` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `proposed_option`
 --
 ALTER TABLE `proposed_option`
-  MODIFY `proposed_option_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `proposed_option_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -565,7 +602,7 @@ ALTER TABLE `views`
 -- AUTO_INCREMENT for table `votes`
 --
 ALTER TABLE `votes`
-  MODIFY `vote_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=603;
+  MODIFY `vote_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=617;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
