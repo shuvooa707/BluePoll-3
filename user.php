@@ -1,7 +1,7 @@
-<?php
+<?php require_once("db.php"); require_once("helper.php");
     if ( isset($_GET["userid"]) ) {
         $user_id = $_GET["userid"];        
-        $conn = new mysqli("localhost","root","","bluepoll");
+        $conn = (new db())->myconn;
         $sql = "SELECT 
                     CONCAT(user_firstname,' ',user_lastname) AS user_name,
                     user_username,
@@ -29,6 +29,11 @@
         // var_dump($user);
         // $polls = $result;
 
+        // get Saved Poll of this user  
+        if( issLoggedIn() && $user_id == $_SESSION["pollsite_user_id"] ) {
+            $sql = "SELECT * FROM polls JOIN saved_polls ON polls.poll_id = saved_polls.poll_id WHERE saved_polls.user_id = ".$_SESSION["pollsite_user_id"];
+            $saved_polls = $conn->query($sql);
+        }
 
 
         if ( $result->num_rows == 0 ) {
@@ -106,16 +111,23 @@
                         ";
                     }
                 ?>
-            </div>                    
-            <?php
-                if( issLoggedIn() && $user_id == $userid ) {
-                    echo "
-                        <div class='tab tab-bio'>
-                            saved polls 
-                        </div>
-                        ";
-                }
-            ?>
+            </div>     
+            <div class='tab tab-bio'>
+                <h4>Saved polls</h4>
+                <?php                
+                    if( issLoggedIn() && $user_id == $userid ) {                        
+                        while( $poll = $saved_polls->fetch_object() ) {
+                            echo "                            
+                                <div class='poll saved_poll' data-poll-id='$poll->poll_id' >
+                                    <a href='poll.php?pollid=$poll->poll_id'>$poll->poll_name</a>
+                                    <span onClick='removeSavedPoll(this)' style='' class='remove-saved-poll'>Remove</span>
+                                </div>
+                                <br>                         
+                            ";
+                        }
+                    }
+                ?>
+            </div>
         </div>
     </div>
 

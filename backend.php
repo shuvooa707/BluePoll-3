@@ -3,7 +3,7 @@
 
     if( isset($_POST["operation"]) && $_POST["operation"] == "login" ) {
         sleep(2);
-        $conn = new mysqli("localhost","root","","bluepoll");
+        $conn = (new db())->myconn;
         $username = $_POST["username"];
         $password = $_POST["password"];
         $sql = "SELECT `user_password`,`user_id`,CONCAT(user_firstname,' ', user_lastname) AS user_fullname from `users` Where `user_username`='$username' LIMIT 1";
@@ -28,7 +28,7 @@
         // $comment_content = $_POST["comment_content"] ;
         $comment_content = htmlentities( $_POST["comment_content"] );
         $user_id = $_SESSION["pollsite_user_id"];
-        $conn = new mysqli("localhost","root","","bluepoll");
+        $conn = (new db())->myconn;
         $sql = "INSERT INTO `comments`(`comment_poll_id`, `comment_content`, `comment_user_id`, `comment_order`) VALUES ($poll_id,'$comment_content',$user_id,1)";
         $r = $conn->query($sql);
         if( $r ) {
@@ -81,7 +81,7 @@
             echo "not logged in";
             exit(0);
         }
-        $conn = new mysqli("localhost","root","","bluepoll");
+        $conn = (new db())->myconn;
         $user_id = $_SESSION["pollsite_user_id"];
         $r = $conn->query("SELECT * from votes where vote_given_by=$user_id");
         $arr = array();
@@ -106,7 +106,7 @@
 
     if( isset($_GET["operation"]) && $_GET["operation"] == "deletePoll" ) {  
         // sleep(2);
-        $conn = new mysqli("localhost","root","","bluepoll");
+        $conn = (new db())->myconn;
         $poll_user_id = $_SESSION["pollsite_user_id"];
         $poll_id = $_GET["pollid"];
         $r = $conn->query("DELETE FROM polls WHERE poll_id=$poll_id AND poll_user_id=$poll_user_id");
@@ -124,7 +124,7 @@
         $pollOptions = explode("|",$_POST["pollOptions"]);
         $poll_id =  $_POST["pollId"];
 
-        $conn = new mysqli("localhost","root","","bluepoll");
+        $conn = (new db())->myconn;
         $r = $conn->query("DELETE FROM polls WHERE poll_id=$poll_id AND poll_user_id=$poll_user_id");
         $r = $conn->query("DELETE FROM options WHERE option_belongsto=$poll_id");
 
@@ -152,7 +152,7 @@
     if( isset($_GET["operation"]) && $_GET["operation"] == "getVoterList" && isset($_GET["optionid"]) ) {
         // echo "fgjkhdr";
         $optionID = $_GET["optionid"];
-        $conn = new mysqli("localhost","root","","bluepoll");
+        $conn = (new db())->myconn;
         $r = $conn->query("SELECT concat(user_firstname,' ',user_lastname) AS user_name, user_id FROM users JOIN votes ON votes.vote_given_by = users.user_id WHERE votes.vote_option_id = $optionID");
 
         $arr = array();
@@ -169,7 +169,7 @@
     if( isset($_GET["operation"]) && $_GET["operation"] == "likePoll" && isset($_GET["pollid"]) && issLoggedIn() ) {
         // echo "fdgjhfd";
         // $conn = (new db())->conn;
-        $conn = new mysqli("localhost","root","","bluepoll");
+        $conn = (new db())->myconn;
         $poll_id = $_GET["pollid"];
         $poll_liker_id = $_SESSION["pollsite_user_id"];
         $sql = "SELECT count(*) AS found FROM likes WHERE like_poll_id=$poll_id AND like_liker_id=$poll_liker_id";
@@ -195,7 +195,7 @@
     }
     if( isset($_GET["operation"]) && $_GET["operation"] == "dislikePoll" && isset($_GET["pollid"]) && issLoggedIn() ) {
         // $conn = (new db())->conn;
-        $conn = new mysqli("localhost","root","","bluepoll");
+        $conn = (new db())->myconn;
         $poll_id = $_GET["pollid"];
         $poll_liker_id = $_SESSION["pollsite_user_id"];
         $sql = "SELECT count(*) AS found FROM dislikes WHERE dislike_poll_id=$poll_id AND dislike_disliker_id=$poll_liker_id";
@@ -336,6 +336,52 @@
             registerNotification($user_id,'newOptionRequest',$pollid,$conn->lastInsertId());
         } else {
             echo $sql;
+        }
+    }
+
+    if( isset($_POST["operation"]) && $_POST["operation"] == "savePoll" && issLoggedIn() ) {
+        // sleep(2);
+        // $optionid = $_POST["optionid"];
+        $user_id = $_SESSION["pollsite_user_id"];
+        $pollid = $_POST["pollid"];        
+        
+        // making a new MySQL connection
+        $conn = (new db())->conn;  
+        $sql = "select poll_id AS saved from saved_polls WHERE poll_id=$pollid AND user_id=$user_id";
+        // executing the query
+        $already_saved = $conn->query($sql)->fetch(PDO::FETCH_ASSOC)["saved"];
+        // echo $already_saved;
+        // echo $sql;
+        if ( !$already_saved ) {
+            // setting the query String 
+            $sql = "INSERT INTO `saved_polls`(`poll_id`, `user_id`) VALUES ($pollid, $user_id)";
+            $r = $conn->query($sql);
+            if ( $r ) {
+                echo "Poll Saved";
+            } else {
+                echo $sql;
+            }
+        } else {
+            echo "{error:'Poll is Alread Saved'}";
+        }
+    }
+    if( isset($_POST["operation"]) && $_POST["operation"] == "removeSavedPoll" && issLoggedIn() ) {
+        sleep(2);
+        // $optionid = $_POST["optionid"];
+        $user_id = $_SESSION["pollsite_user_id"];
+        $pollid = $_POST["pollid"];        
+        
+        // making a new MySQL connection
+        $conn = (new db())->conn;  
+        $sql = "delete from saved_polls WHERE poll_id=$pollid AND user_id=$user_id";
+        // executing the query
+        $r = $conn->query($sql);
+        // echo $already_saved;
+        // echo $sql;
+        if ( $r ) {
+            echo "Poll Deleted";
+        } else {
+            echo "{error:'Poll is Alread Saved'}";
         }
     }
 

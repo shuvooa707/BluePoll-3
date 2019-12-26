@@ -189,7 +189,9 @@ body {
 .show {
     display: block!important;
 }
+.tab {
 
+}
 .tab-container .tab {
     border: 1px solid black;
     text-align: start;
@@ -197,11 +199,11 @@ body {
     padding-top: 25px;
     position: relative;
     width: 100%;
-    min-height: 200px;
+    min-height: 600px;
     display: none;
     background:#eee;
     border-radius: 5px;
-    animation:a .5s linear 0s 1;
+    animation:a .5s ease 0s 1;
 }
 @keyframes a {
     0%{
@@ -222,7 +224,15 @@ body {
     border-top: 2.5px solid #bbbbbb6b;
     border-bottom: 2.5px solid #bbb;
 }
-
+.about-row strong {
+    border: 1px solid black;
+    padding: 0px 3px;
+    padding-left: 6px;
+    margin: 0px 6px;
+    border-radius: 4px;
+    margin-left: 0px;
+    background: white;
+}
 
 
 .tab-polls .poll {
@@ -235,6 +245,19 @@ body {
     margin: 10px;
     border-bottom: 2.5px solid #9E9E9E;
 }
+.saved_poll {
+    transition: all .7s;
+}
+.remove-saved-poll {
+    color:#ff5a26;
+    cursor:pointer; 
+    font-size:12px;
+    font-style: italic;
+}
+.remove-saved-poll:hover {
+    text-decoration: underline;;
+}
+
 
 
 .tab-polls .poll:nth-child(2n) {

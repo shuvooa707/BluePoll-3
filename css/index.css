@@ -103,6 +103,7 @@ body {
 .main-content {
     width:80%;
     /* background: orange; */
+    /* display: flex; */
 }
 .sidebar {
     width: 20%;
@@ -975,10 +976,12 @@ textarea:focus {
 .search-box {
     width: 100%;
     min-height: 104px;
-    background: rgb(211, 213, 214);
+    background: rgb(255, 255, 255);
     position: relative;
     padding: 10px;
     padding-bottom: 30px;
+    border: 1px solid #aaa;
+    border-bottom: none;
 }
 .search-box #searchkey {
     width: 100%;
@@ -994,6 +997,7 @@ textarea:focus {
     outline:none;
     border:1px solid transparent;
     transition:all .4s;
+    background: #ddd;
 }
 .search-box #searchkey:focus {
     border:1px solid dodgerblue;
@@ -1038,4 +1042,48 @@ textarea:focus {
 
 .showAddNewOption {
     transform: translateX(-3px);
+}
+
+/* Media Quaries */
+
+@media screen and (max-width: 1115px) {
+  .container {
+    width:80%;
+  }
+  .poll {
+    min-width: 380px;
+  }
+}
+
+@media screen and (max-width: 1190px) { 
+  .poll {
+    min-width: 260px;
+  }
+}
+@media screen and (min-width: 1190px) {
+  .container {
+    width:96%;
+  }
+  .poll {
+    min-width: 300px;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .container {
+    width:85%;
+  }
+  .poll {
+    min-width: 340px;
+    /* margin-left: 50%; */
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .container {
+    width:85%;
+  }
+  .poll {
+    min-width: 300px;
+  }
 }

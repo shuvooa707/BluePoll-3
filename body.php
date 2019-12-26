@@ -6,8 +6,19 @@
         require_once("helper.php");
 
         $db = new db();
-        $polls = $db->getAllPoll();
+
+        //  Paginating 
+        $pollPerPage = 5;
+        $offset = isset($_GET["page"]) ? (($_GET["page"]-1) * ($pollPerPage)) : 0;
+
+        if ( !isset($_GET["page"]) || $_GET["page"] == 0 || $_GET["page"] == 1 ) {
+            $polls = $db->getAllPoll(0, $pollPerPage );
+        } else {         
+            $polls = $db->getAllPoll($offset, $pollPerPage );
+        }
         
+        
+
         // drawing every poll
         foreach( $polls as $poll ) {            
             // $poll_rating_left = $poll[""];
@@ -27,6 +38,17 @@
             $pollDislikes = $poll["poll_dislikes"] == 0 ? 50 : $poll["poll_dislikes"];
             $have_liked = (isset( $poll["liked"] ) && $poll["liked"] == 1) ? "liked" : "";
             $have_disliked = (isset( $poll["disliked"] ) && $poll["disliked"] == 1 ) ? "disliked" : "";
+
+            if ( isset( $poll["saved"] ) && $poll["saved"] != 0 ) {
+                $poll_saved = "<div class='tool-option save'style='cursor:default;color:white;background:dodgerblue; text-align:center;'>
+                                 Saved
+                               </div>";
+            } else {
+                $poll_saved = "<div class='tool-option save'  onClick='savePoll(this)' >
+                                 Save <span style='' class='flaticon-star'></span> 
+                               </div>";        
+            }
+
             if ( 1 && $poll["owned"] ) {
                 $deleteButton = "<span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'>
                                     <span style='' class='flaticon-garbage'></span>
@@ -42,12 +64,19 @@
                 $pollDislikes = (int)(($poll["poll_dislikes"] / ($poll["poll_likes"] + $poll["poll_dislikes"]) ) * 150);
 
             }
+
+            if ( issLoggedIn() ) {
+                $poll_settings = 
+                                "<span class='poll-tool-option' title='click' onclick='showPollControlOptions(this.parentElement.parentElement,this)'>
+                                    <span style='' class='flaticon-settings'></span> 
+                                </span>";
+            } else {
+                $poll_settings = "";
+            }
         echo "
-            <div class='poll' data-poll-id='$poll_id'>
+            <div class='poll' data-poll-id='$poll_id' >
                 <div class='poll-tool-container'>
-                    <div class='tool-option save'>
-                        Save <span style='' class='flaticon-star'></span> 
-                    </div>
+                    $poll_saved
                     <div class='tool-option hide'>
                         Hide                        
                         <span style='' class='flaticon-glasses'></span>     
@@ -58,15 +87,13 @@
                     </div>
                     <div class='tool-option share'>
                         Share
-                        <span style='' class='flaticon-hand'></span>     
+                        <span style='' class='flaticon-share'></span>     
                     </div>
                 </div>
                 <div class='poll-header'>
                     <a href='poll.php?pollid=$poll_id' title='Click expand this poll'><span class='expand-poll'>⛶</span></a> 
                     $poll_name 
-                    <span class='poll-tool-option' title='click' style='transform: rotate(0deg);' onclick='showPollControlOptions(this.parentElement.parentElement,this)'>
-                        <span style='' class='flaticon-settings'></span> 
-                    </span>
+                    $poll_settings
                 </div>
                 <div class='poll-body'>";
                 // printing all the options for each poll
@@ -105,7 +132,7 @@
                     <button  class='add-new-option-button'>✚</button>
                 </div>
                 <div class='poll-info-box'>
-                    <div class='left'>
+                    <div class='left' data-poll-id='$poll_id'>
                         <img src='img/profile/$poll_user_id.jpg' width='50px' height='50px' >
                         <a href='user.php?userid=$poll_user_id' style='font-size:12px;display:block;'>$poll_creator_name</a>
                     </div>

@@ -61,7 +61,7 @@ function shootComment( node ) {
             <a href="#" style="" class="user-link">${$('.user').getAttribute('data-user-fullname')}</a>
             <span class='comment-excerpt'>
                 ${newCommentContent}
-                <span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'>⛔</span>
+                <span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'><span style='' class='flaticon-garbage'></span></span>
             </span>
         </div>
     </div>`;

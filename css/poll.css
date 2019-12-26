@@ -7,6 +7,27 @@ input[type='checkbox'] {
     margin-top: 18px;
     outline: none;
 }
+
+
+input[type="checkbox"]:hover {
+    cursor: pointer;
+    animation: shaker 1s cubic-bezier(0, 2.13, 0.68, 1.79) infinite;
+}
+
+
+@keyframes shaker{
+    0%{
+        transform: scale(1.5);
+    }
+    50%{
+        transform: scale(1.8);
+    }
+    100%{
+        transform: scale(1.5);
+    }
+}
+
+
 button,input[type='checkbox'] {
     cursor:pointer;
 }
@@ -70,7 +91,7 @@ body {
     max-height: 300px;
 }
 .sidebar .tpc-header {
-    background: silver;
+    background: linear-gradient(-69deg, #ccc, #eee);
     padding: 10px;
 }
 
@@ -335,7 +356,7 @@ textarea:focus {
 .comment-body .delete-comment {
     display: inline-block;
     border-radius:4px;
-    color:orange;
+    /* color:orange; */
     background: white;
     position: absolute;
     right:5px;
@@ -351,11 +372,10 @@ textarea:focus {
 }
 
 .comment-body .delete-comment:hover {
-    background: orange;
-    color:white;
+    /* background: orange; */
+    color: red;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
-
 }
 .comment-body .delete-comment:active {
     color:red;
@@ -467,7 +487,7 @@ textarea:focus {
     font-weight: bold;
 }
 .vote-like-dislike-box .poll-like-button:hover {
-    box-shadow:inset 0px 0px 20px #1e90ff2c;
+    /* box-shadow:inset 0px 0px 20px #1e90ff2c; */
 }
 .vote-like-dislike-box .poll-dislike-button {
     width: 54px;
@@ -483,7 +503,7 @@ textarea:focus {
     border-bottom-left-radius: 0px;
 }
 .vote-like-dislike-box .poll-dislike-button:hover {
-    box-shadow:inset 0px 0px 20px #ff000018;
+    /* box-shadow:inset 0px 0px 20px #ff000018; */
 }
 .vote-like-dislike-box .poll-birthdate {
     display: block;
@@ -781,11 +801,13 @@ textarea:focus {
 
 .search-box {
     width: 100%;
-    min-height: 80px;
-    background: rgba(211, 213, 214, 0.267);
+    min-height: 104px;
+    background: rgb(255, 255, 255);
     position: relative;
     padding: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
+    border: 1px solid #aaa;
+    border-bottom: none;
 }
 .search-box #searchkey {
     width: 100%;
@@ -801,6 +823,7 @@ textarea:focus {
     outline:none;
     border:1px solid transparent;
     transition:all .4s;
+    background: #ddd;
 }
 .search-box #searchkey:focus {
     border:1px solid dodgerblue;
@@ -820,7 +843,7 @@ textarea:focus {
     top: 5px;
     position: relative;
     /* transform: translateX(-50%); */
-    border-radius: 4px;
+    border-radius: 9px;
     border:#aaa;
     font-size: 18px;
     font-weight: normal;

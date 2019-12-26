@@ -42,11 +42,13 @@ body {
     margin: 80px auto;
     background: white;
     padding: 20px;
-    width: 80%;
+    width: 85%;
     display: flex;
     box-shadow: 0px 0px 16px #aaaabb57;
     overflow-y: auto;
-    justify-content: space-between;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
 }
 
 #votted-poll-list {
@@ -248,6 +250,7 @@ body {
     box-shadow: 5px 5px 20px #ccc;
     max-height: 400px;
     height: 400px;
+    margin-right: 20px;
     overflow: hidden;
     transition: .3s ease-out;
     position: relative;

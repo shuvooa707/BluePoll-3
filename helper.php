@@ -1,4 +1,4 @@
-<?php
+<?php require_once("db.php");
 
     function issLoggedIn() {
         if( session_status() == 1 ) {
@@ -12,7 +12,7 @@
     }
 
     function checkAuthority( $poll_id ) {
-        $conn = new PDO("mysql:host=localhost;dbname=bluepoll","root","");
+        $conn = (new db())->conn;
         if( isset($_SESSION["pollsite_user_id"]) )
             $user_id = $_SESSION["pollsite_user_id"];
         else 
@@ -27,7 +27,7 @@
 
     function hasCommentDeleteAuthority( $comment_id ) {
         $user_id = $_SESSION["pollsite_user_id"];
-        $conn = new PDO("mysql:host=localhost;dbname=bluepoll","root","");
+        $conn = (new db())->conn;
         $ownPoll = $conn->query("SELECT polls.poll_user_id FROM polls WHERE polls.poll_id = (SELECT comments.comment_poll_id FROM comments WHERE comments.comment_id = $comment_id LIMIT 1)");
         $ownComment = $conn->query("SELECT comment_user_id FROM comments WHERE comment_id=$comment_id");
         
@@ -40,7 +40,7 @@
 
     function hasSingleCommentDeleteAuthority( $comment_id ) {
         $user_id = $_SESSION["pollsite_user_id"];
-        $conn = new PDO("mysql:host=localhost;dbname=bluepoll","root","");
+        $conn = (new db())->conn;
         $r = $conn->query("SELECT polls.poll_user_id FROM polls WHERE polls.poll_id = (SELECT comments.comment_poll_id FROM comments WHERE comments.comment_id = $comment_id LIMIT 1)");
         if( $r ) {
             if( $user_id == $r->fetch(PDO::FETCH_ASSOC)["poll_user_id"] ) {

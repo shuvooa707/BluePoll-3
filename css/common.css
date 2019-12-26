@@ -3,7 +3,7 @@
 }
 /* width */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 28px;
 }
 
 /* Track */
@@ -14,12 +14,13 @@
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #1e90ff42;
-    border-radius: 6px;
+    border-radius: 16px;
+    cursor:pointer;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #5556;
+    background: #1e90ff9c;
 }
 * {
     box-sizing: border-box;
@@ -30,6 +31,9 @@ input[type='checkbox'] {
     margin-top: 18px;
     outline: none;
 }
+
+
+
 button,input[type='checkbox'] {
     cursor:pointer;
 }
@@ -63,9 +67,11 @@ body {
     z-index:100;
 }
 .navbar .nav-item {
+    max-height: 37px!important;
+    /* overflow: hidden; */
     padding: 8px 10px;
     color: black;
-    min-width: 150px;
+    width: 100px;
     font-size: 16px;
     background: #dbdfe2;
     border-radius: 3px;
@@ -77,7 +83,18 @@ body {
     position: relative;
     line-height: 19px;
 }
-
+.nav-item.dashboard {
+  min-width: 128px!important;
+}
+.nav-item.notification {
+  min-width: 147px!important;
+}
+.nav-item.new-poll {
+  min-width: 128px!important;
+}
+.nav-item.massege {
+  min-width: 128px!important;
+}
 .navbar .nav-item::before {
     content:"";
     width:10px;
@@ -819,7 +836,7 @@ button:hover {
     position:absolute;
     top: 0px;
     left:-10px;
-    background:silver;
+    background: #ececec;
     z-index: 3;
 }
 .tpc-header::after {

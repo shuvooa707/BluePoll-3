@@ -28,7 +28,7 @@
                         <div class='top-poll'>
                             <a href='poll.php?pollid=".$row["poll_id"]."'><div class='top-poll-title'>".$row["poll_name"]."</div></a>
                             <div class='top-poll-info' style='position:relative;'>
-                                <i style='position:absolute;left:5px;' class='flaticon-tag'></i> 101 views | ".$row["like_count"]." likes | ".$row["vote_count"]." votes
+                                <i style='position:absolute;left:5px;' class='flaticon-tag'></i> ".$row["like_count"]." likes | ".$row["vote_count"]." votes
                             </div>
                         </div>  
                     ";                    

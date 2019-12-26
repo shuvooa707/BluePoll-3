@@ -1,4 +1,4 @@
-<?php
+<?php require_once("db.php");
     if ( isset($_POST["firstname"]) &&  isset($_POST["lastname"]) &&  isset($_POST["username"]) &&  isset($_POST["email"]) &&  isset($_POST["age"]) &&  isset($_POST["gender"]) &&  isset($_POST["bloodgroup"]) &&  isset($_POST["education"]) &&  isset($_POST["currentcity"]) &&   isset($_POST["fromcity"]) &&  isset($_POST["password"])) {
         // include mysql connection file
         $user_firstname = ucfirst(htmlentities($_POST["firstname"]));
@@ -17,7 +17,7 @@
         $user_avater = $_FILES["avatarimage"]["name"];
         
         // sql for entering new user into the batadase
-        $conn = new mysqli("localhost","root","","bluepoll");
+        $conn = (new db())->myconn;
         $sql = "INSERT INTO `users`(`user_firstname`,`user_lastname`,`user_username`, `user_password`, `user_email`, `user_phone`, `user_age`, `user_gender`, `user_bloodgroup`, `user_education`,  `user_profession`, `user_current_city`, `user_from`,`user_avater`) VALUES ('$user_firstname','$user_lastname','$user_username','$user_password','$user_email',$user_phone,$user_age,'$user_gender','$user_bloodgroup','$user_education','$user_profession','$user_currentcity','$user_fromcity','$user_avater')";        
         $r = $conn->query( $sql );
         // if registration done then set the session variable and redirect to dashboard.php

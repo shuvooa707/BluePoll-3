@@ -6,7 +6,10 @@
             $this->conn = new PDO("mysql:host=$host;dbname=$dbname",$username,$password);
             $this->myconn = new mysqli("localhost","root","","bluepoll");
         }
+        public static function query( $sql ) {
+            // $this->myconn = new mysqli("localhost","root","","bluepoll");
 
+        }
         public function getAllNotifications(  ) {
             $user_id = isset($_SESSION["pollsite_user_id"]) ? $_SESSION["pollsite_user_id"] : "";
             $sqlString = "SELECT * FROM `notifications` JOIN polls ON polls.poll_id = notification_poll_id WHERE polls.poll_user_id = ".$user_id;
@@ -208,7 +211,7 @@
         }
 
         // get all the Public polls from the database
-        public function getAllPoll() {
+        public function getAllPoll(  $offset = 0, $count = 100 ) {
             $conn = new mysqli("localhost","root","","bluepoll");
             if( isset($_SESSION["pollsite_user_id"]) ) {
                 $user_id = $_SESSION["pollsite_user_id"];
@@ -217,19 +220,21 @@
                                 (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = polls.poll_id AND dislikes.dislike_disliker_id = $user_id) AS disliked,
                                 (select concat(user_firstname,' ',user_lastname) FROM users where users.user_id = polls.poll_user_id) AS poll_creator_name,
                                 (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id) AS poll_likes,
-                                (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = polls.poll_id) AS poll_dislikes
-                            FROM polls WHERE  poll_status = 1";
+                                (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = polls.poll_id) AS poll_dislikes,
+                                (SELECT COUNT(*) from saved_polls where saved_polls.poll_id = polls.poll_id AND saved_polls.user_id = $user_id ) as saved
+                            FROM polls WHERE  poll_status = 1 LIMIT $offset, $count";
             } else {
                 $sqlString = "SELECT *,
                                 (select concat(user_firstname,' ',user_lastname) FROM users where users.user_id = polls.poll_user_id) AS poll_creator_name,
                                 (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id) AS poll_likes,
                                 (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = polls.poll_id) AS poll_dislikes
-                            FROM polls WHERE  poll_status = 1";
+                            FROM polls WHERE  poll_status = 1 LIMIT $offset, $count";
             }
             $results = $this->myconn->query($sqlString);
             $tmpArr = array();
             $loggedInUser = isset($_SESSION["pollsite_user_id"]) ? $_SESSION["pollsite_user_id"] : "";
-
+            // echo $sqlString;        
+            // echo "\n\n\n\n";
             while( $poll = $results->fetch_assoc() ) {
                 $poll_id = $poll['poll_id'];
                 $poll["options"]  = $this->myconn->query( "SELECT option_id,option_name,option_belongsto,option_addedby_id,option_created_at,(select count(*) from votes where vote_option_id=option_id) AS option_votes FROM options WHERE option_belongsto = $poll_id ORDER BY option_votes DESC" );

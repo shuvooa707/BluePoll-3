@@ -51,7 +51,7 @@
         
         <script src="js/poll.js" defer></script>
         <script src="js/common.js" defer></script>
-        <title>Poll</title>
+        <title><?php echo $poll->poll_name; ?></title>
     </head>
     <body>        
         <!-- This is navbar of the page -->
@@ -146,7 +146,9 @@
                                             $comment_content = $comment["comment_content"];
                                             $comment_poll_id = $comment["comment_poll_id"];
                                             if( $comment["canDelete"] ) {
-                                                $deleteButton = "<span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'>⛔</span>";                                    
+                                                $deleteButton = "<span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'>
+                                                                    <span style='' class='flaticon-garbage'></span>
+                                                                 </span>";                                    
                                             } else {
                                                 $deleteButton = "";
                                             }

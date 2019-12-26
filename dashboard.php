@@ -47,7 +47,11 @@
         ?>
         <!-- /This is navbar of the page -->
         <div class="container">
-     
+            <!-- Side navbar -->
+            <div class="sidenav">
+                
+            </div>
+            <!-- /Side navbar -->
             <!-- this is a list contains all the polls that you have Created -->
             <div id="created-poll-list">
                 <div class="cpl-header">
