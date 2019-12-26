@@ -75,7 +75,10 @@
             }
         echo "
             <div class='poll' data-poll-id='$poll_id' >
-                <div class='poll-tool-container'>
+                <div class='poll-tool-container' >
+                    <span class='close-poll-tool-container' onclick='showPollControlOptions(this.parentElement.parentElement)'>
+                        X
+                    </span>
                     $poll_saved
                     <div class='tool-option hide'>
                         Hide                        

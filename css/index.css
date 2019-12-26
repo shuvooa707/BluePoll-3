@@ -313,11 +313,29 @@ body {
     /* max-height: 0px!important; */
     transition: all .3s ease-in-out;
     /*     min-height: 100px!important; */
-    animation: htcani .3s ease-in-out 0s 1;
+    animation: htcani .3s cubic-bezier(0, 0, 0, 1.46) 0s 1;
     display: none;
-    overflow: hidden;
+    /* overflow: hidden; */
+}
+.close-poll-tool-container{
+    position: absolute;
+    /* display: none; */
+    top: 0px;
+    left: 0px;
+    /* margin-left: -50%; */
+    transform: translate(-50%, -50%);
+    /* margin-top: -52%; */
+    background: lightcoral;
+    padding: 2px 5px;
+    border-radius: 50%;
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
 }
 
+.close-poll-tool-container:hover{
+    border:2px solid white;
+}
 @keyframes htcani {
     0% {
         height:0px;

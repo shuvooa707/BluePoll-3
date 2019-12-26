@@ -457,16 +457,27 @@ function okDeleteComment( node ) {
     }
 }
 
+
 function showPollControlOptions(poll,node) {
     
+    
+    var cont = poll.querySelector(".poll-tool-container");
     if ( poll.querySelector(".poll-tool-container").classList.contains("show") ) {
-        var cont = poll.querySelector(".poll-tool-container")
+
+        cont.style.overflow = "hidden";
         cont.style.height = "0px";
+        poll.querySelector(".close-poll-tool-container").style.display = "none";
         setTimeout(function(){
-            cont.style.height = "100px"
+            cont.style.height = "100px";
             cont.classList.remove("show");
         },290);
     } else {
+        setTimeout(() => {
+            poll.querySelector(".poll-tool-container").style.overflow = "unset";
+            poll.querySelector(".close-poll-tool-container").style.display = "block";
+        }, 300);
+        poll.querySelector(".close-poll-tool-container").style.display = "none";
+        cont.style.overflow = "hidden";
         poll.querySelector(".poll-tool-container").classList.toggle("show");
     }
 }
@@ -536,6 +547,8 @@ function savePoll( node ) {
                 node.style.color = "white";
                 node.style.background = "dodgerblue";
                 node.innerText = "Saved";
+                node.removeAttribute("onclick");
+                node.style.cursor = "default";
             } else {
                 
             }

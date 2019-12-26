@@ -42,13 +42,11 @@ body {
     margin: 80px auto;
     background: white;
     padding: 20px;
-    width: 85%;
+    width: 80%;
     display: flex;
     box-shadow: 0px 0px 16px #aaaabb57;
     overflow-y: auto;
-    justify-content: flex-end;
-    position: relative;
-    overflow: hidden;
+    justify-content: space-between;
 }
 
 #votted-poll-list {
@@ -56,10 +54,10 @@ body {
     /* padding: 5px; */
     padding-top: 0;
     /* border:1px solid rgba(30, 143, 255, 0.562); */
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-radius: 5px;
-    box-shadow: 5px 5px 20px #ccc;
+    /* border-top-left-radius: 5px; */
+    /* border-top-right-radius: 5px; */
+    /* border-radius: 5px; */
+    box-shadow: 3px 3px 5px #ccc;
     max-height: 400px;
     height: 400px;
     overflow: hidden;
@@ -74,8 +72,8 @@ body {
     padding: 20px 17px;
     text-align: left;
     overflow: hidden;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
+    /* border-top-right-radius: 5px; */
+    /* border-top-left-radius: 5px; */
     font-weight: bold;
     font-size: 15px;
     letter-spacing: 1px;
@@ -129,14 +127,14 @@ body {
     /* padding: 5px; */
     padding-top: 0;
     /* border:1px solid rgba(255, 30, 180, 0.562); */
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    /* border-top-left-radius: 5px; */
+    /* border-top-right-radius: 5px; */
     height: 60px;
     height: 400px;
     transition: .2s cubic-bezier(0.4, 0, 1, 1);
     overflow: hidden;
-    border-radius: 5px;
-    box-shadow: 5px 5px 20px #ccc;
+    /* border-radius: 5px; */
+    box-shadow: 3px 3px 6px #ccc;
 }
 
 #created-poll-list .cpl-header {
@@ -146,8 +144,8 @@ body {
     text-align: center;
     padding: 21px 0px;
     overflow: hidden;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
+    /* border-top-right-radius: 5px; */
+    /* border-top-left-radius: 5px; */
     font-weight: bold;
     letter-spacing: 1px;
 }
@@ -244,13 +242,12 @@ body {
     /* padding: 5px; */
     padding-top: 0;
     /* border:1px solid rgba(30, 143, 255, 0.562); */
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-radius: 5px;
-    box-shadow: 5px 5px 20px #ccc;
+    /* border-top-left-radius: 5px; */
+    /* border-top-right-radius: 5px; */
+    /* border-radius: 5px; */
+    box-shadow: 3px 3px 4px #ccc;
     max-height: 400px;
     height: 400px;
-    margin-right: 20px;
     overflow: hidden;
     transition: .3s ease-out;
     position: relative;
@@ -264,8 +261,8 @@ body {
     padding: 20px 17px;
     text-align: left;
     overflow: hidden;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
+    /* border-top-right-radius: 5px; */
+    /* border-top-left-radius: 5px; */
     font-weight: bold;
     font-size: 15px;
     letter-spacing: 1px;
