@@ -217,7 +217,11 @@
     </div>
     <?php require_once("sidebar.php"); ?>
     
+    <div class="load-more-button" style="display:none;">
+        Load More
+    </div>
 </div>
+
 
 <script>
     function checkIsLoggedIn() {

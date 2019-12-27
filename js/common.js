@@ -76,3 +76,9 @@ function deleteNotification(node,notid) {
         }
     }
 }
+
+window.addEventListener("load",()=>{
+    if ( !document.querySelector(".tab-switcher.tab-switcher-bio") ) {
+        $(".profile").classList.remove("profile");
+    }
+});
