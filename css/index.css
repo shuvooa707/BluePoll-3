@@ -28,6 +28,26 @@ input[type="checkbox"] {
     -webkit-transform-origin-x: center;
     margin:0px;
 }
+.hideAni {
+    box-shadow: none;
+    transition: all .5s;
+    transform: rotateY(0deg);
+/*     transform: rotateY(102deg); */
+    animation:hideAni .5s ease;
+    opacity: 0;
+}
+@keyframes hideAni {
+    0%{
+        transform: rotateY(0deg);
+        opacity: 1;        
+    } 
+    80%{
+        opacity: 0;
+    }
+    100%{
+        transform: rotateY(102deg); 
+    }
+}
 
 input[type="checkbox"]:hover {
     cursor: pointer;
@@ -107,6 +127,7 @@ body {
     width:80%;
     /* background: orange; */
     /* display: flex; */
+    perspective: 1957px;
 }
 .sidebar {
     width: 20%;
@@ -337,6 +358,7 @@ body {
     float: left;
     max-height: 700px;
     overflow: hidden;
+    transition: all .5s;
 }
 .poll .poll-header {
     width: 100%;

@@ -392,7 +392,7 @@
 
     //  to Hide any poll 
     if( isset($_POST["operation"]) && $_POST["operation"] == "hidePoll" && issLoggedIn() ) {
-        // sleep(2);
+        sleep(2);
         // $optionid = $_POST["optionid"];
         $user_id = $_SESSION["pollsite_user_id"];
         $pollid = $_POST["pollid"];        

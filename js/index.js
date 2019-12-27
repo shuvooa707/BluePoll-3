@@ -568,7 +568,11 @@ function HidePoll(node) {
     req.onreadystatechange = () => {
         if (req.status == 200 && req.readyState == 4) {
             if (req.responseText.trim() == "Poll Concealed") {
-                poll.remove();                
+                poll.style.transform = "rotateY(102deg)";
+                poll.classList.add("hideAni");
+                setTimeout((poll) => {
+                    poll.remove();                
+                }, 1000,poll);
             } else {
                 alert(req.responseText);
             }
