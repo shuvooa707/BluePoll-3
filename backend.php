@@ -365,6 +365,9 @@
             echo "{error:'Poll is Alread Saved'}";
         }
     }
+
+
+
     if( isset($_POST["operation"]) && $_POST["operation"] == "removeSavedPoll" && issLoggedIn() ) {
         sleep(2);
         // $optionid = $_POST["optionid"];
@@ -384,6 +387,59 @@
             echo "{error:'Poll is Alread Saved'}";
         }
     }
+
+    
+
+    //  to Hide any poll 
+    if( isset($_POST["operation"]) && $_POST["operation"] == "hidePoll" && issLoggedIn() ) {
+        // sleep(2);
+        // $optionid = $_POST["optionid"];
+        $user_id = $_SESSION["pollsite_user_id"];
+        $pollid = $_POST["pollid"];        
+        
+        // making a new MySQL connection
+        $conn = (new db())->conn;  
+
+        if ( 1 ) {
+            // setting the query String 
+            $sql = "INSERT INTO `hidden_polls`(`poll_id`, `user_id`) VALUES ($pollid, $user_id)";
+            $r = $conn->query($sql);
+            if ( $r ) {
+                echo "Poll Concealed";
+            } else {
+                echo $sql;
+            }
+        } else {
+            echo "{error:'Poll Not Concealed',sql:'$sql',queryresult:'$r'}";
+        }
+    }
+
+    
+
+    //  to Hide any poll 
+    if( isset($_POST["operation"]) && $_POST["operation"] == "unhidePoll" && issLoggedIn() ) {
+        // sleep(2);
+        // $optionid = $_POST["optionid"];
+        $user_id = $_SESSION["pollsite_user_id"];
+        $pollid = $_POST["pollid"];        
+        
+        // making a new MySQL connection
+        $conn = (new db())->conn;  
+
+        if ( 1 ) {
+            // setting the query String 
+            $sql = "delete from hidden_polls WHERE poll_id=$pollid AND user_id=$user_id";
+            $r = $conn->query($sql);
+            if ( $r ) {
+                echo "Poll unhidded";
+            } else {
+                echo $sql;
+            }
+        } else {
+            echo "{error:'Poll Not Unhidded',sql:'$sql',queryresult:'$r'}";
+        }
+    }
+
 
 ?>
 

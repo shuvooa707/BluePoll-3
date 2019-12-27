@@ -531,7 +531,7 @@ function addNewOptionOnline() {
     }
 }
 
-function savePoll( node ) {
+function savePoll(node) {
     let poll = node.parentElement.parentElement;
     // adding loader overlay
     poll.classList.add("poll-overlay");
@@ -544,15 +544,35 @@ function savePoll( node ) {
         if (req.status == 200 && req.readyState == 4) {
             if (req.responseText.trim() == "Poll Saved") {
                 poll.classList.remove("poll-overlay");
-                node.style.color = "white";
-                node.style.background = "dodgerblue";
+                node.classList.add("saved-poll");
                 node.innerText = "Saved";
+                poll.style.boxShadow = "#F44336 0px 0px 2px";
                 node.removeAttribute("onclick");
-                node.style.cursor = "default";
             } else {
-                
+
             }
         }
     }
     req.send(`operation=savePoll&pollid=${poll_id}`);
+}
+
+function HidePoll(node) {
+    let poll = node.parentElement.parentElement;
+    // adding loader overlay
+    poll.classList.add("poll-overlay");
+
+    let poll_id = poll.getAttribute("data-poll-id");
+    var req = new XMLHttpRequest();
+    req.open("POST", "backend.php", true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.onreadystatechange = () => {
+        if (req.status == 200 && req.readyState == 4) {
+            if (req.responseText.trim() == "Poll Concealed") {
+                poll.remove();                
+            } else {
+                alert(req.responseText);
+            }
+        }
+    }
+    req.send(`operation=hidePoll&pollid=${poll_id}`);
 }

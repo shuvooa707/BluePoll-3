@@ -55,7 +55,7 @@
                         font-size: 24px;
                     ">Warning ⚠ </h3>
             <span style='font-size: 17px;display:block;padding:10px;background:white;color: black;border-radius: 5px;'>If you edit the poll it will remove all the votes likes and comments</span>
-            <span class="close-edit-warning-container" onclick="this.parentElement.parentElement.parentElement.classList.remove('show')">✖</span>
+            <span title="close" class="close-edit-warning-container" onclick="this.parentElement.parentElement.parentElement.classList.remove('show')">✖</span>
         </div>
         <div class="edit-warning-modal-body">
             <button class="yes-delete" onclick='okEditPoll()'>Edit</button>

@@ -35,3 +35,28 @@ function removeSavedPoll(node) {
     }
     req.send(`operation=removeSavedPoll&pollid=${poll_id}`);
 }
+
+
+
+function unHidePoll(node) {
+    let poll = node.parentElement;
+    // adding loader overlay
+    poll.classList.add("poll-overlay");
+
+    let poll_id = poll.getAttribute("data-poll-id");
+    var req = new XMLHttpRequest();
+    req.open("POST", "backend.php", true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.onreadystatechange = () => {
+        if (req.status == 200 && req.readyState == 4) {
+            if (req.responseText.trim() == "Poll unhidded") {
+                console.log(poll);
+                
+                poll.remove();
+            } else {
+                alert(req.responseText);
+            }
+        }
+    }
+    req.send(`operation=unhidePoll&pollid=${poll_id}`);
+}

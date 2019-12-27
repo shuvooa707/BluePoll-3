@@ -222,13 +222,21 @@
                                 (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id) AS poll_likes,
                                 (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = polls.poll_id) AS poll_dislikes,
                                 (SELECT COUNT(*) from saved_polls where saved_polls.poll_id = polls.poll_id AND saved_polls.user_id = $user_id ) as saved
-                            FROM polls WHERE  poll_status = 1 LIMIT $offset, $count";
+                            FROM polls 
+                                WHERE  poll_status = 1 AND 
+                                   poll_id NOT IN (SELECT poll_id FROM hidden_polls WHERE user_id = $user_id)
+                            LIMIT $offset, $count";
+                            // var_dump($sqlString);
+                            // exit(0);
             } else {
                 $sqlString = "SELECT *,
                                 (select concat(user_firstname,' ',user_lastname) FROM users where users.user_id = polls.poll_user_id) AS poll_creator_name,
                                 (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id) AS poll_likes,
                                 (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = polls.poll_id) AS poll_dislikes
-                            FROM polls WHERE  poll_status = 1 LIMIT $offset, $count";
+                            FROM polls 
+                                WHERE  poll_status = 1 AND 
+                                   poll_id NOT IN (SELECT poll_id FROM hidden_polls WHERE user_id = $user_id)
+                            LIMIT $offset, $count";
             }
             $results = $this->myconn->query($sqlString);
             $tmpArr = array();

@@ -156,7 +156,7 @@ body {
 
 
 .sidebar .top-polls-container {
-    max-height: 300px;
+    /* max-height: 300px; */
 }
 .sidebar .tpc-header {
     background: linear-gradient(-69deg, #ccc, #eee);
@@ -190,6 +190,71 @@ body {
     text-align: end;
     padding: 5px 5px 5px 0px;
 }
+
+/* Recent Polls */
+
+
+.rpc-header::before {
+    content:"";
+    width:10px;
+    height:100%;
+    position:absolute;
+    top: 0px;
+    left:-10px;
+    background: #ececec;
+    z-index: 3;
+}
+.rpc-header::after {
+    content:"";
+    position:absolute;
+    top: 31px;
+    left: -7px;
+    /* background:silver; */
+    border: 7px solid transparent;
+    border-left: 7px solid #b6b6b6;
+    transform: rotate(-406deg);
+    z-index: 1;
+}
+
+
+.sidebar .recent-polls-container {
+    margin-top: 85px;
+    max-height: 300px;
+}
+.sidebar .rpc-header {
+    background: linear-gradient(-69deg, #ccc, #eee);
+    padding: 10px;
+    /* margin-top: 1px; */
+}
+
+.sidebar .rpc-body {
+    background: #ffff;
+    padding:10px;
+    border: 1px solid #aaa;
+}
+.sidebar .rpc-body .recent-poll {
+    background: #eaeaea;
+    border:1px solid #aaa;
+    /* padding: 5px; */
+    margin: 5px;
+    border-radius: 4px;
+}
+
+.sidebar .rpc-body .recent-poll .recent-poll-title {
+    max-height: 47px;
+    overflow: hidden;
+    padding: 6px;
+    background: #f4f4f4;
+    border-bottom: 1px dotted #ccc;
+}
+.sidebar .rpc-body .recent-poll .recent-poll-info {
+    background: #f4f4f4;
+    font-size: 13px;
+    text-align: end;
+    padding: 5px 5px 5px 0px;
+}
+
+/* /Recent Polls */
 
 .poll-overlay::after {
     content:"";
@@ -356,8 +421,23 @@ body {
     font-weight: bold;
     padding: 3px 0px;
 }
+
 .tool-option:hover {
     background: rgba(30, 143, 255, 0.08);
+}
+.saved-poll {
+    color: white;
+    background: dodgerblue;
+    cursor: default;
+    padding-left: 15px;
+    text-shadow:0px 0px 5px white;
+}
+.saved-poll:hover {
+    color: white;
+    background: dodgerblue;
+    cursor: default;
+    padding-left: 15px;
+    
 }
 .poll .poll-body {
     width: 100%;
@@ -441,7 +521,7 @@ button.add-new-option-button {
     /* padding: 0px; */
     position: relative;
     top: 4px;
-    left: -1px;
+    left: 5px;
     transform: unset;
     width: 12%;
     height: 30px;
@@ -492,7 +572,7 @@ button.cancel-new-option-button:hover {
 }
 
 input.add-new-option {
-    width: 71%;
+    width: 70%;
     padding: 8px 5px;
     margin: 0px;
     padding: 0px;

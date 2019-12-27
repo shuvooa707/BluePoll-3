@@ -8,7 +8,7 @@
         $db = new db();
 
         //  Paginating 
-        $pollPerPage = 5;
+        $pollPerPage = 9;
         $offset = isset($_GET["page"]) ? (($_GET["page"]-1) * ($pollPerPage)) : 0;
 
         if ( !isset($_GET["page"]) || $_GET["page"] == 0 || $_GET["page"] == 1 ) {
@@ -40,13 +40,15 @@
             $have_disliked = (isset( $poll["disliked"] ) && $poll["disliked"] == 1 ) ? "disliked" : "";
 
             if ( isset( $poll["saved"] ) && $poll["saved"] != 0 ) {
-                $poll_saved = "<div class='tool-option save'style='cursor:default;color:white;background:dodgerblue; text-align:center;'>
+                $poll_saved = "<div class='tool-option save saved-poll'>
                                  Saved
                                </div>";
+                $savedPollBorder = "#F44336 0px 0px 2px";
             } else {
                 $poll_saved = "<div class='tool-option save'  onClick='savePoll(this)' >
                                  Save <span style='' class='flaticon-star'></span> 
-                               </div>";        
+                               </div>";      
+                $savedPollBorder = "none";
             }
 
             if ( 1 && $poll["owned"] ) {
@@ -74,13 +76,13 @@
                 $poll_settings = "";
             }
         echo "
-            <div class='poll' data-poll-id='$poll_id' >
+            <div class='poll' data-poll-id='$poll_id' style='box-shadow:$savedPollBorder;'>
                 <div class='poll-tool-container' >
                     <span class='close-poll-tool-container' onclick='showPollControlOptions(this.parentElement.parentElement)'>
                         X
                     </span>
                     $poll_saved
-                    <div class='tool-option hide'>
+                    <div class='tool-option hide' onClick='HidePoll(this)'>
                         Hide                        
                         <span style='' class='flaticon-glasses'></span>     
                     </div>

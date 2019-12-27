@@ -14,7 +14,7 @@
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #1e90ff42;
-    border-radius: 16px;
+    border-radius: 3px;
     cursor:pointer;
 }
 
@@ -681,9 +681,12 @@ button:hover {
     top: 10px;
     right: 15px;
     cursor: pointer;
-    color: #aaa;
+    color: #000;
+    transition-duration:.3s;
 }
-
+.close-edit-warning-container:hover {
+  color:white;
+}
 .edit-warning-modal-body {
     padding: 20px;
 }

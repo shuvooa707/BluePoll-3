@@ -145,7 +145,7 @@ CREATE TABLE `hidden_polls` (
   `poll_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,6 +154,7 @@ CREATE TABLE `hidden_polls` (
 
 LOCK TABLES `hidden_polls` WRITE;
 /*!40000 ALTER TABLE `hidden_polls` DISABLE KEYS */;
+INSERT INTO `hidden_polls` VALUES (13,102,4);
 /*!40000 ALTER TABLE `hidden_polls` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -394,6 +395,7 @@ CREATE TABLE `saved_polls` (
 
 LOCK TABLES `saved_polls` WRITE;
 /*!40000 ALTER TABLE `saved_polls` DISABLE KEYS */;
+INSERT INTO `saved_polls` VALUES (90,4,70),(91,4,71);
 /*!40000 ALTER TABLE `saved_polls` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -500,4 +502,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-27  7:53:43
+-- Dump completed on 2019-12-27  6:23:24

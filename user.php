@@ -35,6 +35,12 @@
             $saved_polls = $conn->query($sql);
         }
 
+        // get Saved Poll of this user  
+        if( issLoggedIn() && $user_id == $_SESSION["pollsite_user_id"] ) {
+            $sql = "SELECT * FROM polls JOIN hidden_polls ON polls.poll_id = hidden_polls.poll_id WHERE hidden_polls.user_id = ".$_SESSION["pollsite_user_id"];
+            $hidden_polls = $conn->query($sql);
+        }
+
 
         if ( $result->num_rows == 0 ) {
             header("Location:index.php");      
@@ -113,20 +119,43 @@
                 ?>
             </div>     
             <div class='tab tab-bio'>
-                <h4>Saved polls</h4>
-                <?php                
-                    if( issLoggedIn() && $user_id == $userid ) {                        
-                        while( $poll = $saved_polls->fetch_object() ) {
-                            echo "                            
-                                <div class='poll saved_poll' data-poll-id='$poll->poll_id' >
-                                    <a href='poll.php?pollid=$poll->poll_id'>$poll->poll_name</a>
-                                    <span onClick='removeSavedPoll(this)' style='' class='remove-saved-poll'>Remove</span>
-                                </div>
-                                <br>                         
-                            ";
+            <!-- All Saved Polls List -->
+                <div class="saved-polls">
+                    <h4>Saved polls</h4>
+                    <?php                
+                        if( issLoggedIn() && $user_id == $userid ) {                        
+                            while( $savedPoll = $saved_polls->fetch_object() ) {
+                                echo "                            
+                                    <div class='poll saved_poll' data-poll-id='$savedPoll->poll_id' >
+                                        <a href='poll.php?pollid=$savedPoll->poll_id'>$savedPoll->poll_name</a>
+                                        <span onClick='removeSavedPoll(this)' style='' class='remove-saved-poll'>Remove</span>
+                                    </div>
+                                    <br>                         
+                                ";
+                            }
                         }
-                    }
-                ?>
+                    ?>
+                </div>
+            <!-- /All Saved Polls List -->
+
+            <!-- All hidden Polls List -->
+                <div class="hidden-polls">
+                    <h4>Hidden polls</h4>
+                    <?php                
+                        if( issLoggedIn() && $user_id == $userid ) {                        
+                            while( $hiddenPoll = $hidden_polls->fetch_object() ) {
+                                echo "                            
+                                    <div class='poll hidden_poll' data-poll-id='$hiddenPoll->poll_id' >
+                                        <a href='poll.php?pollid=$hiddenPoll->poll_id'>$hiddenPoll->poll_name</a>
+                                        <span onClick='unHidePoll(this)' style='' class='remove-hidden-poll'>Unhide</span>
+                                    </div>
+                                    <br>                         
+                                ";
+                            }
+                        }
+                    ?>
+                </div>
+            <!-- /All Saved Polls List -->
             </div>
         </div>
     </div>
