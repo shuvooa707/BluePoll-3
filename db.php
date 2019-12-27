@@ -234,8 +234,7 @@
                                 (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id) AS poll_likes,
                                 (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = polls.poll_id) AS poll_dislikes
                             FROM polls 
-                                WHERE  poll_status = 1 AND 
-                                   poll_id NOT IN (SELECT poll_id FROM hidden_polls WHERE user_id = $user_id)
+                                WHERE  poll_status = 1
                             LIMIT $offset, $count";
             }
             $results = $this->myconn->query($sqlString);

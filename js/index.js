@@ -572,7 +572,7 @@ function HidePoll(node) {
                 poll.classList.add("hideAni");
                 setTimeout((poll) => {
                     poll.remove();                
-                }, 1000,poll);
+                }, 400,poll);
             } else {
                 alert(req.responseText);
             }

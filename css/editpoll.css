@@ -35,7 +35,7 @@ body {
     padding: 0px;
 }
 
-.navbar {
+/* .navbar {
     background: white;
     box-shadow: 0 5px 10px #ddd;
     position: fixed;
@@ -45,14 +45,14 @@ body {
     justify-content: space-between;
     padding: 10px 0px;
     z-index:100;
-}
+} */
 
 .navbar .nav-item {
     padding: 6px 10px;
     color: black;
     min-width: 50px;
     font-size: 16px;
-    background: white;
+    background: #dbdfe2;
     border-radius: 3px;
     margin:0px 5px;
     text-align: center;
