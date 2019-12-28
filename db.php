@@ -267,19 +267,20 @@
         }
 
         public function updateOptionVote( $optionID,$poll_id,$checked,$user_id ) {
-            $conn = new mysqli("localhost","root","","bluepoll");
-            if( $checked ){
+            if( $checked ) {
+                // change vote - simply insert a new vote 
                 $sqlString = "INSERT INTO `votes`(`vote_given_by`, `vote_option_id`, `vote_poll_id`) VALUES ($user_id,$optionID,$poll_id)";                
                 $r = $this->myconn->query($sqlString);
                 if ( $r ) {
                     // $sqlString = "INSERT INTO `notifications`(`notification_actor_id`, `notification_action`, `notification_poll_id`, `notification_object_id`) VALUES ($user_id,'vote',$poll_id,$optionID)";
-                    return $myconn->insert_id;
+                    return $this->myconn->insert_id;
                 }
 
                 // return 
             } else {
+                // change vote - simply delete the old vote 
                 $sqlString = "DELETE from votes where vote_option_id = $optionID AND vote_given_by=$user_id";
-                // return $sqlString;
+                
                 return $this->myconn->query($sqlString);
             }
         }

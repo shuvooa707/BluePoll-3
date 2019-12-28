@@ -121,7 +121,10 @@
             <div class='tab tab-bio'>
             <!-- All Saved Polls List -->
                 <div class="saved-polls">
-                    <h4>Saved polls</h4>
+                    <h4>
+                        Saved polls                                    
+                        <span onClick="removeAllSavedPoll()" class="remove-all-saved-poll-button">Remove All</span>
+                    </h4>
                     <?php                
                         if( issLoggedIn() && $user_id == $userid ) {                        
                             while( $savedPoll = $saved_polls->fetch_object() ) {
@@ -140,7 +143,11 @@
 
             <!-- All hidden Polls List -->
                 <div class="hidden-polls">
-                    <h4>Hidden polls</h4>
+                    <h4>
+                        Hidden Polls
+                        <span onClick="unHideAll()" class="unhide-all-poll-button">Unhide All</span>
+                    </h4>
+
                     <?php                
                         if( issLoggedIn() && $user_id == $userid ) {                        
                             while( $hiddenPoll = $hidden_polls->fetch_object() ) {

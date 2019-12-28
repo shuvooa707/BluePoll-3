@@ -60,3 +60,48 @@ function unHidePoll(node) {
     }
     req.send(`operation=unhidePoll&pollid=${poll_id}`);
 }
+
+
+function removeAllSavedPoll() {
+    let all_saved_polls = $$(".saved_poll");
+    all_saved_polls.forEach(e => {
+        e.style.opacity = 0;
+    });
+    var req = new XMLHttpRequest();
+    req.open("POST", "backend.php", true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.onreadystatechange = () => {
+        if (req.status == 200 && req.readyState == 4) {
+            if (req.responseText.trim() == "All Saved Poll Removed") {
+                all_saved_polls.forEach(e => {
+                    e.remove();
+                });
+            } else {
+                alert(req.responseText);
+            }
+        }
+    }
+    req.send(`operation=removeAllSavedPoll`);
+}
+
+function unHideAll() {
+    let all_hidden_polls =  $$(".hidden_poll");
+    all_hidden_polls.forEach(e => {
+        e.style.opacity = 0;
+    });
+    var req = new XMLHttpRequest();
+    req.open("POST", "backend.php", true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.onreadystatechange = () => {
+        if (req.status == 200 && req.readyState == 4) {
+            if (req.responseText.trim() == "All hidden Poll Removed") {
+                all_hidden_polls.forEach(e => {
+                    e.remove();
+                });
+            } else {
+                alert(req.responseText);
+            }
+        }
+    }
+    req.send(`operation=unHideAll`);
+}

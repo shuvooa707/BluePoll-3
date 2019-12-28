@@ -367,7 +367,7 @@
     }
 
 
-
+    // to remove any saved poll 
     if( isset($_POST["operation"]) && $_POST["operation"] == "removeSavedPoll" && issLoggedIn() ) {
         sleep(2);
         // $optionid = $_POST["optionid"];
@@ -383,6 +383,26 @@
         // echo $sql;
         if ( $r ) {
             echo "Poll Deleted";
+        } else {
+            echo "{error:'Poll is Alread Saved'}";
+        }
+    }
+
+    // to remove ALL saved poll 
+    if( isset($_POST["operation"]) && $_POST["operation"] == "removeAllSavedPoll" && issLoggedIn() ) {
+        sleep(2);
+        // $optionid = $_POST["optionid"];
+        $user_id = $_SESSION["pollsite_user_id"];
+        
+        // making a new MySQL connection
+        $conn = (new db())->conn;  
+        $sql = "delete from saved_polls WHERE user_id=$user_id";
+        // executing the query
+        $r = $conn->query($sql);
+        // echo $already_saved;
+        // echo $sql;
+        if ( $r ) {
+            echo "All Saved Poll Removed";
         } else {
             echo "{error:'Poll is Alread Saved'}";
         }
@@ -416,7 +436,7 @@
 
     
 
-    //  to Hide any poll 
+    //  to un Hide any poll 
     if( isset($_POST["operation"]) && $_POST["operation"] == "unhidePoll" && issLoggedIn() ) {
         // sleep(2);
         // $optionid = $_POST["optionid"];
@@ -437,6 +457,29 @@
             }
         } else {
             echo "{error:'Poll Not Unhidded',sql:'$sql',queryresult:'$r'}";
+        }
+    }
+
+    //  to un-Hide ALL poll 
+    if( isset($_POST["operation"]) && $_POST["operation"] == "unHideAll" && issLoggedIn() ) {
+        // sleep(2);
+        // $optionid = $_POST["optionid"];
+        $user_id = $_SESSION["pollsite_user_id"];
+        
+        // making a new MySQL connection
+        $conn = (new db())->conn;  
+
+        if ( 1 ) {
+            // setting the query String 
+            $sql = "delete from hidden_polls WHERE user_id=$user_id";
+            $r = $conn->query($sql);
+            if ( $r ) {
+                echo "All hidden Poll Removed";
+            } else {
+                echo "{error:'Poll Not Unhidded',sql:'$sql',queryresult:'$r'}";
+            }
+        } else {
+            echo $sql;
         }
     }
 

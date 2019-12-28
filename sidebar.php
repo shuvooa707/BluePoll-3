@@ -36,6 +36,8 @@
                     $date = date_diff(date_create($date),date_create())->d;
                     if( $date > 9 ) {
                         $date = date('d/m/y', strtotime($topPoll['poll_created_at']));
+                    } else if( $date == 1 ) {
+                        $date = " Today";
                     } else if( $date > 1 ) {
                         $date .= " days";
                     }
@@ -71,6 +73,8 @@
                     $date = date_diff(date_create($date),date_create())->d;
                     if( $date > 9 ) {
                         $date = date('d/m/y', strtotime($recentPoll['poll_created_at']));
+                    } else if( $date == 1 ) {
+                        $date = " Today";
                     } else if( $date > 1 ) {
                         $date .= " days";
                     }

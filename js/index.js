@@ -1,9 +1,16 @@
 
+function delay(seconds=5) {
+    i = (1000000 * 335) * seconds;
+    while (i--) {
+
+    }
+}
+
 window.onload = function () {
     showVotePercentages();
-    $$(".option-checkbox-element").forEach(e => {
-        e.addEventListener("click", vote);
-    });
+    // $$(".option-checkbox-element").forEach(e => {
+    //     e.addEventListener("click", vote);
+    // });
     checkVoted();
     setTimeout(centerifyCheckBox,1000);
     centerifyCheckBox();
@@ -13,6 +20,18 @@ window.onload = function () {
         });
     },1001);
     alignPolls();
+
+
+    window.navbar = document.querySelector(".navbar");
+    window.addEventListener("scroll", function (event, navbar) {
+        if (window.scrollY <= 0) {
+            window.navbar.style.borderColor = "rgba(240, 128, 128, 0.52)";
+            window.navbar.style.boxShadow = "none";
+        } else {
+            window.navbar.style.borderColor = "#1e90ff85";
+            window.navbar.style.boxShadow = "rgb(166, 166, 166) 0px 5px 10px";
+        }
+    });
 }
 
 window.addEventListener("keydown", () => {
@@ -74,7 +93,9 @@ function shootComment(nc) {
                                 <a href="user.php?userid=${$('.user').getAttribute('data-user-id')}" style="" class="user-link">${$('.user').getAttribute('data-user-fullname')}</a>
                                 <span class='comment-excerpt'>
                                     ${newCommentContent}
-                                    <span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'>⛔</span>
+                                    <span onclick='deleteComment(this.parentElement.parentElement.parentElement)' class='delete-comment' title='Delete This Comment'>
+                                        <span style='' class='flaticon-garbage'></span>
+                                    </span>
                                 </span>
                             </div>
                         </div>`;
@@ -125,6 +146,7 @@ function showVotePercentages( iden=".poll" ) {
 
 
 function vote(option) {
+    option = window.event;
     if ( !checkIsLoggedIn() ) {
         // showLogin();
         return;
@@ -184,7 +206,7 @@ function updateVoteOnline(option, pollID,optionID, checked ) {
             console.log(req);
             
             var singleOption = option.parentElement.parentElement;
-            if ( req.responseText != 0 ) {           
+            if ( req.responseText != 0 ) {
                 singleOption.setAttribute("data-option-vote", parseInt(singleOption.getAttribute("data-option-vote")) + 1);            
                 options = [...singleOption.parentElement.querySelectorAll(".option")];
                 var totalVotes = options.map(e => parseInt(e.getAttribute("data-option-vote"))).reduce((t, v) => t + v);
@@ -192,7 +214,7 @@ function updateVoteOnline(option, pollID,optionID, checked ) {
                 console.log(totalVotes);
                 options.forEach(e => {
                     var votePercentage = parseInt(e.getAttribute("data-option-vote"));
-                    console.log("vote percentage : "+votePercentage);
+                    console.log("vote percentage : " + votePercentage);
                     if( totalVotes != 0) {
                         e.querySelector(".option-name").style.backgroundSize = Math.round((votePercentage / totalVotes) * 100) + "%";
                         e.querySelector(".vote-percentage").innerText = Math.round((votePercentage / totalVotes) * 100) + "%";
@@ -201,6 +223,28 @@ function updateVoteOnline(option, pollID,optionID, checked ) {
                         e.querySelector(".vote-percentage").innerText = 0 + "%";
                     }
                 });
+                
+                var poll_body = options[0].parentElement;
+                // sort the options after every vote
+                setTimeout(() => {
+                    var poll_addnew_option_box = poll_body.querySelector(".poll-addnew-option-box");
+                    var poll_info_box = poll_body.querySelector(".poll-info-box");
+                    var poll_tag_date = poll_body.querySelector(".poll-tag-date");
+
+                    poll_body.innerHTML = "";
+                    options.sort(function (a, b) {
+                        //     console.log(a.getAttribute("data-option-vote"));
+                        return parseInt(b.getAttribute("data-option-vote")) - parseInt(a.getAttribute("data-option-vote"));
+                    }).forEach(e => {
+                        poll_body.append(e);
+                    });
+                    poll_body.append(poll_addnew_option_box);
+                    poll_body.append(poll_info_box);
+                    poll_body.append( poll_tag_date );
+                }, 1300,poll_body);
+
+
+
             }
             if ( po = $(".poll-overlay") ) {
                 setTimeout( ()=>{
@@ -309,11 +353,19 @@ function alignPolls() {
 
 
 function centerifyCheckBox() {
+    // delay();
     [...document.querySelectorAll(".option-checkbox")].forEach(e => {
         // 	console.log(e);
         var h = e.parentElement.clientHeight;
         e.style.height = h + "px";
     });
+    if (loadOverlay = $("#onload-overlay")) {
+        loadOverlay = $("#onload-overlay");
+        loadOverlay.classList.add("loadOverlayFadeAni");
+        setTimeout((loadOverlay) => {
+            loadOverlay.remove();
+        }, 700, loadOverlay);        
+    }
 }
 
 
@@ -482,23 +534,23 @@ function showPollControlOptions(poll,node) {
     }
 }
 
-$$(".add-new-option-button").forEach(e => {
-    e.onclick = ToggleAddNewOptionInput;
-});
+// $$(".add-new-option-button").forEach(e => {
+//     // e.onclick = ToggleAddNewOptionInput;
+// });
 
-$$(".cancel-new-option-button").forEach(e => {
-    e.onclick = ToggleAddNewOptionInput;
-});
+// $$(".cancel-new-option-button").forEach(e => {
+//     e.onclick = ToggleAddNewOptionInput;
+// });
 
-function ToggleAddNewOptionInput(  ) {
-    var addNewOptionButton = this.parentElement.querySelector(".add-new-option-button");
+function ToggleAddNewOptionInput( node ) {
+    var addNewOptionButton = node.parentElement.querySelector(".add-new-option-button");
     if (addNewOptionButton.innerText.trim() == "✚" ) {
-        this.innerText = "Add";
-        this.parentElement.classList.toggle("showAddNewOption");
-        this.onclick = addNewOptionOnline.bind(this);
+        node.innerText = "Add";
+        node.parentElement.classList.toggle("showAddNewOption");
+        node.onclick = addNewOptionOnline.bind(node);
     }
     else if (addNewOptionButton.innerText.trim() == "Add" ) {
-        this.parentElement.classList.toggle("showAddNewOption");
+        node.parentElement.classList.toggle("showAddNewOption");
         addNewOptionButton.innerText = "✚"
         addNewOptionButton.onclick = ToggleAddNewOptionInput;
         addNewOptionButton.previousElementSibling.value = "";
@@ -570,13 +622,49 @@ function HidePoll(node) {
             if (req.responseText.trim() == "Poll Concealed") {
                 poll.style.transform = "rotateY(102deg)";
                 poll.classList.add("hideAni");
+                pW = poll.clientWidth;
+                setTimeout(() => {
+                    var susp = ((new DOMParser()).parseFromString(`<div id="suspension" style='width:${pW}px'></div>`, "text/html")).querySelector("#suspension")                    
+                    poll.replaceWith(
+                        susp
+                    );
+                    setTimeout(() => {
+                        $("#suspension").style.width = "0px";
+                        setTimeout(() => {
+                            $("#suspension").remove();
+                        }, 1000);
+                    }, 100);
+
+
+                }, 998);
                 setTimeout((poll) => {
                     poll.remove();                
-                }, 400,poll);
+                }, 1500,poll);
             } else {
                 alert(req.responseText);
             }
         }
     }
     req.send(`operation=hidePoll&pollid=${poll_id}`);
+}
+
+
+function loadMorePolls() {
+    var poll_from = $$(".poll").length;
+    var req = new XMLHttpRequest();
+    req.open("GET", `polls.php?poll_count=yes&poll_from=${poll_from}`, true);
+    // req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.onreadystatechange = () => {
+        if (req.status == 200 && req.readyState == 4) {
+            var main_content = $(".main-content");
+            [...(new DOMParser()).parseFromString(req.responseText,"text/html").querySelectorAll(".poll")].forEach(element => {
+                main_content.append(element);
+            });;
+            // console.log( newly_loaded_polls);
+            centerifyCheckBox();
+            checkVoted();
+            showVotePercentages();
+        }
+    }
+    req.send();
 }
