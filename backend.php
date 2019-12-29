@@ -2,7 +2,7 @@
 
 
     if( isset($_POST["operation"]) && $_POST["operation"] == "login" ) {
-        sleep(2);
+        // sleep(2);
         $conn = (new db())->myconn;
         $username = $_POST["username"];
         $password = $_POST["password"];
@@ -222,7 +222,7 @@
     }
     if( isset($_GET["operation"]) && $_GET["operation"] == "deleteComment" && isset($_GET["commentid"]) && issLoggedIn() && hasCommentDeleteAuthority($_GET["commentid"]) ) {
         // echo "dljfgsdk";
-        sleep(2);
+        // sleep(2);
         $conn = (new db())->conn;
         $commentid = $_GET["commentid"];
         $sql = "DELETE FROM comments WHERE comment_id = $commentid";        
@@ -236,7 +236,7 @@
     }
 
     if( isset($_POST["operation"]) && $_POST["operation"] == "deleteNotification" && issLoggedIn() ) {
-        sleep(2);
+        // sleep(2);
         $notificationid = $_POST["notificationid"];
         $conn = (new db())->conn;
         $r = $conn->query("delete from notifications where notification_id=".$notificationid);
@@ -249,7 +249,7 @@
     }
 
     if( isset($_POST["operation"]) && $_POST["operation"] == "changeVisibility" && issLoggedIn() ) {
-        sleep(2);
+        // sleep(2);
         $pollID = $_POST["poll_id"];
         $conn = (new db())->conn;
         for ($i=0; $i < 1; $i++) { 
@@ -309,7 +309,7 @@
     }
     
     if( isset($_POST["operation"]) && $_POST["operation"] == "deleteRequestedOption" && issLoggedIn() ) {
-        sleep(2);
+        // sleep(2);
         $conn = (new db())->conn;    
         $poptionid_id = filter_var($_POST["poptionid_id"], FILTER_VALIDATE_INT);
         $sql = "DELETE FROM `proposed_option` WHERE proposed_option_id = ".$poptionid_id;
@@ -369,7 +369,7 @@
 
     // to remove any saved poll 
     if( isset($_POST["operation"]) && $_POST["operation"] == "removeSavedPoll" && issLoggedIn() ) {
-        sleep(2);
+        // sleep(2);
         // $optionid = $_POST["optionid"];
         $user_id = $_SESSION["pollsite_user_id"];
         $pollid = $_POST["pollid"];        
@@ -390,7 +390,7 @@
 
     // to remove ALL saved poll 
     if( isset($_POST["operation"]) && $_POST["operation"] == "removeAllSavedPoll" && issLoggedIn() ) {
-        sleep(2);
+        // sleep(2);
         // $optionid = $_POST["optionid"];
         $user_id = $_SESSION["pollsite_user_id"];
         
@@ -412,7 +412,7 @@
 
     //  to Hide any poll 
     if( isset($_POST["operation"]) && $_POST["operation"] == "hidePoll" && issLoggedIn() ) {
-        sleep(2);
+        // sleep(2);
         // $optionid = $_POST["optionid"];
         $user_id = $_SESSION["pollsite_user_id"];
         $pollid = $_POST["pollid"];        
