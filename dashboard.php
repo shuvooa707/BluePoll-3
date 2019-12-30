@@ -63,6 +63,29 @@
             <div class="body">
                 <div class="tab polls show">
                     Polls
+                    <table class="polls-table">
+                        <thead>
+                            <tr>
+                                <th>Polls</th>
+                                <th>Detail</th>
+                                <th>Tools</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                <td>Top Backend Frameworks</td>
+                                <td>100 Views</td>
+                                <td>
+                                    <button>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
                 </div>
                 <div class="tab comments">
                     Comments

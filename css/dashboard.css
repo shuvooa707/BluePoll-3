@@ -388,3 +388,25 @@ body {
 .show{
     display:block;
 }
+
+.polls-table{
+    width: 100%;
+    border-collapse: collapse;
+    background:#f080800d;
+}
+
+.polls-table td,th  {
+    border: 1px solid #03a9f43b;
+}
+.polls-table th  {
+/*     border: 1px solid #00000045; */
+    background:#03a9f41f;
+    padding:10px 0px;
+}
+
+.polls-table > tbody > tr > td {
+    padding: 8px 10px;
+}
+.polls-table button {
+    transform: unset;
+}
