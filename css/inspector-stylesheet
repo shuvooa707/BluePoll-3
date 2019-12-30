@@ -1,5 +1,0 @@
-.nav-item.notification:hover path {
-    fill: white!important;
-}
-
-.nav-item.notification {}

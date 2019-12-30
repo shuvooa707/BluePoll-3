@@ -47,13 +47,40 @@
         ?>
         <!-- /This is navbar of the page -->
         <div class="container">
-            <!-- Side navbar -->
-            <div class="sidenav">
-                
-            </div>            
-            
-
-            <?php require_once("components/modals.php") ?>
+            <div class="menu">
+                <div class="header">
+                    MENU
+                </div>
+                <div class="body">
+                    <div class="menu-item active" onClick="changeTab(this)" data-tab-name="polls">Polls</div>
+                    <div class="menu-item" onClick="changeTab(this)" data-tab-name="comments">Comments</div>
+                    <div class="menu-item" onClick="changeTab(this)" data-tab-name="requests">Option Requests</div>
+                    <div class="menu-item" onClick="changeTab(this)" data-tab-name="reports">Reports</div>
+                    <div class="menu-item" onClick="changeTab(this)" data-tab-name="votes">Votes</div>
+                    <div class="menu-item" onClick="changeTab(this)" data-tab-name="likes">Likes / Dislikes </div>
+                </div>
+            </div> 
+            <div class="body">
+                <div class="tab polls show">
+                    Polls
+                </div>
+                <div class="tab comments">
+                    Comments
+                </div>
+                <div class="tab requests">
+                    Option Requests
+                </div>
+                <div class="tab reports">
+                    Reports
+                </div>
+                <div class="tab votes">
+                    Votes
+                </div>
+                <div class="tab likes">
+                    Likes
+                </div>
+            </div>                        
         </div>
+        <?php require_once("components/modals.php") ?>
     </body>
 </html>

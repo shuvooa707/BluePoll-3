@@ -1,24 +1,34 @@
 <?php 
         require_once("db.php");
         require_once("helper.php");
-
         $db = new db();
         $pollPerPage = 6;
-
+        
         if ( !isset( $_GET["poll_count"] ) ) {            
             //  Paginating 
             $offset = isset($_GET["page"]) ? (($_GET["page"]-1) * ($pollPerPage)) : 0;
-
+            
             if ( !isset($_GET["page"]) || $_GET["page"] == 0 || $_GET["page"] == 1 ) {
                 $polls = $db->getAllPoll(0, $pollPerPage );
             } else {         
                 $polls = $db->getAllPoll($offset, $pollPerPage );
             }
         } else if( isset( $_GET["poll_count"]) && issLoggedIn() ) {
+            sleep(1);
             $poll_from = $_GET["poll_from"];
             $polls = $db->getAllPoll($poll_from, $pollPerPage);
+            
+            // if no more poll  left to show
+            if ( !count($db->getAllPoll($poll_from + $pollPerPage, $pollPerPage)) ) {
+                echo "no-----";
+            } else {
+                echo "yes-----";
+            }
+            
         }
         
+
+
         
 
         // drawing every poll

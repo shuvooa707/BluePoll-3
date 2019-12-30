@@ -146,3 +146,18 @@ function deleteOption(node) {
         }
     }
 }
+
+
+
+const allTabs = $$(".tab");
+function changeTab( tab ) {
+    $(".active").classList.remove("active");
+    tab.classList.add("active");
+    var tabName = tab.getAttribute("data-tab-name");
+    $(".show").classList.remove("show");
+    allTabs.find( t => {
+        if ( t.classList.contains(tabName)  ) {
+            return true;
+        }
+    }).classList.add("show");
+}

@@ -15,7 +15,7 @@ button {
     background: #4c7fdb!important;
     color: white;
     margin-right: 13px!important;
-    font-family:verdana;
+    /* font-family:verdana; */
     font-weight:500!important;
 }
 button:hover {
@@ -119,7 +119,7 @@ body {
     box-shadow: 0px 0px 2px #aaaabb;
     overflow-y: auto;
     /* overflow-x: hidden; */
-    padding-bottom: 100px;
+    padding-bottom: 20px;
     position: relative;
 }
 
@@ -284,19 +284,22 @@ body {
 }
 /* load More Button */
 .load-more-button {
-    background: linear-gradient(to top, #e6e6e6, #eee);
+    background: linear-gradient(to top, dodgerblue, #1e90ff94);
+    color: white;
     text-align: center;
-    min-width: 100%;
+    min-width: 40%;
     height: 50px;
     line-height: 50px;
     position: absolute;
     bottom: 0px;
-    left: 0px;
+    left: 50%;
     cursor: pointer;
     /* padding-top: 100px; */
+    border-radius: 50px;
+    transform: translateX(-50%);
 }
 .load-more-button:hover {
-    background: linear-gradient(to bottom, #e6e6e6, #eee);
+    background: linear-gradient(to bottom, lightcoral, #f88d8dc7);
 }
 
 /* /Recent Polls */
@@ -1198,8 +1201,8 @@ textarea:focus {
     display:block;
     width: 100%;
     height: 100%;
-    background-color: white;
     position: absolute;
+    background: linear-gradient(to bottom, white, #ffffff8a);
     top:0px;
     left: 0px;
     z-index: 100;
@@ -1208,7 +1211,7 @@ textarea:focus {
 .loadOverlayFadeAni {
     animation: loadOverlayFadeAni .7s linear 1;
 }
-.loader-text {    
+.loader-text {
     width:200px;
     background: black;
     display: inline-block;
@@ -1218,10 +1221,48 @@ textarea:focus {
     padding: 3px 8px;
     z-index: 101;
     opacity: 1;
-    position: relative;
+    position: absolute;
+    bottom: 15%;
     left: 50%;
-    top: 10%;
+    /* bottom: 50px; */
     transform: translateX(-50%);
+}
+#snackbar {
+    width:350px;
+    background:white;
+    color:lightcoral;
+    border:1px solid lightcoral;
+    font-size:19px;
+    font-family:sans-serif;
+    padding:15px 15px;
+    position: fixed;
+    top: -115px;
+    border-radius: 5px;
+    box-shadow:3px 3px 10px #aaa;
+    left:43%;
+    transform:translateX(-50%);
+    z-index: 110;
+    animation: snackbar 5s linear 1;
+    display:none;
+}
+
+@keyframes snackbar {
+    0%{
+        top:-115px;
+        opacity:0;
+    }
+    10%{
+        top:115px;
+        opacity:1;
+    }
+    90%{
+        top: 115px;
+        opacity:1;
+    }
+    100%{
+        top:-115px;
+        opacity:0;
+    }
 }
 #suspension {
     height: 1px;

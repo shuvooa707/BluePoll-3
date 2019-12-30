@@ -1,11 +1,16 @@
-<div class="container">
+       
+    <div id="snackbar">
+        The Hidden Polls Can Be Found In Control Section of Your Profile Page 
+    </div>
 
+<div class="container">
     <div class="main-content">
         <div id="onload-overlay">
             <div class="loader-text">
                 Loading Polls...
             </div>
-        </div>
+        </div> 
+
         <?php require_once("polls.php"); ?>
         
         <div class="load-more-button" style="display:block;" onClick="loadMorePolls()">

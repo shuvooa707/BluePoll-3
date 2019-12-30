@@ -360,10 +360,10 @@ function centerifyCheckBox() {
         e.style.height = h + "px";
     });
     if (loadOverlay = $("#onload-overlay")) {
-        loadOverlay = $("#onload-overlay");
         loadOverlay.classList.add("loadOverlayFadeAni");
         setTimeout((loadOverlay) => {
-            loadOverlay.remove();
+            loadOverlay.classList.remove("loadOverlayFadeAni");
+            loadOverlay.style.display = "none";
         }, 700, loadOverlay);        
     }
 }
@@ -620,6 +620,12 @@ function HidePoll(node) {
     req.onreadystatechange = () => {
         if (req.status == 200 && req.readyState == 4) {
             if (req.responseText.trim() == "Poll Concealed") {
+                $("#snackbar").classList.add("show");
+                setTimeout(() => {
+                    if( sn = $("#snackbar") )
+                        sn.classList.remove("show");
+                }, 5000);
+                // $("#snackbar").classList.add("show");
                 poll.style.transform = "rotateY(102deg)";
                 poll.classList.add("hideAni");
                 pW = poll.clientWidth;
@@ -650,17 +656,23 @@ function HidePoll(node) {
 
 
 function loadMorePolls() {
+    var onload_overlay = $("#onload-overlay");
+    onload_overlay.style.display = "block";
     var poll_from = $$(".poll").length;
     var req = new XMLHttpRequest();
     req.open("GET", `polls.php?poll_count=yes&poll_from=${poll_from}`, true);
     // req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     req.onreadystatechange = () => {
         if (req.status == 200 && req.readyState == 4) {
+            if ( req.responseText.split("-----")[0] == "no" ) {
+                $(".load-more-button").remove();
+            } 
             var main_content = $(".main-content");
             [...(new DOMParser()).parseFromString(req.responseText,"text/html").querySelectorAll(".poll")].forEach(element => {
                 main_content.append(element);
             });;
             // console.log( newly_loaded_polls);
+            onload_overlay.style.display = "none";
             centerifyCheckBox();
             checkVoted();
             showVotePercentages();
