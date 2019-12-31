@@ -14,7 +14,7 @@
                 $polls = $db->getAllPoll($offset, $pollPerPage );
             }
         } else if( isset( $_GET["poll_count"]) && issLoggedIn() ) {
-            sleep(1);
+            sleep(3);
             $poll_from = $_GET["poll_from"];
             $polls = $db->getAllPoll($poll_from, $pollPerPage);
             
@@ -129,9 +129,9 @@
                     $option_id = $option["option_id"];
                     $option_votes = $option["option_votes"];
                     echo 
-                        "<div class='option' onClick='vote(this)' data-option-id='$option_id' data-option-vote='$option_votes'>
+                        "<div class='option' data-option-id='$option_id' data-option-vote='$option_votes'>
                             <div class='option-checkbox'>
-                                <input type='checkbox' name='option-checkbox' class='option-checkbox-element' disabled>
+                                <input onClick='vote(this.parentElement.parentElement)' type='checkbox' name='option-checkbox' class='option-checkbox-element' disabled>
                             </div>
                             <div class='option-name' style='background-size:100%;'>
                                 <div class='name' style='display:inline-block; width:65%;'>$option_name</div>

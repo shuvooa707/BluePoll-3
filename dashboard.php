@@ -61,8 +61,8 @@
                 </div>
             </div> 
             <div class="body">
-                <div class="tab polls show">
-                    Polls
+                <div class="tab polls show">                    
+                    <h3>Polls</h3>
                     <table class="polls-table">
                         <thead>
                             <tr>
@@ -72,35 +72,61 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
-                            <tr>
-                                <td>Top Backend Frameworks</td>
-                                <td>100 Views</td>
-                                <td>
-                                    <button>
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php
+                                while( $poll = $polls->fetch(PDO::FETCH_ASSOC) ) {
+                                    $poll_status = $poll["poll_status"];
+                                    if ( $poll_status == 1 ) {
+                                        $bgcolor = "green";
+                                        $poll_status = "Public";
+                                    } else {
+                                        $bgcolor = "lightcoral";
+                                        $poll_status = "Private";
+                                    }
+                                    echo "
+                                        <tr  class='poll' data-poll-id='".$poll['poll_id']."'>
+                                            <td>
+                                                <a href='poll.php?pollid=".$poll['poll_id']."'>
+                                                    ".$poll['poll_name']."
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span class='detail-element votes'>129 Votes</span>
+                                                <span class='detail-element options'>99 Options</span><br>
+                                                <span class='detail-element comments'>999 Comments</span> 
+                                                <span class='detail-element likes'>999 Likes</span><br>
+                                                <span class='detail-element dislikes'>999 Dislikes</span>
+                                                <span class='detail-element views'>999 Views</span>
+                                                <span class='more'>More...</span>
+                                            </td>
+                                            <td>
+                                                <button class='delete' onclick='deletePollConf(this.parentElement.parentElement)'>Delete</button>   
+                                                <button class='private' style='width:74px; padding:5px 0px;background:$bgcolor;' onclick='changeVisibility(this.parentElement.parentElement,this)'>".$poll_status."</button>
+                                                <br>
+                                                <button class='edit' onclick='editConf()'>Edit</button>
+                                                <button class='analyze' onclick='analyze(this.parentElement.parentElement)'>Analyze</button>
+                                            </td>
+                                        </tr>
+                                    ";
+                                }
 
-
+                        ?>
                         </tbody>
                     </table>
                 </div>
                 <div class="tab comments">
-                    Comments
+                    <h2>Comments</h2>
                 </div>
                 <div class="tab requests">
-                    Option Requests
+                    <h2>Option Requests</h2>
                 </div>
                 <div class="tab reports">
-                    Reports
+                    <h2>Reports</h2>
                 </div>
                 <div class="tab votes">
-                    Votes
+                    <h2>Votes</h2>
                 </div>
                 <div class="tab likes">
-                    Likes
+                    <h2>Likes</h2>
                 </div>
             </div>                        
         </div>
