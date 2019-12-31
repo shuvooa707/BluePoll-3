@@ -56,13 +56,16 @@
                     $notification_name .= "<small style='color:black;!important'>  by  <a style='font-style:italic;color: #1a1a1a;text-shadow: 0px 0px 1px #000000a3;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;!important' href='user.php?userid=".$notification["user_id"]."'>".$notification["user_name"]."</a></small>";
                 }
                 if( $notification["notification_action"] == "newOptionRequest" ) {
-                    $notification_name = "<span style='margin:4px 2px;padding:0px 4px;background:#c95050;border-radius:3px;font-size:13px;color:white'>New Option Request</span> <i style='color:black'>on the poll</i><br><br>";
-                    $notification_name .= "<a class='not-poll-link' style='' href='poll.php?pollid=".$notification["poll_id"]."&nitification=".$notification["notification_id"]."'>".$notification["poll_name"]."</a>";
-                    $notification_name .= "<span class='not-new-option-name' style>".$notification["poption"]."</a>";
-                    $notification_name .= "<small style='color:black;!important'>  by  <a style='font-style:italic;color: #1a1a1a;text-shadow: 0px 0px 1px #000000a3;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;!important' href='user.php?userid=".$notification["user_id"]."'>".$notification["user_name"]."</a></small>";
+                    $proposesd_option_name = "Swasank Redempetion";
+                    $proposesd_option_id = 10;
+                    $notification_name = "<span style='margin:4px 2px;padding:0px 4px;background:#c95050;border-radius:3px;font-size:13px;color:white'>New Option Request</span> <i style='color:black'></i><br>";
+                    $notification_name .= "<strong><i style='display:inline-block;margin:4px 2px;padding:0px 4px;background:unset;border-radius:3px;font-size:13px;color:black'>$proposesd_option_name  </strong> -- on the poll </i> <br>";
+                    $notification_name .= "<a class='not-poll-link' style='' href='poll.php?pollid=".$notification["poll_id"]."&nitification=".$notification["notification_id"]."'>".$notification["poll_name"]."</a>";                    
+                    $notification_name .= "<br><small style='color:black;!important'>  by  <a style='font-style:italic;color: #1a1a1a;text-shadow: 0px 0px 1px #000000a3;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;!important' href='user.php?userid=".$notification["user_id"]."'>".$notification["user_name"]."</a></small>";
+                    $notification_name .= "<br><br><button style='background:dodgerblue;'>Accept</button><button style='background:lightcoral;'>Delete</button>";
                 }
                 // var_dump( $notification );
-                var_dump($notification);
+                // var_dump($notification);
                 echo "
                     <div class='single-notification'>
                         <span class='delete-notification' onclick='deleteNotification(this,".$notification["notification_id"].")'>

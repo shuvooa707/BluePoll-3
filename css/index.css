@@ -11,8 +11,8 @@ button {
     border: none;
     border-radius: 3px;
     transform: translateY(-8px);
-    box-shadow: 2px 2px 10px #6e6e6e;
-    background: #4c7fdb!important;
+    box-shadow: none;
+    /* background: #4c7fdb; */
     color: white;
     margin-right: 13px!important;
     /* font-family:verdana; */
@@ -851,15 +851,7 @@ input#comment-box {
     border-radius: 5px;
 }
 
-button {
-    padding: 4px 13px;
-    outline: none;
-    border: none;
-    border-radius: 3px;
-    transform: translateY(-8px);
-    box-shadow: 0px 0px 2px #aaa;
-    background: linear-gradient(-45deg, #f7f7f7, #ddd);
-}
+
 button:active {
     box-shadow:none;
 }

@@ -485,6 +485,7 @@ div#not::before {
   text-align: left;
   position: relative;
   overflow: hidden;
+  position: relative;
 }
 .delete-notification {
   color: black;
@@ -504,6 +505,16 @@ div#not::before {
 .not-poll-link:hover {
   text-decoration: underline!important;
   color: dodgerblue;
+}
+/* ----------------------------notifications request styles--------------------------------------- */
+#not > div.notification-list-body > div > button:nth-child(11) {
+    transform: unset;
+    background:dodgerblue!important;
+}
+
+#not > div.notification-list-body > div > button:nth-child(12) {
+    transform: unset;
+    background:lightcoral!important;
 }
 
 /*  ---------------------------------------------------------------------------------------------- */
@@ -542,7 +553,7 @@ button {
     border-radius: 3px;
     transform: translateY(-8px);
     /* box-shadow: 2px 2px 10px #6e6e6e; */
-    background: #4c7fdb;
+    /* background: #4c7fdb; */
     color: white;
     margin-right: 14px;
     font-family:verdana;

@@ -78,24 +78,26 @@
                     }                   
                 }
                 if( $notification["notification_action"] == "newOptionRequest" ) {
-                    $sqlString = "SELECT poll_name, poll_id, dislike_id, (SELECT concat(users.user_firstname,' ',users.user_lastname) FROM users where users.user_id = dislikes.dislike_disliker_id) AS user_name, (SELECT users.user_id FROM users where users.user_id = dislikes.dislike_disliker_id) AS user_id FROM polls,users,dislikes WHERE dislike_id = ".$notification["notification_object_id"];
-                    $result3 = $this->conn->query($sqlString);
-                    var_dump($sqlString);
-                       if ( $result3 = $result3->fetch(PDO::FETCH_ASSOC) ) {  
-                           if( $result3["user_id"] == $user_id ) {
-                                continue;
-                            }                              
-                            $notification["user_id"] = $result3["user_id"];
-                            $notification["user_name"] = $result3["user_name"];
-                            $notification["poll_name"] = $result3["poll_name"];
-                            $notification["poll_id"] = $result3["poll_id"];
-                            $notification["dislike_id"] = $notification["notification_object_id"]; 
-                            $notifications[] = $notification;
-                    }                   
+                    $sqlString = "SELECT DISTINCT poll_name, poll_id, (SELECT concat(users.user_firstname,' ',users.user_lastname) FROM users where users.user_id = notification_actor_id) AS user_name, (SELECT users.user_id FROM users where users.user_id = notifications.notification_actor_id) AS user_id , (SELECT proposed_option_name FROM proposed_option WHERE proposed_option.proposed_option_id = notifications.notification_object_id AND proposed_option.proposed_option_poll_id = polls.poll_id) AS poption_name, (SELECT proposed_option_id FROM proposed_option WHERE proposed_option.proposed_option_id = notifications.notification_object_id AND proposed_option.proposed_option_poll_id = polls.poll_id) AS poption_id FROM polls,users,notifications WHERE polls.poll_user_id = ".$_SESSION["pollsite_user_id"];
+                    $resultx = $this->myconn->query($sqlString);
+                    if ( $result3 = $resultx->fetch_assoc() ) { 
+                        // var_dump($result3);
+                        
+                        if( $result3["user_id"] == $user_id ||  strlen($result3["poption_name"]) ) {
+                            continue;
+                        }                              
+                        $notification["user_id"] = $result3["user_id"];
+                        $notification["user_name"] = $result3["user_name"];
+                        $notification["poll_name"] = $result3["poll_name"];
+                        $notification["poll_id"] = $result3["poll_id"];
+                        $notification["poption_id"] = $result3["poption_id"]; 
+                        $notification["poption_name"] = $result3["poption_name"]; 
+                        $notifications[] = $notification;
+                        }                   
+                    }
                 }
-            }
-
-
+                
+                
             return $notifications;
         }
 
