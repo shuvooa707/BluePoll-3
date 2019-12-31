@@ -333,8 +333,8 @@ body {
 
 
 .delete-con-modal-header {
-    background: black;
-    color: white;
+    background: #ddd;
+    color: black;
     padding: 10px;
     position: relative;
     text-indent: 32px;
@@ -345,7 +345,7 @@ body {
     top: 10px;
     right: 15px;
     cursor: pointer;
-    color: #aaa;
+    color: #000;
 }
 .close-delete-con-container:hover {
   color:white;
@@ -375,13 +375,27 @@ body {
 
 .delete-con-modal-body button:first-child {
   background: white;
-  border: 1px solid red;
-  color: red;
+  border: 1px solid lightcoral;
+  color: lightcoral;
+  transition:all .1s linear;
+}
+
+.delete-con-modal-body button:first-child:hover {
+  background: lightcoral;
+  border: 1px solid white;
+  color: white;
 }
 .delete-con-modal-body button:nth-child(2n) {
   background: white;
-  border: 1px solid green;
-  color: green;
+  border: 1px solid dodgerblue;
+  color: dodgerblue;
+}
+
+.delete-con-modal-body button:nth-child(2n):hover {
+  background: dodgerblue;
+  border: 1px solid white;
+  color: white;
+  transition:all .1s linear;
 }
 
 .signin-button {

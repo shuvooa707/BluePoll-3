@@ -7,7 +7,7 @@
     <div class="main-content">
         <div id="onload-overlay">
             <div class="loader-text">
-                Loading Polls...
+                Loading More Polls...
             </div>
         </div> 
 

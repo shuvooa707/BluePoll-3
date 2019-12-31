@@ -62,7 +62,7 @@
                             $notifications[] = $notification;
                     }                   
                 }
-                if( $notification["notification_action"] == "newDislike") {
+                if( $notification["notification_action"] == "newDislike" ) {
                     $sqlString = "SELECT poll_name, poll_id, dislike_id, (SELECT concat(users.user_firstname,' ',users.user_lastname) FROM users where users.user_id = dislikes.dislike_disliker_id) AS user_name, (SELECT users.user_id FROM users where users.user_id = dislikes.dislike_disliker_id) AS user_id FROM polls,users,dislikes WHERE dislike_id = ".$notification["notification_object_id"];
                     $result3 = $this->conn->query($sqlString);
                        if ( $result3 = $result3->fetch(PDO::FETCH_ASSOC) ) {  
@@ -77,9 +77,10 @@
                             $notifications[] = $notification;
                     }                   
                 }
-                if( $notification["notification_action"] == "newOptionRequest") {
+                if( $notification["notification_action"] == "newOptionRequest" ) {
                     $sqlString = "SELECT poll_name, poll_id, dislike_id, (SELECT concat(users.user_firstname,' ',users.user_lastname) FROM users where users.user_id = dislikes.dislike_disliker_id) AS user_name, (SELECT users.user_id FROM users where users.user_id = dislikes.dislike_disliker_id) AS user_id FROM polls,users,dislikes WHERE dislike_id = ".$notification["notification_object_id"];
                     $result3 = $this->conn->query($sqlString);
+                    var_dump($sqlString);
                        if ( $result3 = $result3->fetch(PDO::FETCH_ASSOC) ) {  
                            if( $result3["user_id"] == $user_id ) {
                                 continue;
@@ -93,6 +94,7 @@
                     }                   
                 }
             }
+
 
             return $notifications;
         }
@@ -158,7 +160,7 @@
         }
         public function singlePollOptions( $table="options",$pollid ) {
             if( isset($table) ) {
-                $sqlString = "SELECT option_id,option_name,option_belongsto,option_addedby_id,option_created_at,(select count(*) from votes where vote_option_id=option_id) AS option_votes FROM options WHERE option_belongsto = $pollid";
+                $sqlString = "SELECT option_id,option_name,option_belongsto,option_addedby_id,option_created_at,(select count(*) from votes where vote_option_id = option_id) AS option_votes FROM options WHERE option_belongsto = $pollid ORDER BY option_votes DESC";
                 // return $sqlString;
                 return $this->conn->query($sqlString);
             } else {

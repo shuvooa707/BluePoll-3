@@ -58,6 +58,7 @@
                     <div class="menu-item" onClick="changeTab(this)" data-tab-name="reports">Reports</div>
                     <div class="menu-item" onClick="changeTab(this)" data-tab-name="votes">Votes</div>
                     <div class="menu-item" onClick="changeTab(this)" data-tab-name="likes">Likes / Dislikes </div>
+                    <div class="menu-item" onClick="changeTab(this)" data-tab-name="notifications">Notifications </div>
                 </div>
             </div> 
             <div class="body">
@@ -66,39 +67,57 @@
                     <table class="polls-table">
                         <thead>
                             <tr>
-                                <th>Polls</th>
-                                <th>Detail</th>
-                                <th>Tools</th>
+                                <th  style='min-width:40px;'> # </th>
+                                <th  style="min-width:300px!important;max-width:300px!important">Polls</th>
+                                <th>Options</th>
+                                <th>Votes</th>
+                                <th>Comments</th>
+                                <th>Views</th>
+                                <th>Likes</th>
+                                <th>Dislikes</th>
+                                <th style="max-width:200px!important">Tools</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
+                                $poll_number = 0;
                                 while( $poll = $polls->fetch(PDO::FETCH_ASSOC) ) {
+                                    $poll_number++;
                                     $poll_status = $poll["poll_status"];
                                     if ( $poll_status == 1 ) {
-                                        $bgcolor = "green";
+                                        $bgcolor = "dodgerblue";
                                         $poll_status = "Public";
                                     } else {
-                                        $bgcolor = "lightcoral";
+                                        $bgcolor = "red";
                                         $poll_status = "Private";
                                     }
-                                    echo "
+                                    echo "                                        
                                         <tr  class='poll' data-poll-id='".$poll['poll_id']."'>
-                                            <td>
+                                            <td style='max-width:70px;'>$poll_number</td>
+                                            <td style='max-width:300px!important'>
                                                 <a href='poll.php?pollid=".$poll['poll_id']."'>
                                                     ".$poll['poll_name']."
                                                 </a>
                                             </td>
                                             <td>
-                                                <span class='detail-element votes'>129 Votes</span>
-                                                <span class='detail-element options'>99 Options</span><br>
-                                                <span class='detail-element comments'>999 Comments</span> 
-                                                <span class='detail-element likes'>999 Likes</span><br>
-                                                <span class='detail-element dislikes'>999 Dislikes</span>
-                                                <span class='detail-element views'>999 Views</span>
-                                                <span class='more'>More...</span>
+                                                <span class='detail-element votes'>129</span>
                                             </td>
                                             <td>
+                                                <span class='detail-element votes'>129</span>
+                                            </td>
+                                            <td>
+                                                <span class='detail-element votes'>129</span>
+                                            </td>
+                                            <td>
+                                                <span class='detail-element votes'>129</span>
+                                            </td>
+                                            <td>
+                                                <span class='detail-element votes'>129</span>
+                                            </td>
+                                            <td>
+                                                <span class='detail-element votes'>129</span>
+                                            </td>
+                                            <td  style='max-width:200px!important'>
                                                 <button class='delete' onclick='deletePollConf(this.parentElement.parentElement)'>Delete</button>   
                                                 <button class='private' style='width:74px; padding:5px 0px;background:$bgcolor;' onclick='changeVisibility(this.parentElement.parentElement,this)'>".$poll_status."</button>
                                                 <br>
@@ -127,6 +146,9 @@
                 </div>
                 <div class="tab likes">
                     <h2>Likes</h2>
+                </div>
+                <div class="tab notifications">
+                    <h2>Notifications</h2>
                 </div>
             </div>                        
         </div>

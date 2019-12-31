@@ -3,7 +3,7 @@
         require_once("helper.php");
         $db = new db();
         $pollPerPage = 6;
-        
+        // sleep(3);
         if ( !isset( $_GET["poll_count"] ) ) {            
             //  Paginating 
             $offset = isset($_GET["page"]) ? (($_GET["page"]-1) * ($pollPerPage)) : 0;

@@ -34,7 +34,7 @@ body {
 }
 
 .navbar .dashboard {
-    background: dodgerblue;
+    background: #1e90ffa1;
     color: white;
 }
 
@@ -199,27 +199,28 @@ body {
 
 .delete {
     color: white;
-    background: #cd0000;
+    background: #ec7474;
 }
 
 .delete:hover {
-    background: rgb(110, 0, 0);
+    background: #ec7474;
 }
 
 .edit {
-    background: cornflowerblue;
+    background: #ccc;
+    color: black;
 }
 
 .edit:hover {
-    background: rgb(85, 126, 202);
+    background: #bbb;
 }
 
 .private {
-    background: green;
+    background: dodgerblue;
 }
 
 .private:hover {
-    background: rgb(1, 87, 1);
+    background: #118aff;
 }
 
 .analyze {
@@ -361,7 +362,7 @@ body {
 }
 
 .container > .menu > .body > .menu-item.active {
-    background:dodgerblue;
+    background: #1e90ffa1;
     color:white;
 }
 
@@ -397,31 +398,30 @@ body {
 }
 
 .polls-table td,th  {
-    border: 1px solid #03a9f43b;
+    border: 1px solid #2196f329;
 }
-.polls-table td:first-child {
+.polls-table td:second-child {
     min-width:400px;
 }
-.polls-table th  {
-/*     border: 1px solid #00000045; */
-    background:#03a9f41f;
-    padding:10px 0px;
-}
+.polls-table th  {/*     border: 1px solid #00000045; */background: #ddd;padding: 10px 5px;}
 
 .polls-table > tbody > tr > td {
-    padding: 8px 10px;
+    padding: 11px 13px;
+    text-align: center;
 }
 .polls-table button {
     transform: unset;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 span.detail-element {
-    border: 1px solid lightcoral;
-    padding: 3px 6px;
+    border-bottom: 1px solid lightcoral;
+    /* padding: 3px 6px; */
     display: inline-block;
-    margin: 2px 3px;
-    width:130px;
+    /* margin: 2px 3px; */
+    /* width:130px; */
+    color: #797979;
 }
 table button {
     width: 75px;

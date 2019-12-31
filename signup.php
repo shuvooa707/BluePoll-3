@@ -27,6 +27,7 @@
             if ( session_status() == 1 ) session_start();
             $_SESSION["pollsite_username"] = $user_username;
             $_SESSION["pollsite_user_id"] = $conn->insert_id;
+            $_SESSION["pollsite_userfullname"] = "$user_firstname $user_lastname";
             $_SESSION["login_successful"] = "Signup Successfull";
             header("Location:index.php");
         } else {

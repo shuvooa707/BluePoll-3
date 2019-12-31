@@ -62,6 +62,7 @@
                     $notification_name .= "<small style='color:black;!important'>  by  <a style='font-style:italic;color: #1a1a1a;text-shadow: 0px 0px 1px #000000a3;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;!important' href='user.php?userid=".$notification["user_id"]."'>".$notification["user_name"]."</a></small>";
                 }
                 // var_dump( $notification );
+                var_dump($notification);
                 echo "
                     <div class='single-notification'>
                         <span class='delete-notification' onclick='deleteNotification(this,".$notification["notification_id"].")'>
