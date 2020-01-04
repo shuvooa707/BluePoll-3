@@ -1,10 +1,12 @@
 * {
     box-sizing: border-box;
-/*     overflow: hidden; */
+    /*     overflow: hidden; */
 }
+
 button,input[type='checkbox'] {
-    cursor:pointer;
+    cursor: pointer;
 }
+
 button {
     padding: 4px 13px;
     outline: none;
@@ -16,36 +18,42 @@ button {
     color: white;
     margin-right: 13px!important;
     /* font-family:verdana; */
-    font-weight:500!important;
+    font-weight: 500!important;
 }
+
 button:hover {
-    background:#2a68d3;
+    background: #2a68d3;
 }
+
 input[type="checkbox"] {
     position: absolute;
     top: 50%;
     transform: translate(-38%, -39%) scale(1.5);
     -webkit-transform-origin-x: center;
-    margin:0px;
+    margin: 0px;
 }
+
 .hideAni {
     box-shadow: none;
     transition: all .5s;
     transform: rotateY(0deg);
-/*     transform: rotateY(102deg); */
-    animation:hideAni 1s ease;
+    /*     transform: rotateY(102deg); */
+    animation: hideAni 1s ease;
     opacity: 0;
 }
+
 @keyframes hideAni {
-    0%{
+    0% {
         transform: rotateY(0deg) scale(1);
-        opacity: 1;        
-    } 
-    70%{
+        opacity: 1;
+    }
+
+    70% {
         opacity: 0;
     }
-    100%{
-        transform: rotateY(360deg) scale(0); 
+
+    100% {
+        transform: rotateY(360deg) scale(0);
     }
 }
 
@@ -54,29 +62,34 @@ input[type="checkbox"]:hover {
     animation: shaker 1s cubic-bezier(0, 2.13, 0.68, 1.79) infinite;
 }
 
-@keyframes shaker{
-    0%{
-        transform:translate(-38%, -39%) scale(1.5);
+@keyframes shaker {
+    0% {
+        transform: translate(-38%, -39%) scale(1.5);
     }
-    50%{
-        transform:translate(-38%, -39%) scale(1.8);
+
+    50% {
+        transform: translate(-38%, -39%) scale(1.8);
     }
-    100%{
-        transform:translate(-38%, -39%) scale(1.5);
+
+    100% {
+        transform: translate(-38%, -39%) scale(1.5);
     }
 }
 
 button:active {
-    background:#ccc;
+    background: #ccc;
 }
+
 a,.show-more {
-    text-decoration:none;
+    text-decoration: none;
     color: #1e90ffbd;
     cursor: pointer;
 }
+
 a:hover,.show-more:hover {
     text-decoration: underline;
 }
+
 body {
     overflow-y: auto;
     background-color: #f7fbf5;
@@ -96,18 +109,18 @@ body {
     z-index:100;
 }
  */
-
 .navbar .nav-item:hover {
     background: dodgerblue;
-    color:white;
+    color: white;
 }
+
 .navbar .nav-item a {
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .navbar .home {
-    background:dodgerblue;
-    color:white;
+    background: #1e90ffa1;
+    color: white;
 }
 
 .container {
@@ -117,37 +130,41 @@ body {
     width: 80%;
     display: flex;
     box-shadow: 0px 0px 2px #aaaabb;
-    overflow-y: auto;
+    /* overflow-y: auto; */
     /* overflow-x: hidden; */
     padding-bottom: 20px;
     position: relative;
 }
 
 .main-content {
-    width:80%;
+    width: 80%;
     /* background: orange; */
     /* display: flex; */
     perspective: 1957px;
     padding-bottom: 110px;
 }
+
 .sidebar {
     width: 20%;
     min-width: 250px;
+    height: 1000px;
     background: #ececec;
 }
+
 .sidebar form div label::before {
-    content:"";
-    width:10px;
-    height:100%;
-    position:absolute;
+    content: "";
+    width: 10px;
+    height: 100%;
+    position: absolute;
     top: 0px;
-    left:-10px;
+    left: -10px;
     background: #ececec;
     z-index: 3;
 }
+
 .sidebar form div label::after {
-    content:"";
-    position:absolute;
+    content: "";
+    position: absolute;
     top: 31px;
     left: -7px;
     /* background:silver; */
@@ -158,18 +175,19 @@ body {
 }
 
 .tpc-header::before {
-    content:"";
-    width:10px;
-    height:100%;
-    position:absolute;
+    content: "";
+    width: 10px;
+    height: 100%;
+    position: absolute;
     top: 0px;
-    left:-10px;
+    left: -10px;
     background: #ececec;
     z-index: 3;
 }
+
 .tpc-header::after {
-    content:"";
-    position:absolute;
+    content: "";
+    position: absolute;
     top: 31px;
     left: -7px;
     /* background:silver; */
@@ -179,10 +197,10 @@ body {
     z-index: 1;
 }
 
-
 .sidebar .top-polls-container {
     /* max-height: 300px; */
 }
+
 .sidebar .tpc-header {
     background: linear-gradient(-69deg, #ccc, #eee);
     padding: 10px;
@@ -191,12 +209,13 @@ body {
 
 .sidebar .tpc-body {
     background: #ffff;
-    padding:10px;
+    padding: 10px;
     border: 1px solid #aaa;
 }
+
 .sidebar .tpc-body .top-poll {
     background: #eaeaea;
-    border:1px solid #aaa;
+    border: 1px solid #aaa;
     /* padding: 5px; */
     margin: 5px;
     border-radius: 4px;
@@ -211,6 +230,7 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .sidebar .tpc-body .top-poll .top-poll-info {
     background: #f4f4f4;
     font-size: 13px;
@@ -219,21 +239,20 @@ body {
 }
 
 /* Recent Polls */
-
-
 .rpc-header::before {
-    content:"";
-    width:10px;
-    height:100%;
-    position:absolute;
+    content: "";
+    width: 10px;
+    height: 100%;
+    position: absolute;
     top: 0px;
-    left:-10px;
+    left: -10px;
     background: #ececec;
     z-index: 3;
 }
+
 .rpc-header::after {
-    content:"";
-    position:absolute;
+    content: "";
+    position: absolute;
     top: 31px;
     left: -7px;
     /* background:silver; */
@@ -243,11 +262,11 @@ body {
     z-index: 1;
 }
 
-
 .sidebar .recent-polls-container {
     margin-top: 78px;
     max-height: 300px;
 }
+
 .sidebar .rpc-header {
     background: linear-gradient(-69deg, #ccc, #eee);
     padding: 10px;
@@ -256,12 +275,13 @@ body {
 
 .sidebar .rpc-body {
     background: #ffff;
-    padding:10px;
+    padding: 10px;
     border: 1px solid #aaa;
 }
+
 .sidebar .rpc-body .recent-poll {
     background: #eaeaea;
-    border:1px solid #aaa;
+    border: 1px solid #aaa;
     /* padding: 5px; */
     margin: 5px;
     border-radius: 4px;
@@ -276,12 +296,14 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .sidebar .rpc-body .recent-poll .recent-poll-info {
     background: #f4f4f4;
     font-size: 13px;
     text-align: end;
     padding: 5px 5px 5px 0px;
 }
+
 /* load More Button */
 .load-more-button {
     background: linear-gradient(-4deg, dodgerblue, #1e90ff94);
@@ -299,38 +321,37 @@ body {
     transform: translateX(-50%);
     box-shadow: 2px 2px 10px #aaa;
 }
+
 .load-more-button:hover {
     background: linear-gradient(to bottom, lightcoral, #f88d8dc7);
 }
 
 /* /Recent Polls */
-
 .poll-overlay::after {
-    content:"";
-    width:100%;
-    height:100%;
-    position:absolute;
-    top:0px;
-    left:0px;
-    line-height:250px;
-    padding-top:0px;
-    font-size:24px;
-    background:#ffffffa6;
-    color:#ff24f9;
-    z-index:20;
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 250px;
+    padding-top: 0px;
+    font-size: 24px;
+    background: #ffffffa6;
+    color: #ff24f9;
+    z-index: 20;
     animation: changeColor 2s linear infinite alternate;
-/*     opacity:.5; */
+    /*     opacity:.5; */
 }
 
-
 .poll-overlay::before {
-    content:"Plsease Wait...";
+    content: "Plsease Wait...";
     z-index: 21;
-    font-size:24px;
-    position:absolute;
-    top:0px;
-    left:0px;
-    width:200px;
+    font-size: 24px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 200px;
     padding: 3px 5px;
     background: black;
     color: white;
@@ -340,21 +361,23 @@ body {
     margin: 130px 50%;
     transform: translateX(-50%);
 }
+
 @keyframes changeColor {
-    0%{
-        color:#ff24f9;
-    }
-    50%{
-        color:purple;
+    0% {
+        color: #ff24f9;
     }
 
-    100%{
-        color:dodgerblue;
+    50% {
+        color: purple;
+    }
+
+    100% {
+        color: dodgerblue;
     }
 }
 
 .poll {
-    min-width:280px;
+    min-width: 280px;
     width: 30%;
     text-align: center;
     /* padding: 10px; */
@@ -363,16 +386,17 @@ body {
     border: 1px solid #aaaaaa91;
     margin: 10px;
     box-shadow: -2px 2px 22px #bbb;
-    position:relative;
+    position: relative;
     display: block;
     float: left;
-    max-height: 700px;
+    max-height: 1700px;
     overflow: hidden;
     transition: all 1s linear;
 }
+
 .poll .poll-header {
     width: 100%;
-    padding: 14px 28px;
+    padding: 14px 40px;
     padding-left: 15px;
     background: linear-gradient(-69deg, #ccc, #eee);
     color: #000000d4;
@@ -389,30 +413,44 @@ body {
 .poll-tool-option {
     position: absolute;
     top: 5px;
-    right: 5px;
+    right: 7px;
     font-size: 15px;
     color: rgb(22, 22, 22);
     cursor: pointer;
 }
+
 .poll-tool-option:hover {
-    color:dodgerblue;
+    color: dodgerblue;
     text-shadow: 0px 0px 5px #aaa;
+}
+span.poll-edit-icon {
+    position: absolute;
+    top: 25px;
+    right: 7px;
+    cursor: pointer;
+}
+
+span.poll-edit-icon:hover {
+    color:lightcoral;
 }
 .flaticon-settings:before {
     font-size: 19px;
 }
 
 .disappear {
-  animation: dis .3s linear 0s infinite!important;
+    animation: dis .3s linear 0s infinite!important;
 }
+
 @keyframes dis {
-  0%{
-    height:100px;
-  }
-  100%{
-    height:0px;
-  }
+    0% {
+        height: 100px;
+    }
+
+    100% {
+        height: 0px;
+    }
 }
+
 .poll-tool-container {
     background: white;
     position: absolute;
@@ -432,7 +470,8 @@ body {
     display: none;
     /* overflow: hidden; */
 }
-.close-poll-tool-container{
+
+.close-poll-tool-container {
     position: absolute;
     /* display: none; */
     top: 0px;
@@ -449,17 +488,19 @@ body {
     font-weight: bol;
 }
 
-.close-poll-tool-container:hover{
-    border:1px solid red;
-    color:red;
-    background:white;
+.close-poll-tool-container:hover {
+    border: 1px solid red;
+    color: red;
+    background: white;
 }
+
 @keyframes htcani {
     0% {
-        height:0px;
+        height: 0px;
     }
+
     100% {
-        height:100px;
+        height: 100px;
     }
 }
 
@@ -474,32 +515,36 @@ body {
     font-weight: bold;
     padding: 3px 0px;
 }
+
 .tool-option:last-child {
-    border-bottom:unset;
+    border-bottom: unset;
 }
+
 .tool-option:hover {
     background: rgba(30, 143, 255, 0.08);
 }
+
 .saved-poll {
     color: white;
     background: dodgerblue;
     cursor: default;
     padding-left: 15px;
-    text-shadow:0px 0px 5px white;
+    text-shadow: 0px 0px 5px white;
 }
+
 .saved-poll:hover {
     color: white;
     background: dodgerblue;
     cursor: default;
     padding-left: 15px;
-    
 }
+
 .poll .poll-body {
     width: 100%;
     background: #f9f9fd;
 }
 
-.option {
+.option,.requested-option {
     width: 100%;
     /* background: green; */
     display: block;
@@ -519,32 +564,79 @@ body {
     /* padding-top: 0px; */
     position: relative;
 }
-.option .option-name {
+
+.option .option-name,.requested-option-name {
     /* max-width: 230px; */
     width: 86%;
-    background: white;
+    /* background: white; */
     padding: 15px 0px;
     padding-top: 10px;
     text-align: left;
     /* text-indent: 15px; */
     padding-left: 10px;
-    font-size:14px;
+    font-size: 14px;
     font-family: vardana;
     border-left: 1px solid #c8c8c8;
     position: relative;
     display: inline-block;
     background-image: linear-gradient(90deg,rgba(128, 125, 147, 0.15),rgba(128, 125, 147, 0.15));
     background-size: 10%;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
     /* transition:1s linear; */
     box-shadow: inset 0px 0px 20px #3126262e;
 }
+.requested-option {
+    background: rgba(3, 169, 244, .03)!important;
+    opacity:.7;
+    position: relative;
+}
+.requested-option-name {
+    width:100%;
+    position:relative;
+    background: unset;
+}
+.controlls {
+    position:absolute;
+    right:3px;
+    top:0px;
+    display:inline-block;
+    width:100px;
+    display:none;
+}
+.requested-option:hover .controlls {
+    display:inline-block;
+}
+
+.controlls .accept{
+    background:dodgerblue;
+    transform:unset;
+    position:absolute;
+    top:10px;
+    right:60px;
+    z-index:10;
+    font-size: 12px;
+    padding:3.5px 8px;
+}
+.controlls .reject {
+    background:lightcoral;
+    transform:unset;
+    position:absolute;
+    top:10px;
+    left:30px;
+    right:0px;
+    z-index:10;
+    font-size: 12px;
+    padding:3.5px 8px;
+}
+
 .option:last-child {
-    border-bottom:none;
+    border-bottom: none;
 }
+
 .vote-percentage {
-    transition:color .15s linear;
+    transition: color .15s linear;
 }
+
 .vote-percentage:hover {
     color: lightcoral!important;
 }
@@ -559,29 +651,27 @@ body {
     right: 5px;
     padding: 1px 5px;
     font-size: 18px;
-    cursor:pointer;
-    color:white;
+    cursor: pointer;
+    color: white;
     transform: scaleX(-1);
     shape-outside: polygon(10px);
 }
 
 .expand-poll:hover {
-    background: #0000004d;    
+    background: #0000004d;
 }
-
-
 
 button.add-new-option-button {
     margin: 0px!important;
     /* padding: 0px; */
     position: relative;
     top: 4px;
-    left: 7px;
+    /* left: 7px; */
     transform: unset;
-    width: 11%;
+    min-width: 13%;
     height: 30px;
     background: #dbe1ea70!important;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold!important;
     text-align: center;
     color: #1e90ff4f;
@@ -589,13 +679,20 @@ button.add-new-option-button {
     padding: 4px 0px;
     box-sizing: border-box;
     border: .5px solid #1e90ff4f;
-    transition:all .1s linear;
+    transition: all .1s linear;
+    display: inline-block;
+    position: absolute;
+    right: 5px;
+    /* box-shadow: 1px 1px 5px #aaa; */
 }
+
 button.add-new-option-button:hover {
-/*     background:#1e90ff4f; */
-    color:dodgerblue;
+    /*     background:#1e90ff4f; */
+    color: dodgerblue;
     border: .1px solid dodgerblue;
+    box-shadow: 1px 1px 5px #aaa;
 }
+
 button.cancel-new-option-button {
     margin: 0px!important;
     /* padding: 0px; */
@@ -613,49 +710,54 @@ button.cancel-new-option-button {
     padding-right: 10px;
     box-sizing: border-box;
     border: .1px solid #1e90ff4f;
-    transition:all .1s linear;
+    transition: all .1s linear;
     border-radius: 4px;
     border: .5px solid;
-    position: relative;
+    position: absolute;
     background: white!important;
     top: 5px;
     left: 7px;
 }
 
-button.cancel-new-option-button:hover {    
+button.cancel-new-option-button:hover {
     background: rgba(240, 128, 128, 0.027)!important;
 }
 
 input.add-new-option {
-    width: 70%;
+    width: 80%;
     padding: 8px 5px;
     margin: 0px;
     padding: 0px;
     text-indent: 10px;
-    margin-left: 12px;
-    margin-right: 9px;
-    margin-top: 2px;
+    /* margin-left: 12px; */
+    /* margin-right: 9px; */
+    /* margin-top: 2px; */
     /* width: 100%; */
     height: 88%;
     border: none;
     transition: width .4s ease-in-out;
     outline: none!important;
     /* border-radius: 22px; */
-}
-input.add-new-option:focus {
-/*     outline:none; */
-/*     border:1px solid #1e90ffbf; */
-    box-shadow:0px 0px 5px #1e90ffc2;
-}
-.poll-addnew-option-box {
-    display: flex;
-    /* margin-bottom: 10px; */
-    transition: all .4s ease-in-out;
-    transform: translateX(-87%);
-    height: 38px;
-    line-height: 36px;
+    position: absolute;
+    left: 3px;
+    top: 2.5px;
 }
 
+input.add-new-option:focus {
+    /*     outline:none; */
+    /*     border:1px solid #1e90ffbf; */
+    box-shadow: 0px 0px 5px #1e90ffc2;
+}
+
+.poll-addnew-option-box {
+    /* display: flex; */
+    /* margin-bottom: 10px; */
+    transition: all .4s ease-in-out;
+    /* transform: translateX(-87%); */
+    height: 38px;
+    line-height: 36px;
+    position: relative;
+}
 
 .poll-info-box {
     width: 100%;
@@ -691,6 +793,7 @@ input.add-new-option:focus {
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
     /* transition: 1s ease; */
+    transition: all .3s linear;
 }
 
 .poll-info-box .right .right {
@@ -701,6 +804,7 @@ input.add-new-option:focus {
     float: left;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
+    transition: all .3s linear;
 }
 
 .poll-info-box .left img {
@@ -708,6 +812,7 @@ input.add-new-option:focus {
     box-shadow: 2px 2px 3px #e6e6e6;
     border: 3px solid white;
 }
+
 .poll-info-box .left a {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 13px;
@@ -716,8 +821,9 @@ input.add-new-option:focus {
     margin-top: -4px;
     font-weight: bold;
 }
+
 .poll-info-box .right {
-    width:60%;
+    width: 60%;
     height: 100%;
     float: left;
     /* background: rgba(0, 128, 0, 0.102); */
@@ -725,6 +831,7 @@ input.add-new-option:focus {
     position: relative;
     /* margin-left: 0px; */
 }
+
 .poll-info-box .left {
     width: 40%;
     height: 100%;
@@ -742,6 +849,7 @@ input.add-new-option:focus {
     border-right: 100px solid #ff000070;
     margin-top: 5px;
 }
+
 .vote-like-dislike-box {
     width: 100%;
     height: 50px;
@@ -754,6 +862,7 @@ input.add-new-option:focus {
     padding-right: 2px;
     margin-top: 15px;
 }
+
 .vote-like-dislike-box .poll-like-button {
     /* width: 53px; */
     /* height: 25px; */
@@ -768,9 +877,11 @@ input.add-new-option:focus {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
 }
+
 .vote-like-dislike-box .poll-like-button:hover {
     /* box-shadow:inset 0px 0px 20px #1e90ff2c; */
 }
+
 .vote-like-dislike-box .poll-dislike-button {
     /* width: 54px; */
     height: 25px;
@@ -786,13 +897,16 @@ input.add-new-option:focus {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
 }
+
 .vote-like-dislike-box .poll-dislike-button:hover {
     /* box-shadow:inset 0px 0px 20px #ff000018; */
 }
+
 .poll-tag-date {
     display: flex;
     justify-content: space-between;
 }
+
 .poll-tag-date .poll-birthdate {
     display: inline-block;
     font-size: 12px;
@@ -802,7 +916,13 @@ input.add-new-option:focus {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     letter-spacing: 2px;
     margin-right: 10px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    padding: .5px 9px;
+    margin-bottom: 3px;
+    background: radial-gradient(#03a9f41c 5%, #f443360f 50%, #00000029 100%);
 }
+
 .poll-tag-date .poll-tags {
     display: inline-block;
     font-size: 12px;
@@ -813,10 +933,12 @@ input.add-new-option:focus {
     letter-spacing: 2px;
     margin-left: 10px;
 }
+
 .poll-liked {
     background: dodgerblue;
-    color:white!important;
+    color: white!important;
 }
+
 input#comment-box {
     border-radius: 3px;
     border: none;
@@ -832,17 +954,20 @@ input#comment-box {
     /* max-height: 300px; */
     /* overflow-y: auto; */
 }
+
 .poll-comments-header {
     width: 100%;
     height: 50px;
     margin-bottom: 10px;
     background: linear-gradient(10deg,#fff,#efefef);
 }
+
 .comments {
-    text-align:start!important;
+    text-align: start!important;
     max-height: 300px;
     overflow-y: auto;
 }
+
 .comments > div:first-child {
     padding: 4px 9px;
     color: black;
@@ -851,26 +976,28 @@ input#comment-box {
     border-radius: 5px;
 }
 
-
 button:active {
-    box-shadow:none;
+    box-shadow: none;
 }
+
 textarea {
-    margin-top:10px;
-    outline:none;
-    padding:5px;
-    border-radius:3px;
+    margin-top: 10px;
+    outline: none;
+    padding: 5px;
+    border-radius: 3px;
     font-size: 13px;
     width: 227px;
     resize: vertical;
     word-spacing: 0px;
 }
+
 textarea:focus {
-    box-shadow:inset 0px 0px 1px #1e90ff8f;
+    box-shadow: inset 0px 0px 1px #1e90ff8f;
     transition-duration: .3s;
     border: 1px solid dodgerblue;
     box-shadow: 0px 0px 7px #1e90ffbf;
 }
+
 .comment-lebel {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     /* text-decoration:underline; */
@@ -881,23 +1008,25 @@ textarea:focus {
     font-weight: bold;
     border: 1px solid rgba(0, 0, 0, 0.178);
     word-spacing: -3px;
-    font-size:16px;
-    text-align:left;
-    margin:5px 4px;
+    font-size: 16px;
+    text-align: left;
+    margin: 5px 4px;
 }
 
 .comment {
     width: 100%;
-    border-bottom:1px dotted olive;
+    border-bottom: 1px dotted olive;
     /* background: purple; */
     min-height: 60px;
-    padding:0px;
+    padding: 0px;
     overflow: hidden;
     position: relative;
 }
-.comment:last-child{
-    border-bottom:none;
+
+.comment:last-child {
+    border-bottom: none;
 }
+
 .commentor-avatar {
     display: block;
     width: 18%;
@@ -905,7 +1034,18 @@ textarea:focus {
     float: left;
     max-height: 60px;
     overflow: hidden;
+    text-align: center;
 }
+
+.commentor-avatar img {
+    margin-top: 0px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: 4px solid white;
+    display: inline-block;
+}
+
 .comment-body {
     display: block;
     background: #ffffffe8;
@@ -914,19 +1054,20 @@ textarea:focus {
     float: left;
     font-size: 13px;
     line-height: 14px;
-    padding:10px;
-    text-align:justify;
+    padding: 10px;
+    text-align: justify;
     font-family: sans-serif;
     position: relative;
 }
+
 .comment-body .delete-comment {
     display: inline-block;
-    border-radius:4px;
+    border-radius: 4px;
     /* color:orange; */
     background: white;
     position: absolute;
-    right:5px;
-    top:50%;
+    right: 5px;
+    top: 50%;
     transform: translateY(-50%);
     padding: 4px 2px;
     cursor: pointer;
@@ -943,18 +1084,22 @@ textarea:focus {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
 }
+
 .comment-body .delete-comment:active {
     color: BLACK;
     background: white;
 }
+
 .comment-body:hover .delete-comment {
     display: inline-block;
 }
-.flaticon-garbage::before{
+
+.flaticon-garbage::before {
     font-size: 19px;
 }
+
 .user-link {
-    color:dodgerblue;
+    color: dodgerblue;
     font-size: 15px;
     /* letter-spacing: 0.001px; */
     font-weight: bolder;
@@ -966,11 +1111,10 @@ textarea:focus {
     display: none;
 }
 
-
 .whoVotted-overlay {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.308);
+    background: rgba(0, 0, 0, 0.57);
     position: fixed;
     top: 0px;
     left: 0px;
@@ -981,11 +1125,11 @@ textarea:focus {
 .whoVotted-overlay .whoVotted-container {
     min-width: 100px;
     width: 250px;
-    min-height: 200px;
+    /* min-height: 200px; */
     overflow: auto;
-    background: white;
+    background: transparent;
     margin: 150px auto;
-    border-radius: 5px;
+    /* border-radius: 7px; */
     overflow: hidden;
     position: relative;
     animation: showHoot .35s ease 0s 1;
@@ -993,37 +1137,38 @@ textarea:focus {
 }
 
 @keyframes showHoot {
-    0%{
+    0% {
         transform: scale(0);
     }
-    100%{
+
+    100% {
         transform: scale(1);
     }
 }
 
-.whoVotted-container-wait-opverlay::before {    
-    content:"";
-    width:100%;
-    height:100%;
-    position:absolute;
-    top:0px;
-    left:0px;
-    line-height:250px;
-    padding-top:0px;
-    font-size:24px;
-    background:#ffffff;
-    color:#ff24f9;
-    z-index:100;
+.whoVotted-container-wait-opverlay::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 250px;
+    padding-top: 0px;
+    font-size: 24px;
+    background: #ffffff;
+    color: #ff24f9;
+    z-index: 100;
 }
 
 .whoVotted-container-wait-opverlay::after {
-    content:"Plsease Wait...";
+    content: "Plsease Wait...";
     z-index: 101;
-    font-size:14px;
-    position:absolute;
-    top:0px;
-    left:0px;
-    width:120px;
+    font-size: 14px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 120px;
     padding: 3px 5px;
     background: white;
     border: 1px solid #00000066;
@@ -1044,8 +1189,11 @@ textarea:focus {
     text-align: left;
     text-indent: 20px;
     color: white;
-    font-weight: verdana;
+    /* background: white; */
     position: relative;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 5px;
+    transition: all .2s linear;
 }
 
 .close-whoVotted-container {
@@ -1055,17 +1203,27 @@ textarea:focus {
     cursor: pointer;
     color: white;
     padding: 3px;
+    transition: all .2s linear;
 }
+
 .close-whoVotted-container:hover {
     color: black
 }
+
 .whoVotted-container .voters {
     padding: 10px;
     padding-bottom: 50px;
     max-height: 600px;
     overflow: auto;
+    /* border: 1px solid lightcoral; */
+    border-top: none;
+    border-radius: 7px;
+    background: white;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
 }
-.whoVotted-container .voter  {
+
+.whoVotted-container .voter {
     width: 100%;
     height: auto;
     padding-bottom: 20px;
@@ -1074,14 +1232,16 @@ textarea:focus {
     /* border-bottom: 1px solid silver; */
 }
 
-.whoVotted-container .voter:last-child  {
-   margin-bottom:30px;
+.whoVotted-container .voter:last-child {
+    margin-bottom: 30px;
 }
+
 .whoVotted-container .voter img {
     border-radius: 50%;
     float: left;
     margin-right: 10px;
 }
+
 .whoVotted-container .voter strong {
     display: inline-block;
     margin-top: 10px;
@@ -1090,18 +1250,19 @@ textarea:focus {
     font-size: 16px;
     text-shadow: 0px 0px 2px #aaa;
 }
+
 #shootButton {
     background: -webkit-linear-gradient(top, #f8f8f8, #d8d8d8)!important;
-    color:rgba(61, 61, 61, 0.876)!important;
+    color: rgba(61, 61, 61, 0.876)!important;
     border-radius: 4px!important;
-    border:1px solid #aaa!important;
+    border: 1px solid #aaa!important;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: bold;
 }
+
 #shootButton:active {
     background: -webkit-linear-gradient(bottom, #f8f8f8, #d8d8d8)!important;
-    border:1px solid #bbb!important;
-
+    border: 1px solid #bbb!important;
 }
 
 .comment-delete-fade-overlay::after {
@@ -1110,15 +1271,14 @@ textarea:focus {
     height: 100%;
     background: rgba(255, 255, 255, 0.637);
     position: absolute;
-    top:0px;
-    left:0px;
+    top: 0px;
+    left: 0px;
 }
 
 .poll-tag-date {
     width: 100%;
     /* height:30px; */
 }
-
 
 .search-box {
     width: 100%;
@@ -1130,6 +1290,7 @@ textarea:focus {
     border: 1px solid #aaa;
     border-bottom: none;
 }
+
 .search-box #searchkey {
     width: 100%;
     display: block;
@@ -1141,20 +1302,21 @@ textarea:focus {
     /* transform: translateX(-50%); */
     border-radius: 8px;
     border: 0;
-    outline:none;
-    border:1px solid transparent;
-    transition:all .4s;
+    outline: none;
+    border: 1px solid transparent;
+    transition: all .4s;
     background: #ddd;
 }
+
 .search-box #searchkey:focus {
-    border:1px solid dodgerblue;
-    box-shadow:0px 0px 7px dodgerblue;
+    border: 1px solid dodgerblue;
+    box-shadow: 0px 0px 7px dodgerblue;
 }
 
 .search-box button {
     margin: unset;
     padding: unset;
-    top:unset;
+    top: unset;
     left: unset;
     transform: unset;
     width: 100%;
@@ -1165,10 +1327,10 @@ textarea:focus {
     position: relative;
     /* transform: translateX(-50%); */
     border-radius: 9px;
-    border:#aaa;
+    border: #aaa;
+    background: #2a68d3;
     font-size: 18px;
 }
-
 
 .top-polls-container {
     width: 100%;
@@ -1176,13 +1338,11 @@ textarea:focus {
     background: #eee;
 }
 
-.top-polls-container  {
-
+.top-polls-container {
 }
 
-
 .AddNewOptionInput {
-    width:86%!important;
+    width: 86%!important;
     /* border:1px solid dodgerblue!important; */
     border-radius: 20px!important;
 }
@@ -1191,74 +1351,92 @@ textarea:focus {
     transform: translateX(-3px);
 }
 
-
 #onload-overlay {
-    display:block;
+    display: none;
     width: 100%;
     height: 100%;
     position: absolute;
-    background: linear-gradient(to top, #ffffff9e, #ffffff8a);
-    top:0px;
+    background: white;
+    top: 0px;
     left: 0px;
     z-index: 100;
     opacity: 1;
 }
+
 .loadOverlayFadeAni {
-    animation: loadOverlayFadeAni .7s linear 1;
+    animation: loadOverlayFadeAni 1s linear 1 0s;
 }
+
 .loader-text {
     width: 350px;
     background: black;
-    display: inline-block;
+    display: none;
     font-size: 28px;
     color: white;
     border-radius: 5px;
-    padding: 3px 8px;
+    padding: 10px 10px;
     z-index: 101;
     opacity: 1;
     position: absolute;
-    bottom: 15%;
+    top: 0px;
     left: 50%;
     /* bottom: 50px; */
     transform: translateX(-50%);
+    text-align: center;
 }
+
 #snackbar {
-    width:350px;
-    background:white;
-    color:lightcoral;
-    border:1px solid lightcoral;
-    font-size:19px;
-    font-family:sans-serif;
-    padding:15px 15px;
+    width: 350px;
+    background: black;
+    color: white;
+    /* border:1px solid lightcoral; */
+    font-size: 19px;
+    font-family: sans-serif;
+    padding: 15px 15px;
     position: fixed;
-    top: -115px;
-    border-radius: 5px;
-    box-shadow:3px 3px 10px #aaa;
-    left:43%;
-    transform:translateX(-50%);
+    bottom: -115px;
+    border-radius: 3px;
+    box-shadow: 3px 3px 10px #aaa;
+    left: 43%;
+    transform: translateX(-50%);
     z-index: 110;
-    animation: snackbar 5s linear 1;
-    display:none;
+    animation: snackbar 5s cubic-bezier(0, 0, 0, 2.16) 1 0s;
+    animation-delay: 1.3s;
+    display: none;
+}
+#snackbar a {
+    color:white;
+    font-weight:bold;
+    text-decoration:underline;
 }
 
 @keyframes snackbar {
-    0%{
-        top:-115px;
-        opacity:0;
+    0% {
+        bottom: -115px;
+        opacity: 0;
     }
-    10%{
-        top:115px;
-        opacity:1;
+
+    10% {
+        bottom: 50px;
+        opacity: 1;
     }
-    90%{
-        top: 115px;
-        opacity:1;
+
+    40% {
+        bottom: 50px;
+        opacity: 1;
     }
-    100%{
-        top:-115px;
-        opacity:0;
+
+    70% {
+        bottom: 50px;
+/*         opacity: 1; */
+    }
+
+    100% {
+        bottom: -115px;
+        opacity: 0;
     }
 }
+
 #suspension {
     height: 1px;
     display: block;
@@ -1271,50 +1449,57 @@ textarea:focus {
     0% {
         opacity: 1;
     }
-    100%{
+
+    100% {
         opacity: 0;
     }
 }
+
 /* Media Quaries */
-
 @media screen and (max-width: 1115px) {
-  .container {
-    width:80%;
-  }
-  .poll {
-    min-width: 380px;
-  }
+    .container {
+        width:80%;
+    }
+
+    .poll {
+        min-width: 380px;
+    }
 }
 
-@media screen and (max-width: 1190px) { 
-  .poll {
-    min-width: 260px;
-  }
+@media screen and (max-width: 1190px) {
+    .poll {
+        min-width: 300px;
+    }
 }
+
 @media screen and (min-width: 1190px) {
-  .container {
-    width:96%;
-  }
-  .poll {
-    min-width: 300px;
-  }
+    .container {
+        width:96%;
+    }
+
+    .poll {
+        min-width: 300px;
+    }
 }
 
 @media screen and (max-width: 1500px) {
-  .container {
-    width:85%;
-  }
-  .poll {
-    min-width: 340px;
-    /* margin-left: 50%; */
-  }
+    .container {
+        width: 80%;
+        /* max-width: 334px; */
+    }
+
+    .poll {
+/*         max-width: 400px; */
+        /* margin-left: 50%; */
+    }
 }
 
 @media screen and (min-width: 1500px) {
-  .container {
-    width:85%;
-  }
-  .poll {
-    min-width: 300px;
-  }
+    .container {
+        width:85%;
+    }
+
+    .poll {
+        min-width: 300px;
+    }
 }

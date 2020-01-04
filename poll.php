@@ -2,7 +2,7 @@
     if ( isset($_GET["pollid"]) ) {
         $pollid = $_GET["pollid"];
         $poll = (new db())->single("polls",$pollid)->fetch(PDO::FETCH_OBJ);
-        if ( $poll->poll_status == "private" ) {
+        if ( ($poll->poll_status == "private" ||  $poll->poll_status == 0) && (!issLoggedIn() || !checkAuthority( $pollid ) ) ) {
             header("Location:index.php");
         }
         if( $poll->poll_likes == 0 && $poll->poll_dislikes == 0 ) {
@@ -87,7 +87,7 @@
                                     echo 
                                         "<div class='option' data-option-id='$option->option_id' data-option-vote='$option->option_votes'>
                                             <div class='option-checkbox'>
-                                                <input type='checkbox' name='' id='$option->option_id'>
+                                                <input type='checkbox' name='' id='$option->option_id' onClick='vote(this)' >
                                             </div>
                                             <div class='option-name' style='background-size: 0%;'>
                                                 <div class='name' style='display:inline-block; width:65%;'>$option->option_name</div>
@@ -97,8 +97,8 @@
                                             </div>
                                         </div>";
                                 }
-
-                            $poll_created_at = date_format(date_create(explode(" ",$poll->poll_created_at)[0]),"d - m - Y ");
+                                // echo $poll->poll_created_at;
+                            $date = dateHelper( $poll->poll_created_at );
                             echo 
                             "
                             
@@ -123,7 +123,7 @@
                                 </div>                                
                                 <div class='poll-tag-date'>
                                     <small class='poll-tags'><a  style='font-family:monospace;' href='search.php?searchkey=$poll->poll_category'>#$poll->poll_category</a></small>
-                                    <small class='poll-birthdate'>$poll_created_at</small>
+                                    <small class='poll-birthdate'>$date</small>
                                 </div>
                             </div>
                             </div>

@@ -8,7 +8,9 @@ function $(inden) {
     return document.querySelector(inden);
 }
 
-$(".notification").addEventListener("click",toggleNot);
+if( notification = $(".notification") ) {
+    notification.addEventListener("click",toggleNot);
+}
 
 function toggleNot() {    
     var not = document.querySelector('#not');
@@ -79,6 +81,8 @@ function deleteNotification(node,notid) {
 
 window.addEventListener("load",()=>{
     if ( !document.querySelector(".tab-switcher.tab-switcher-bio") ) {
-        $(".profile").classList.remove("profile");
+        if (profile = $(".profile") ) {
+            profile.classList.remove("profile");
+        }
     }
 });

@@ -1,0 +1,13 @@
+.controlls {
+    position:absolute;
+    right:3px;
+    top:0px;
+    display:inline-block;
+}
+
+.controlls .accept{
+    background:dodgerblue;
+}
+.controlls .reject{
+    background:lightcoral;
+}

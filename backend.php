@@ -175,8 +175,11 @@
         $sql = "SELECT count(*) AS found FROM likes WHERE like_poll_id=$poll_id AND like_liker_id=$poll_liker_id";
         $r = $conn->query($sql)->fetch_assoc()["found"];
         // print_r($r->num_rows);
-        if( $r ) {
-            echo "\"{status:'Poll Can Be Liked Only Once'}\"";
+        if( $r ) {            
+            $r = $conn->query( "DELETE FROM likes WHERE like_poll_id=$poll_id AND like_liker_id=$poll_liker_id" );
+            $r = $conn->query( "SELECT COUNT(*) AS likes , (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = $poll_id) AS dislikes FROM likes WHERE likes.like_poll_id = $poll_id" )->fetch_object();
+            // print_r($r->likes);
+            echo json_encode( array("status"=>"unliked","likes"=>$r->likes,"dislikes"=>$r->dislikes) );
             exit(0);
         }
         $sql = "INSERT INTO likes (`like_poll_id`, `like_liker_id`) VALUES($poll_id,$poll_liker_id)";        
@@ -201,7 +204,10 @@
         $sql = "SELECT count(*) AS found FROM dislikes WHERE dislike_poll_id=$poll_id AND dislike_disliker_id=$poll_liker_id";
         $r = $conn->query($sql)->fetch_assoc()["found"];
         if( $r ) {
-            echo "Poll Can Be DisLiked Only Once";
+            $r = $conn->query( "DELETE FROM dislikes WHERE dislike_poll_id=$poll_id AND dislike_disliker_id=$poll_liker_id" );
+            $r = $conn->query( "SELECT COUNT(*) AS likes , (SELECT COUNT(*) FROM dislikes WHERE dislikes.dislike_poll_id = $poll_id) AS dislikes FROM likes WHERE likes.like_poll_id = $poll_id" )->fetch_object();
+            // print_r($r->likes);
+            echo json_encode( array("status"=>"undisliked","likes"=>$r->likes,"dislikes"=>$r->dislikes) );
             exit(0);
         }
 
@@ -323,19 +329,32 @@
 
     if( isset($_POST["operation"]) && $_POST["operation"] == "requestNewOption" && issLoggedIn() ) {
         // $optionid = $_POST["optionid"];
+        // sleep(2);
         $user_id = $_SESSION["pollsite_user_id"];  
         $pollid = $_POST["pollid"];
-        $optionname = htmlentities($_POST["optionname"]);
-        
+        $optionname = filter_var(htmlentities($_POST["optionname"]), FILTER_SANITIZE_STRING);    
         $conn = (new db())->conn;  
-        $sql = "INSERT INTO `proposed_option` VALUES (null,'".$optionname."',".$pollid.",".$user_id.",null)";
-        $r = $conn->query($sql);  
-        if ( $r ) {
-            echo "option requested";
-            // print_r( $conn->lastInsertId() );
-            registerNotification($user_id,'newOptionRequest',$pollid,$conn->lastInsertId());
-        } else {
-            echo $sql;
+
+        $r = $conn->query("select poll_user_id FROM polls where poll_id=$pollid")->fetch(PDO::FETCH_ASSOC);
+
+        if ( $r["poll_user_id"] ==  $user_id ) {
+            $sql = "INSERT INTO `options` VALUES (null,\"$optionname\",$pollid,$user_id,null,0,null)";
+            $r = $conn->query($sql);  
+            if ( $r ) {
+                $optionid = $conn->lastInsertId();
+                echo '{"msg":"option Added","optionid":'.$optionid.'}';                
+            } else {
+                echo $sql;
+            }
+        } else {        
+            $sql = "INSERT INTO `proposed_option` VALUES (null,'".$optionname."',".$pollid.",".$user_id.",null)";
+            $r = $conn->query($sql);  
+            if ( $r ) {
+                echo '{"msg":"option requested"}';
+                registerNotification($user_id,'newOptionRequest',$pollid,$conn->lastInsertId());
+            } else {
+                echo $sql;
+            }
         }
     }
 
@@ -364,6 +383,7 @@
         } else {
             echo "{error:'Poll is Alread Saved'}";
         }
+        // backupDB();
     }
 
 

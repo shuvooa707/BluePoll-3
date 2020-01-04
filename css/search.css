@@ -57,6 +57,7 @@ form {
 }
 form button{
     padding:10px 0px;
+    background: #2a68d3;
 }
 
 .search-box #searchkey:focus {

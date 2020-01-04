@@ -1,9 +1,6 @@
 window.onload = function () {
     setTimeout( showVotePercentages, 1000);
     showVotePercentages();
-    $$(".option-checkbox").forEach(e => {
-        e.addEventListener("click", vote);
-    });
     checkVoted();
 }
 window.addEventListener("keydown", () => {
@@ -76,17 +73,17 @@ function shootComment( node ) {
 
 
 
-function vote(option) {
-    console.log(option);
-
-    // console.log(option.target.parentElement.parentElement.parentElement.parentElement);
+function vote( checkbox ) {    
     
-    option.target.parentElement.parentElement.parentElement.parentElement.classList.add("poll-overlay");
+    var poll = $(".poll");
+    var option = checkbox.parentElement.parentElement;
+    
+    poll.classList.add("poll-overlay");
 
-    var pollID = option.target.parentElement.parentElement.parentElement.parentElement.getAttribute("data-poll-id");
-    var optionID = option.target.parentElement.parentElement.getAttribute("data-option-id");
-    var allPotion = [...option.target.parentElement.parentElement.parentElement.querySelectorAll("input")];
-    var currentClicked = option.target;
+    var pollID = poll.getAttribute("data-poll-id");
+    var optionID = option.getAttribute("data-option-id");
+    var allPotion = [...checkbox.parentElement.parentElement.parentElement.querySelectorAll("input")];
+    var currentClicked = checkbox;
 
     allPotion.forEach(e => {
         if (e == currentClicked && e.checked == true) {
@@ -128,7 +125,7 @@ function updateVoteOnline(option, pollID,optionID, checked) {
 
     req.onreadystatechange = function () {
         if (req.readyState == 4 && req.status == 200) {
-            if (req.responseText != 0) {
+            if ( req.responseText != 0 ) {
                 option.parentElement.parentElement.setAttribute("data-option-vote", parseInt(option.parentElement.parentElement.getAttribute("data-option-vote")) + 1);
                 options = [...option.parentElement.parentElement.parentElement.querySelectorAll(".option")];
                 var totalVotes = options.map(e => parseInt(e.getAttribute("data-option-vote"))).reduce((t, v) => t + v);
@@ -145,6 +142,8 @@ function updateVoteOnline(option, pollID,optionID, checked) {
                         e.querySelector(".vote-percentage").innerText = 0 + "%";
                     }
                 });
+                var  poll = $(".poll");
+                sortPollOptions(poll);
             } else {
                 console.error( req.responseText );
                 
@@ -424,3 +423,27 @@ function likeDislike(which, pollid, pollline, btn) {
     req.send();
 }
 
+
+
+
+function sortPollOptions(poll) {
+
+    var poll_body = poll.querySelector(".poll-body");;
+    // var poll_addnew_option_box = poll_body.querySelector(".poll-addnew-option-box");
+    var poll_info_box = poll_body.querySelector(".poll-info-box");
+    var poll_tag_date = poll_body.querySelector(".poll-tag-date");
+    var options = [...poll_body.querySelectorAll(".option")];
+    poll_body.innerHTML = "";
+    console.log(options);
+    options.sort(function (a, b) {
+        //     console.log(a.getAttribute("data-option-vote"));
+        return parseInt(b.getAttribute("data-option-vote")) - parseInt(a.getAttribute("data-option-vote"));
+    }).forEach(e => {
+        
+        if(e)
+            poll_body.append(e);
+    });
+    // poll_body.append(poll_addnew_option_box);
+    poll_body.append(poll_info_box);
+    poll_body.append(poll_tag_date);
+}

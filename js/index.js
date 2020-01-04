@@ -209,6 +209,8 @@ function updateVoteOnline(option, pollID,optionID, checked ) {
             if ( req.responseText != 0 ) {
                 singleOption.setAttribute("data-option-vote", parseInt(singleOption.getAttribute("data-option-vote")) + 1);            
                 options = [...singleOption.parentElement.querySelectorAll(".option")];
+                var requested_options = [...singleOption.parentElement.querySelectorAll(".requested-option")];
+
                 var totalVotes = options.map(e => parseInt(e.getAttribute("data-option-vote"))).reduce((t, v) => t + v);
                 
                 console.log(totalVotes);
@@ -238,10 +240,14 @@ function updateVoteOnline(option, pollID,optionID, checked ) {
                     }).forEach(e => {
                         poll_body.append(e);
                     });
+                    requested_options.forEach( e=>{
+                        poll_body.append(e);
+                    });
+
                     poll_body.append(poll_addnew_option_box);
                     poll_body.append(poll_info_box);
                     poll_body.append( poll_tag_date );
-                }, 1300,poll_body);
+                }, 1300, poll_body, requested_options);
 
 
 
@@ -364,7 +370,7 @@ function centerifyCheckBox() {
         setTimeout((loadOverlay) => {
             loadOverlay.classList.remove("loadOverlayFadeAni");
             loadOverlay.style.display = "none";
-        }, 700, loadOverlay);        
+        }, 1000, loadOverlay);        
     }
 }
 
@@ -435,30 +441,45 @@ function likeDislike( which,pollid,pollline,btn ) {
     req.onreadystatechange = function () {
         if( this.status == 200 && this.readyState == 4 ) {
             var tmp = JSON.parse(this.responseText);
-            if ( tmp.status == "Poll Can Be Liked Only Once" ) {
-                console.log(tmp);
-                return 0;
+            
+            
+            // computing likes and dislikes percentages
+            var likePercentage = (parseInt(tmp.likes) / (parseInt(tmp.likes) + parseInt(tmp.dislikes)) * 150);
+            likePercentage = isNaN(likePercentage) ? "50%" : likePercentage + "px";
+            var dislikePercentage = (parseInt(tmp.dislikes) / (parseInt(tmp.likes) + parseInt(tmp.dislikes)) * 150);
+            dislikePercentage = isNaN(dislikePercentage) ? "50%" : dislikePercentage + "px";
+
+            console.log(likePercentage);
+            console.log(dislikePercentage);
+
+            if (tmp.status == "unliked") {
+                other_btn = btn.parentElement.querySelector(".liked");
+                other_btn.classList.remove("liked");                
             }
-            console.log(tmp);
-            var likePercentage = (parseInt(tmp.likes) / (parseInt(tmp.likes) + parseInt(tmp.dislikes)) * 150) + "px";
-            var dislikePercentage = (parseInt(tmp.dislikes) / (parseInt(tmp.likes) + parseInt(tmp.dislikes)) * 150) + "px";
+            if (tmp.status == "undisliked") {
+                other_btn = btn.parentElement.querySelector(".disliked");
+                // console.log(other_btn);
+                
+                other_btn.classList.remove("disliked");
+            }
+            
 
             if (tmp.status == "liked") {
                 btn.classList.add("liked");
                 if (other_btn = btn.parentElement.querySelector(".disliked")) {
                     other_btn.classList.remove("disliked");
-                    pollline.querySelector(".left").style.width = likePercentage;
-                    pollline.querySelector(".right").style.width = dislikePercentage;
                 }
             }
             if (tmp.status == "disliked") {
                 btn.classList.add("disliked");
                 if (other_btn = btn.parentElement.querySelector(".liked")) {
                     other_btn.classList.remove("liked");
-                    pollline.querySelector(".left").style.width = likePercentage;
-                    pollline.querySelector(".right").style.width = dislikePercentage;
                 }
             }
+
+            
+            pollline.querySelector(".left").style.width = likePercentage;
+            pollline.querySelector(".right").style.width = dislikePercentage;
         }
     }
     req.send();       
@@ -557,29 +578,57 @@ function ToggleAddNewOptionInput( node ) {
     }
 }
 
-function addNewOptionOnline() {
-    console.log(this.previousElementSibling);
-    if ( this.previousElementSibling.value.length > 1 ) { 
-        var pollid = this.parentElement.parentElement.parentElement.getAttribute("data-poll-id");         
-        var optionname = this.previousElementSibling.value;       
-        this.parentElement.classList.add("comment-delete-fade-overlay");
+function addNewOptionOnline( node ) {
+    
+    if ( node.previousElementSibling.value.length > 1 ) { 
+        var poll = node.parentElement.parentElement.parentElement;
+        var pollid = poll.getAttribute("data-poll-id"); 
+        // console.log(pollid);
+        var optionname = node.previousElementSibling.value;       
+        node.parentElement.classList.add("comment-delete-fade-overlay");
         var req = new XMLHttpRequest();
         req.open("POST", "backend.php", true );
         req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         req.onreadystatechange = () => {
-            if ( req.status == 200 && req.readyState == 4 ) {                
-                if ( req.responseText.trim() == "option requested" ) {
-                    alert("Poll's Been Requested");
-                } else {
-                    alert("Poll's Been Not Requested");
-                    console.log(req.responseText);
-                    
+            if ( req.status == 200 && req.readyState == 4 ) {
+                var response = JSON.parse(req.responseText);                
+                if (response.msg == 'option Added') {
+                    var newOption = `
+                        <div class='option' data-option-id='${response.optionid}' data-option-vote='-1' >
+                            <div class='option-checkbox'>
+                                <input onClick='vote(this.parentElement.parentElement)' type='checkbox' name='option-checkbox' class='option-checkbox-element'>
+                            </div>
+                            <div class='option-name' style='background-size:0%;'>
+                                <div class='name' style='display:inline-block; width:65%;'>${optionname}</div>
+                                <div class='vote' style='display:inline-block;width:30%;position: absolute;top: 13px;'>
+                                    
+                                    <strong title='Click to See Who Votted' style='cursor:pointer;color:#1e90ffc2;position:absolute;right:5px;' class='vote-percentage' onclick='showVotersList(this.parentElement.parentElement.parentElement)'>
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    var newOption = ((new DOMParser()).parseFromString(newOption, "text/html")).querySelector(".option");
+                    // console.log(newOption);
+                    poll.querySelector(".poll-body").prepend(newOption);
+                    centerifyCheckBox();
+                    sortPollOptions(poll);
+                    node.parentElement.classList.remove("comment-delete-fade-overlay");
+                    node.previousElementSibling.value = "";
+                } else if (response.msg == 'option requested') {
+                    node.parentElement.classList.remove("comment-delete-fade-overlay");
+                    node.previousElementSibling.value = "";
+                    alert("option requested");
                 }
             }
         }
-        req.send(`operation=requestNewOption&pollid="${pollid}"&optionname="${optionname}`);
+        req.send(`operation=requestNewOption&pollid=${pollid}&optionname=${optionname}`);
     } else {
-        
+        var inputField = node.previousElementSibling;
+        inputField.style.border = "1px solid red";
+        setTimeout( inputField => {
+            inputField.style.border = "0px";
+        }, 2000, inputField);
     }
 }
 
@@ -679,4 +728,157 @@ function loadMorePolls() {
         }
     }
     req.send();
+}
+
+
+
+
+function allowOption(node) {
+    console.log(node);
+    node.classList.add("face-overlay");
+    var poptionid = node.getAttribute("data-poption-id");
+    var req = new XMLHttpRequest();
+    req.open("POST", "backend.php", true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send("operation=changeAllowOption&poptionid_id=" + poptionid);
+
+    req.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText == "option added") {
+                node.remove();
+            }
+        }
+    }
+}
+
+
+function deleteOption(node) {
+    console.log(node);
+    node.classList.add("face-overlay");
+    var poptionid = node.getAttribute("data-poption-id");
+    var req = new XMLHttpRequest();
+    req.open("POST", "backend.php", true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send("operation=deleteRequestedOption&poptionid_id=" + poptionid);
+
+    req.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText.trim() == "option deleted") {
+                console.log(this.responseText);
+                node.remove();
+            }
+        }
+    }
+}
+
+
+function sortPollOptions( poll ) {
+    
+    var poll_body = poll.querySelector(".poll-body");;
+    var poll_addnew_option_box = poll_body.querySelector(".poll-addnew-option-box");
+    var poll_info_box = poll_body.querySelector(".poll-info-box");
+    var poll_tag_date = poll_body.querySelector(".poll-tag-date");
+    var options = [...poll_body.querySelectorAll(".option")];
+    var requested_options = [...poll_body.querySelectorAll(".requested-option")];
+    console.log(options);
+    poll_body.innerHTML = "";
+    options.sort(function (a, b) {
+        //     console.log(a.getAttribute("data-option-vote"));
+        return parseInt(b.getAttribute("data-option-vote")) - parseInt(a.getAttribute("data-option-vote"));
+    }).forEach(e => {
+        poll_body.append(e);
+    });
+    requested_options.forEach( e=>{
+        poll_body.append(e);
+    });
+    poll_body.append(poll_addnew_option_box);
+    poll_body.append(poll_info_box);
+    poll_body.append(poll_tag_date);
+}
+
+
+function acceptOption( node ) {
+    var poll = node.parentElement.parentElement.parentElement.parentElement;
+    var requested_option = node.parentElement.parentElement;
+    requested_option_id = requested_option.getAttribute("data-option-id");
+    var optionname = requested_option.querySelector(".requested-option-name").innerText;
+    node.classList.add("face-overlay");
+    // var poptionid = node.parentElement.getAttribute("data-poption-id");
+    var req = new XMLHttpRequest();
+    req.open("POST", "backend.php", true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    
+    req.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText == "option added") {
+                var newOption = `
+                        <div class='option' data-option-id='' data-option-vote='-1' >
+                            <div class='option-checkbox'>
+                                <input onClick='vote(this.parentElement.parentElement)' type='checkbox' name='option-checkbox' class='option-checkbox-element'>
+                            </div>
+                            <div class='option-name' style='background-size:0%;'>
+                                <div class='name' style='display:inline-block; width:65%;'>${optionname}</div>
+                                <div class='vote' style='display:inline-block;width:30%;position: absolute;top: 13px;'>
+                                    
+                                    <strong title='Click to See Who Votted' style='cursor:pointer;color:#1e90ffc2;position:absolute;right:5px;' class='vote-percentage' onclick='showVotersList(this.parentElement.parentElement.parentElement)'>
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                var newOption = ((new DOMParser()).parseFromString(newOption, "text/html")).querySelector(".option");
+
+                requested_option.replaceWith( newOption );
+                centerifyCheckBox();
+                // console.log(poll);
+                sortPollOptions( poll );
+
+            }
+        }
+    }
+
+    req.send("operation=changeAllowOption&poptionid_id=" + requested_option_id);
+}
+
+
+
+function rejectOption(node) {
+    var requested_option = node.parentElement.parentElement;
+    node.classList.add("face-overlay");
+    var poptionid = requested_option.getAttribute("data-option-id");
+    var req = new XMLHttpRequest();
+    req.open("POST", "backend.php", true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.send("operation=deleteRequestedOption&poptionid_id=" + poptionid);
+
+    req.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText.trim() == "option deleted") {
+                console.log(this.responseText);
+                requested_option.remove();
+            }
+        }
+    }
+}
+
+
+
+
+
+function editConf( node ) {
+    
+    var poll = node.parentElement.parentElement;
+    if ( pollToBeEdited = document.querySelector(".pollToBeEdited") ) {
+        pollToBeEdited.classList.remove("pollToBeEdited");
+    }
+    poll.classList.add("pollToBeEdited");
+    $(".edit-warning-modal-back").classList.add("show");
+
+}
+
+function okEditPoll() {
+    var pollid = $(".pollToBeEdited").getAttribute("data-poll-id");
+    if (pollid) {
+        window.location = "editpoll.php?pollid=" + pollid;
+    }
 }

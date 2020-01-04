@@ -7,8 +7,13 @@
             $this->myconn = new mysqli("localhost","root","","bluepoll");
         }
         public static function query( $sql ) {
-            // $this->myconn = new mysqli("localhost","root","","bluepoll");
-
+            $myconn = new mysqli("localhost","root","","bluepoll");
+            $r = $myconn->query( $sql );
+            if( $r ) {
+                return $r;
+            } else {
+                return "{'error':'something went worng','sql':'$sql','result':'$r'}";
+            }
         }
         public function getAllNotifications(  ) {
             $user_id = isset($_SESSION["pollsite_user_id"]) ? $_SESSION["pollsite_user_id"] : "";
@@ -217,7 +222,7 @@
         // get all the Public polls from the database
         public function getAllPoll(  $offset = 0, $count = 100 ) {
             $conn = new mysqli("localhost","root","","bluepoll");
-            if( isset($_SESSION["pollsite_user_id"]) ) {
+            if( issLoggedIn() ) {
                 $user_id = $_SESSION["pollsite_user_id"];
                 $sqlString = "SELECT *,
                                 (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id AND likes.like_liker_id = $user_id) AS liked,
@@ -244,18 +249,21 @@
             $results = $this->myconn->query($sqlString);
             $tmpArr = array();
             $loggedInUser = isset($_SESSION["pollsite_user_id"]) ? $_SESSION["pollsite_user_id"] : "";
-            // echo $sqlString;        
-            // echo "\n\n\n\n";
+            
+
+
+            // fetching all the options, requested options and comments for each poll
             while( $poll = $results->fetch_assoc() ) {
                 $poll_id = $poll['poll_id'];
-                $poll["options"]  = $this->myconn->query( "SELECT option_id,option_name,option_belongsto,option_addedby_id,option_created_at,(select count(*) from votes where vote_option_id=option_id) AS option_votes FROM options WHERE option_belongsto = $poll_id ORDER BY option_votes DESC" );
+                $poll["options"]  = $this->myconn->query( "SELECT option_id,option_name,option_belongsto,option_addedby_id,option_created_at,(select count(*) from votes where vote_option_id = option_id) AS option_votes FROM options WHERE option_belongsto = $poll_id ORDER BY option_votes DESC" );
                 $comments = $this->myconn->query( "SELECT *,CONCAT(users.user_firstname, ' ',users.user_lastname) AS comment_user_fullname FROM comments JOIN users ON comment_user_id=users.user_id where comment_poll_id=".$poll['poll_id'] );
-
-                // if( hasSingleCommentDeleteAuthority($comments["comment_user_id"] ) {
-                //     $comments["owned"] = true;
-                // } else {
-                //     $comments["owned"] = false;
-                // }
+                
+                if ( issLoggedIn() ) {
+                    $poll["requested_options"]  = $this->myconn->query( "SELECT * FROM proposed_option WHERE proposed_option_poll_id = $poll_id");
+                    
+                } else {
+                    $poll["requested_options"]  = array();
+                }
 
                 $poll["comments"] = $comments;
                 if ( $poll["poll_user_id"] == $loggedInUser ) {
@@ -264,8 +272,11 @@
                     $poll["owned"] = false;
 
                 }
+                
                 array_push($tmpArr,$poll);
             }
+
+
 
           return $tmpArr;
         }
@@ -290,4 +301,5 @@
         }
 
     }
+
 ?>

@@ -110,10 +110,10 @@ function mmVottedList(node) {
 
 
 
-function allowOption(node) {
+function allowOption(node, poptionid) {
     console.log(node);
     node.classList.add("face-overlay");
-    var poptionid = node.getAttribute("data-poption-id");
+    // var poptionid = node.parentElement.getAttribute("data-poption-id");
     var req = new XMLHttpRequest();
     req.open("POST", "backend.php", true);
     req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -128,10 +128,10 @@ function allowOption(node) {
     }
 }
 
-function deleteOption(node) {    
+function deleteOption(node, poptionid) {    
     console.log(node);
     node.classList.add("face-overlay");
-    var poptionid = node.getAttribute("data-poption-id");
+    // var poptionid = node.getAttribute("data-poption-id");
     var req = new XMLHttpRequest();
     req.open("POST", "backend.php", true);
     req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -160,4 +160,92 @@ function changeTab( tab ) {
             return true;
         }
     }).classList.add("show");
+}
+
+
+
+function deleteComment(node) {
+    node.classList.add("commentToBeDeleted");
+    $(".delete-comment-modal-back").classList.add("show");
+}
+
+
+function okDeleteComment(node) {
+    var ctbd = $$(".commentToBeDeleted");
+    console.log(ctbd);
+    
+    if (ctbd.length == 1) {
+        $(".delete-comment-modal-back").classList.remove("show");
+        ctbd = ctbd[0];
+        ctbd.classList.remove("commentToBeDeleted");
+        commentID = ctbd.getAttribute("data-comment-id");
+        ctbd.classList.add("comment-delete-fade-overlay");
+
+        var req = new XMLHttpRequest();
+
+        req.open("GET", "backend.php?operation=deleteComment&commentid=" + commentID, true);
+
+        req.onreadystatechange = function () {
+            if (this.status == 200 && this.readyState == 4) {
+                if (this.responseText == "commentDeleted") {
+                    ctbd.remove();
+                } else {
+                    console.log(this.responseText);
+                }
+            }
+        }
+        req.send();
+    } else {
+        ctbd.forEach(e => { e.classList.remove("commentToBeDeleted") });
+        alert("Something Went Worng! Please try Again");
+    }
+}
+
+
+
+
+
+function removeSavedPoll(node) {
+    node.style.opacity = 0;
+    poll_id = node.getAttribute("data-poll-id");
+
+    var req = new XMLHttpRequest();
+    req.open("POST", "backend.php", true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.onreadystatechange = () => {
+        if (req.status == 200 && req.readyState == 4) {
+            if (req.responseText.trim() == "Poll Deleted") {
+                node.remove();
+            } else {
+
+            }
+        }
+    }
+    req.send(`operation=removeSavedPoll&pollid=${poll_id}`);
+}
+
+
+
+
+
+function unHidePoll( poll ) {
+    // adding loader overlay
+    poll.classList.add("poll-overlay");
+
+    let poll_id = poll.getAttribute("data-poll-id");
+    var req = new XMLHttpRequest();
+    req.open("POST", "backend.php", true);
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    req.onreadystatechange = () => {
+        if (req.status == 200 && req.readyState == 4) {
+            if (req.responseText.trim() == "Poll unhidded") {
+                console.log(poll);
+
+                poll.remove();
+            } else {
+                alert(req.responseText);
+            }
+        }
+    }
+    req.send(`operation=unhidePoll&pollid=${poll_id}`);
 }

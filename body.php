@@ -1,13 +1,16 @@
        
     <div id="snackbar">
-        The Hidden Polls Can Be Found In Control Section of Your Profile Page 
+        The Hidden Polls Can Be Found In <a href="dashboard.php">Dashboard</a>
     </div>
 
 <div class="container">
     <div class="main-content">
         <div id="onload-overlay">
             <div class="loader-text">
-                Loading More Polls...
+                Loading More Polls
+                <span class="dot">.</span>
+                <span class="dot">.</span>
+                <span class="dot">.</span>                                
             </div>
         </div> 
 

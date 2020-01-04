@@ -27,7 +27,7 @@ a:hover,.show-more:hover {
 }
 
 body {
-    overflow-y: scroll;
+    overflow-y: hidden;
     background-color: #f7fbf5;
     margin: 0px;
     padding: 0px;
@@ -42,11 +42,11 @@ body {
     margin: 80px auto;
     background: white;
     padding: 20px;
-    width: 80%;
+    width: 1570px;
     height: 800px;
     /* box-shadow: 0px 0px 16px #aaaabb57; */
     border: 1px solid #ddd;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 #votted-poll-list {
@@ -200,6 +200,7 @@ body {
 .delete {
     color: white;
     background: #ec7474;
+    transform: unset;
 }
 
 .delete:hover {
@@ -310,6 +311,7 @@ body {
     position: relative;
     z-index: 99;
 }
+
 .face-overlay::after {
     content: "";
     width: 100%;
@@ -327,88 +329,125 @@ body {
 }
 
 /* ----------------------------------------------------------------- */
-
 .container > .menu {
-    width:250px;
+    width: 250px;
     background: #f5f5f540;
-    border:1px solid #eee;
-    float:left;
-    position:relative;
-    margin-right:50px;
+    border: 1px solid #eee;
+    float: left;
+    position: relative;
+    margin-right: 50px;
 }
+
 .container > .menu > .header {
-    text-align:center;
-    font-size:25px;
-    background:black;
-    color:white;
-    padding:12px 0px;
+    text-align: center;
+    font-size: 25px;
+    background: #dbdfe2;
+    color: black;
+    padding: 12px 0px;
 }
 
 .container > .menu > .body {
-
 }
 
 .container > .menu > .body > .menu-item {
-    border-bottom:1px solid #eee;
-    padding:10px 15px;
-    color:#5c5c5c;
-    cursor:pointer;
+    border-bottom: 1px solid #eee;
+    padding: 15px 15px;
+    color: #5c5c5c;
+    cursor: pointer;
 }
+
 .container > .menu > .body > .menu-item:hover {
-    background:#eeeeee;
+    background: #eeeeee;
 }
+
 .container > .menu > .body > .menu-item:active {
-    background:#d9d9d9;
+    background: #d9d9d9;
 }
 
 .container > .menu > .body > .menu-item.active {
     background: #1e90ffa1;
-    color:white;
+    color: white;
 }
 
 .container > .menu > .body > .menu-item:last-child {
-    border-bottom:unset;
+    border-bottom: unset;
 }
 
 .container > .body {
-    border: 1px solid  #eee;
-    width: 1000px;
-    height: 400px;
+    border: 1px solid #eee;
+    width: 1200px;
+    height: 800px;
+    max-height: 1000px;
     /* margin-left: 50px; */
-    position:relative;
+    position: relative;
     float: left;
+    overflow-y: auto;
+    padding-bottom: 50px;
 }
+
 .container > .body > .tab {
-    display:none;
+    display: none;
     background: #ffc10708;
     width: 100%;
     min-height: 100%;
-    padding:10px;
+    padding: 10px;
+    animation: a .5s ease 0s 1;
 }
 
+@keyframes a {
+    0% {
+        opacity: 0;
+        transform:scale(0.99);
+    }
 
-.show{
-    display:block;
+    100% {
+        opacity: 1;
+        transform:scale(1);
+    }
 }
 
-.polls-table{
+.show {
+    display: block;
+}
+
+.polls-table,.comments-table,.requests-table,.saved-table,.hidden-table {
     width: 100%;
     border-collapse: collapse;
-    background:#f080800d;
+    background: #f080800d;
 }
 
-.polls-table td,th  {
-    border: 1px solid #2196f329;
+.polls-table td,th {
+    /* border: 1px solid #2196f329; */
 }
+
 .polls-table td:second-child {
-    min-width:400px;
+    min-width: 400px;
 }
-.polls-table th  {/*     border: 1px solid #00000045; */background: #ddd;padding: 10px 5px;}
+
+.comments-table th, .polls-table th,.requests-table th,.saved-table th,.hidden-table th {
+    /*         border: 1px solid #00000045; */
+    background: #e6e6e6;
+    /* color: white; */
+    padding: 17px 5px;
+    /*     font-family:vardana; */
+}
+
+th:first-child {
+    border-top-left-radius: 3px;
+    /*     border-bottom-left-radius: 5px; */
+}
+
+th:last-child {
+    border-top-right-radius: 3px;
+    /*     border-bottom-right-radius: 5px; */
+}
 
 .polls-table > tbody > tr > td {
+    border: 1px solid #a6a6a65c;
     padding: 11px 13px;
     text-align: center;
 }
+
 .polls-table button {
     transform: unset;
     margin-bottom: 5px;
@@ -423,9 +462,76 @@ span.detail-element {
     /* width:130px; */
     color: #797979;
 }
+
 table button {
     width: 75px;
     padding: unset;
     padding: 5px 0px;
     font-family: sans-serif;
+}
+
+/* Comments Table Styles */
+.comments-table > tbody > tr > td {
+    padding: 11px 13px;
+    text-align: center;
+    border: 1px solid lightcoral;
+}
+
+/* Requests Table Styles */
+.requests-table > tbody > tr > td {
+    padding: 11px 13px;
+    text-align: center;
+    border: 1px solid lightcoral;
+}
+
+.requests-table button.accept {
+    transform: unset;
+    margin: unset;
+    display: inline-block;
+    background: #1e90ffa1;
+}
+
+.requests-table button.reject {
+    transform: unset;
+    margin: unset;
+    display: inline-block;
+    background: #f08080e3;
+}
+
+/* Saved Table Styles */
+.saved-table > tbody > tr > td {
+    padding: 11px 13px;
+    text-align: center;
+    border: 1px solid lightcoral;
+}
+
+.saved-table button.delete {
+    transform: unset;
+    margin: unset;
+    display: inline-block;
+    background: #f08080e3;
+}
+
+/* Hidden Table Styles */
+
+
+.hidden-table > tbody > tr:nth-child(odd) {
+/*     border-bottom:1px solid rgba(33, 150, 243, 0.54); */
+    background:rgba(33, 150, 243, 0.09);
+}
+.hidden-table > tbody > tr:nth-child(even) {
+    background: white;
+}
+.hidden-table > tbody > tr > td {
+    padding: 11px 13px;
+    text-align: center;
+    /* border: 1px solid lightcoral; */
+}
+
+
+.hidden-table button.unhide {
+    transform: unset;
+    margin: unset;
+    display: inline-block;
+    background: #f08080e3;
 }

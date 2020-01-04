@@ -13,8 +13,8 @@
             } else {         
                 $polls = $db->getAllPoll($offset, $pollPerPage );
             }
-        } else if( isset( $_GET["poll_count"]) && issLoggedIn() ) {
-            sleep(3);
+        } else if( isset( $_GET["poll_count"]) ) {
+            sleep(1);
             $poll_from = $_GET["poll_from"];
             $polls = $db->getAllPoll($poll_from, $pollPerPage);
             
@@ -23,12 +23,8 @@
                 echo "no-----";
             } else {
                 echo "yes-----";
-            }
-            
+            }            
         }
-        
-
-
         
 
         // drawing every poll
@@ -43,16 +39,19 @@
             }
             $poll_id = $poll['poll_id'];
             $poll_options = $poll['options'];
+            $requested_options = $poll['requested_options'];
             $poll_comments = $poll['comments'];
             $poll_user_id = $poll['poll_user_id'];
             $poll_creator_name = $poll['poll_creator_name'];
             $poll_category = $poll['poll_category'];
             $poll_created_at = date_format(date_create(explode(" ",$poll["poll_created_at"])[0]),"d-m-y ");
+            $date = dateHelper( $poll["poll_created_at"] );
             // $pollLikes = ($poll["poll_likes"] / ($poll["poll_likes"] + $poll["poll_dislikes"])) * 100;
             $pollLikes = $poll["poll_likes"] == 0 ? 50 : $poll["poll_likes"];
             $pollDislikes = $poll["poll_dislikes"] == 0 ? 50 : $poll["poll_dislikes"];
             $have_liked = (isset( $poll["liked"] ) && $poll["liked"] == 1) ? "liked" : "";
             $have_disliked = (isset( $poll["disliked"] ) && $poll["disliked"] == 1 ) ? "disliked" : "";
+
 
             if ( isset( $poll["saved"] ) && $poll["saved"] != 0 ) {
                 $poll_saved = "<div class='tool-option save saved-poll'>
@@ -90,6 +89,15 @@
             } else {
                 $poll_settings = "";
             }
+
+            if ( checkAuthority($poll_id) ) {
+                $poll_edit = 
+                        "<span class='poll-edit-icon' title='click' onclick='editConf(this)'>
+                            <span style='' class='flaticon-edit'></span> 
+                        </span>";
+            } else {
+                $poll_edit = "";
+            }
         echo "
             <div class='poll' data-poll-id='$poll_id' style='box-shadow:$savedPollBorder;'>
                 <div class='poll-tool-container' >
@@ -114,6 +122,7 @@
                     <a href='poll.php?pollid=$poll_id' title='Click expand this poll'><span class='expand-poll'>⛶</span></a> 
                     $poll_name 
                     $poll_settings
+                    $poll_edit
                 </div>
                 <div class='poll-body'>";
                 // printing all the options for each poll
@@ -134,7 +143,9 @@
                                 <input onClick='vote(this.parentElement.parentElement)' type='checkbox' name='option-checkbox' class='option-checkbox-element' disabled>
                             </div>
                             <div class='option-name' style='background-size:100%;'>
-                                <div class='name' style='display:inline-block; width:65%;'>$option_name</div>
+                                <div class='name' style='display:inline-block; width:65%;'>
+                                    <strong style='color:#4b4b4b;'>$option_name</strong>
+                                </div>
                                 <div class='vote' style='display:inline-block;width:30%;position: absolute;top: 13px;'>
                                     
                                     <strong title='Click to See Who Votted' style='cursor:pointer;color:#1e90ffc2;position:absolute;right:5px;' class='vote-percentage' onclick='showVotersList(this.parentElement.parentElement.parentElement)'>
@@ -143,13 +154,43 @@
                             </div>
                         </div>";
                 }
+                // var_dump( $requested_options->fetch_assoc() );
+                if ( $poll_user_id == LoggedInUser() ) {
+                    
+                    while ( $requested_option = $requested_options->fetch_assoc() ) {
+                        $requested_option_name = substr($requested_option["proposed_option_name"],0,95);
+                        if( strlen($requested_option["proposed_option_name"]) > 100 ) {
+                            $requested_option_name = $requested_option_name . "<strong class='show-more-option-name' onclick='showMoreOptionName(this)' style='color:dodgerblue; cursor:pointer;'> ....</strong>";
+                            $requested_option_name_full = "<span style='display:none'>".$requested_option["proposed_option_name"]."</span>";
+                        } else {
+                            $requested_option_name_full = "";
+                        }
+                        $requested_option_id = $requested_option["proposed_option_id"];
+                        echo 
+                            "<div class='requested-option' data-option-id='$requested_option_id'>
+                                <div class='controlls'>
+                                    <button onClick='acceptOption(this)' class='accept'>Accept</button>
+                                    <button onClick='rejectOption(this)' class='reject'>Delete</button>
+                                </div>
+                                <div class='requested-option-name' style='background-size:100%;'>
+                                    <div class='name' style='display:inline-block; width:65%;'>
+                                        <strong style='color:#4b4b4b;'>$requested_option_name</strong>
+                                    </div>
+                                    <div class='vote' style='display:inline-block;width:30%;position: absolute;top: 13px;'>
+                                        
+                                        <strong title='Click to See Who Votted' style='cursor:pointer;color:#1e90ffc2;position:absolute;right:5px;' class='vote-percentage' onclick='showVotersList(this.parentElement.parentElement.parentElement)'>
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>";
+                    }
+
+                }
+
                 echo "                
                 <div class='poll-addnew-option-box' style=''>
-                    <button  class='cancel-new-option-button' onClick='ToggleAddNewOptionInput(this)'>
-                        <span style='' class='flaticon-cancel'></span>
-                    </button>
                     <input type='text'  class='add-new-option' placeholder='Write New Option...' >
-                    <button  class='add-new-option-button' onClick='ToggleAddNewOptionInput(this)'>✚</button>
+                    <button  class='add-new-option-button' onClick='addNewOptionOnline(this)'>Add</button>
                 </div>
                 <div class='poll-info-box'>
                     <div class='left' data-poll-id='$poll_id'>
@@ -173,7 +214,7 @@
                 </div>
                 <div class='poll-tag-date'>
                     <small class='poll-tags'><a style='font-family:monospace;' href='search.php?searchkey=$poll_category'>#$poll_category</a></small>
-                    <small class='poll-birthdate'>$poll_created_at</small>
+                    <small class='poll-birthdate'>$date</small>
                 </div>
                 </div>
 

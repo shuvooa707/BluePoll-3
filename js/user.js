@@ -30,7 +30,7 @@ function removeSavedPoll(node) {
     req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     req.onreadystatechange = () => {
         if (req.status == 200 && req.readyState == 4) {
-            if (req.responseText.trim() == "Poll Deleted") {
+            if ( req.responseText.trim() == "Poll Deleted" ) {
                 poll.remove();
             } else {
 

@@ -52,4 +52,35 @@
             return false;
         }
     }
+
+    function LoggedInUser() {
+        if( issLoggedIn() ) {
+            return $_SESSION["pollsite_user_id"];
+        } else {
+            return false;
+        }
+    }
+
+
+    function dateHelper( $dateIn ) {
+        $date = date('y-m-d', strtotime( $dateIn ));
+        $date = date_diff(date_create($date),date_create())->d;
+        if( $date > 3 ) {
+            $date = date('d/m/y', strtotime( $dateIn ));
+        } else if( $date == 0 ) {
+            $date = " Today";
+        } else if( $date == 1 ) {
+            $date = "yesterday";
+        } else if( $date > 1 ) {
+            $date .= " days ago";
+        }
+
+        return $date;
+    }
+
+    function backupDB() {
+        exec("./database/saveDB.bat",$o);
+        return json_encode($o);
+    } 
+    
 ?>

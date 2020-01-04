@@ -2,6 +2,30 @@
     box-sizing: border-box;
 /*     overflow: hidden; */
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #1e90ff42;
+    border-radius: 3px;
+    cursor:pointer;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #1e90ff9c;
+}
+
+
 button,input[type='checkbox'] {
     cursor:pointer;
 }
@@ -81,7 +105,7 @@ body {
 /*     border:2px solid white; */
 }
 .navbar .profile {
-    background:dodgerblue;
+    background: #1e90ffa1;
     color:white;
 }
 
@@ -116,7 +140,8 @@ body {
     width: 80%;
     min-height: 80vh;
     display: flex;
-    box-shadow: 0px 0px 16px #aaaabb57;
+    /* box-shadow: 0px 0px 16px #aaaabb57; */
+    border: 1px solid #ddd;
     overflow-y: auto;
 }
 
@@ -148,10 +173,13 @@ body {
 }
 .hidden-polls, .saved-polls {
     float: left;
-    width: 45%;
+    width: 50%;
+    padding: 0px 20px;
     padding-left: 30px;
     transition: all .5s;
     opacity: 1;
+    overflow: auto;
+    height: 600px;
 }
 .saved-polls{
     border-right: 1px dotted #0000008f;
@@ -237,6 +265,9 @@ body {
     background:#eee;
     border-radius: 5px;
     animation:a .5s ease 0s 1;
+    overflow: hidden;
+    overflow-y: auto;
+    text-align:center;
 }
 @keyframes a {
     0%{
@@ -278,23 +309,76 @@ body {
     margin: 10px;
     border-bottom: 2.5px solid #9E9E9E;
 }
-.saved_poll, .hidden-poll {
-    transition: all .7s;
+h3[onclick='updateProfile()'] {
+    cursor:pointer;
+    color:dodgerblue;
 }
-.hidden-poll {
-    transition: all .7s;
+h3::after {
+    content:"";
+    background:#ffffff;
+    position:absolute;
+    right:0px;
+    top:0px;
+    width:40px;
+    height:100%;
 }
-.remove-saved-poll,.remove-hidden-poll {
-    color:#ff5a26;
-    cursor:pointer; 
-    font-size:12px;
-    font-style: italic;
+h3[onclick]:hover::after {
+    background-color:#ffffff;
+    box-shadow:5px 0px 10px rgb(255, 255, 255);
+    animation: glow .5s cubic-bezier(0.4, 0, 1, 1) 0s infinite alternate;
 }
-.remove-saved-poll:hover,.remove-hidden-poll:hover {
-    text-decoration: underline;
-    color:red;
+@keyframes glow {
+    0%{
+        box-shadow:5px 0px 5px rgb(255, 255, 255);        
+    }   
+    100%{
+        box-shadow:5px 0px 30px rgb(255, 255, 255);        
+    }
+}
+h3[onclick='updateProfile()']:hover {
+    background-color:dodgerblue;
 }
 
+h3[onclick='changePassword()'] {
+    color:cornflowerblue;
+}
+h3[onclick='changePassword()']:hover {
+    background-color:cornflowerblue;
+}
+h3[onclick='deactivateProfile()'] {
+    color:black;
+}
+h3[onclick='deactivateProfile()']:hover {    
+    background-color:black;
+}
+
+h3[onclick='deleteProfile()'] {
+    color:red;
+}
+h3[onclick='deleteProfile()']:hover {
+    background-color:red;
+}
+h3[onclick] {
+    position:relative;
+        transition:all .2s linear;
+    border: 1px solid;
+    width:50%;
+    text-align:center;
+    display: inline-block;
+    padding: 8px 8px;
+    border-radius: 4px;
+    background:white;
+    cursor:pointer;
+}
+h3[onclick]:hover {
+    /* text-shadow: 0px 0px 1px red; */
+    /* color: white; */
+    /* border: 1px solid; */
+    /* display: inline-block; */
+    /* padding: 5px 8px; */
+    /* border-radius: 3px; */
+    color: white;
+}
 
 
 .tab-polls .poll:nth-child(2n) {
