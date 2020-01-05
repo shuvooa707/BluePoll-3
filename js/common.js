@@ -85,4 +85,19 @@ window.addEventListener("load",()=>{
             profile.classList.remove("profile");
         }
     }
+    // injectSettingsDiv();
 });
+
+
+
+function injectSettingsDiv() {
+    let settingsDiv = `
+        <div class="settings-div">
+            <i class="flaticon-settings"></i>
+        </div>
+    `;
+    settingsDiv = ((new DOMParser()).parseFromString(settingsDiv, "text/html")).querySelector(".settings-div");
+    console.log( settingsDiv );
+
+    document.body.append(settingsDiv);
+}

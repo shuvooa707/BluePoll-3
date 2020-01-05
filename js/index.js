@@ -411,6 +411,7 @@ function showVotersList(node) {
                                 <strong><a href="user.php?userid=${e.user_id}">${e.user_name}</a></strong>
                             </div>`;
             });
+            $(".whoVotted-footer").innerText = data.length + " Vote" + (data.length == 1 ? "" : "s");
             console.log(data);
 
             if (data.length == 0) {

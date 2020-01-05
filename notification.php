@@ -23,7 +23,7 @@
                 </path>
             </g>
         </svg>
-    </span>Notification <span class='not_count' style='visibility:<?php echo $ncount ?>!important;/* display:none; */font-weight:bold;font-size: 15px;padding: 0px 3px;border-radius:3px;background:indigo;color:white;box-shadow: 0px 0px 10px #ffffffc2;'>
+    </span>Notification <span class='not_count' style='visibility:<?php echo $ncount ?>!important;'>
         <?php echo $not_count ?>
     </span>
     <div class='notification-list' id='not'>    

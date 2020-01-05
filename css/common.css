@@ -77,7 +77,7 @@ body {
     /* overflow: hidden; */
     padding: 8px 10px;
     color: black;
-    width: 100px;
+    width: 133px;
     font-size: 16px;
     background: #dbdfe2;
     border-radius: 3px;
@@ -93,8 +93,8 @@ body {
   min-width: 128px!important;
 }
 .nav-item.notification {
-  min-width: 157px!important;
-  width: auto;
+  min-width: 133px!important;
+  /* width: auto; */
 }
 .nav-item.new-poll {
   min-width: 128px!important;
@@ -413,7 +413,24 @@ body {
     color: white;
     margin-right: 28px;
 }
-
+.not_count {
+      visibility: hidden!important;
+    /* display: none; */
+    width: 22px;
+    height: 22px;
+    line-height: 21px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+    /* padding: 1px 1px; */
+    border-radius: 3px;
+    background: red;
+    color: white;
+    box-shadow: 0px 0px 10px #ffffffc2;
+    position: absolute;
+    top: -6px;
+    border-radius: 50%;
+}
 div#not {
     width: 300px;
     position: absolute;
@@ -755,10 +772,10 @@ button:hover {
   color: red;
 }
 .edit-warning-modal-body button:first-child:hover {
-  background: red!important;
+/*   background: red!important; */
   border: 1px solid red;
-  color: white;
   font-size: 18px;
+  box-shadow:inset 0px 0px 47px #f0808040;
 }
 .edit-warning-modal-body button:nth-child(2n) {
   background: white!important;
@@ -767,9 +784,10 @@ button:hover {
 }
 
 .edit-warning-modal-body button:nth-child(2n):hover {
-  background: dodgerblue!important;;
+/*   background: dodgerblue!important;; */
   border: 1px solid dodgerblue;
-  color: white;
+/*   color: white; */
+  box-shadow:inset 0px 0px 47px #80bcf040;
 }
 
 
@@ -998,3 +1016,21 @@ button:hover {
 }
 
 /* /Recent Polls */
+
+
+.settings-div {
+  position: fixed;
+  bottom: 0px;
+  right: 50px;
+  padding: 5px 10px;
+  z-index: 101;
+  background: black;
+  color: white;
+  font-size: 48px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.settings-div .flaticon-settings:before {
+    font-size: 38px!important;
+}

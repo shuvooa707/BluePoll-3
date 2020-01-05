@@ -2,11 +2,10 @@
     $conn = (new db())->myconn;
     
     // Top Polls
-    $sql = "SELECT *, (SELECT count(vote_id) FROM votes WHERE votes.vote_poll_id = polls.poll_id) AS vote_count, (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id) as like_count FROM polls ORDER BY vote_count DESC LIMIT 5";
+    $sql = "SELECT *, (SELECT count(*) FROM votes WHERE votes.vote_poll_id = polls.poll_id) AS vote_count, (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id) as like_count FROM polls ORDER BY vote_count DESC LIMIT 5";
     $topPolls = $conn->query($sql);
-    
     // Recent Polls
-    $sql = "SELECT *, (SELECT count(vote_id) FROM votes WHERE votes.vote_poll_id = polls.poll_id) AS vote_count, (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id) as like_count FROM polls ORDER BY poll_created_at DESC LIMIT 5";
+    $sql = "SELECT *, (SELECT count(*) FROM votes WHERE votes.vote_poll_id = polls.poll_id) AS vote_count, (SELECT COUNT(*) FROM likes WHERE likes.like_poll_id = polls.poll_id) as like_count FROM polls ORDER BY poll_created_at DESC LIMIT 5";
     $recentPolls = $conn->query($sql);
 
 ?>
@@ -27,6 +26,7 @@
         <div class="top-polls-container">
             <div class="tpc-header" style='padding: 10px;height: 39px;position: relative;'>
                 Top Polls
+                <span></span>
             </div>
             <div class="tpc-body">
             <?php
@@ -65,6 +65,7 @@
         <div class="recent-polls-container">
             <div class="rpc-header" style='padding: 10px;height: 39px;position: relative;'>
                 Recent Polls
+                <span></span>
             </div>
             <div class="rpc-body">
             <?php
@@ -75,11 +76,11 @@
                         $date = date('d/m/y', strtotime($recentPoll['poll_created_at']));
                     } else if( $date == 1 ) {
                         $date = " Today";
-                    } else if( $date > 1 ) {
-                        $date .= " days";
+                    } else if( $date == 2 ) {
+                        $date .= " yesterday";
                     }
                     else {
-                        $date .= " day";
+                        $date .= " days";
                     }
                     // $date = print_r(date_create());
                     echo "

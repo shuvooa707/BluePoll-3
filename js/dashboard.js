@@ -35,7 +35,7 @@ function okDeletePoll(node) {
     var poll = $(".pollToBeDeleted");
     
     poll.classList.remove("pollToBeDeleted");
-    poll.classList.add("fade-overlay");
+    poll.parentElement.parentElement.parentElement.parentElement.classList.add("fade-overlay");
     
 
     pollid = poll.getAttribute("data-poll-id");
@@ -49,6 +49,7 @@ function okDeletePoll(node) {
             var is_poll_deleted = (JSON.parse(this.responseText)).is_poll_deleted;
             if ( is_poll_deleted == 1 ) {
                 alert("Poll Deleted");
+                poll.parentElement.parentElement.parentElement.parentElement.classList.remove("fade-overlay");
                 poll.remove();
             } else {
                 // window.location.reload();
@@ -77,10 +78,10 @@ function changeVisibility(node,button) {
                 node.classList.remove("fade-overlay");   
                 if ( parseInt(resObj.poll_is) == 0 ) {
                     button.style.background = "lightcoral";
-                    button.innerText = "Private";
+                    button.innerHTML = `Private<i class='flaticon-padlock'></i>`;
                 } else {
                     button.style.background = "green";
-                    button.innerText = "Public";
+                    button.innerHTML = "Public";
                 }
             } else {
                 console.log(this.responseText);

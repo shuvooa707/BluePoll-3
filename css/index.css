@@ -131,7 +131,7 @@ body {
     display: flex;
     box-shadow: 0px 0px 2px #aaaabb;
     /* overflow-y: auto; */
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
     padding-bottom: 20px;
     position: relative;
 }
@@ -150,6 +150,95 @@ body {
     height: 1000px;
     background: #ececec;
 }
+
+
+/* ----------------------------------------------  */
+
+.sidebar form > div:first-child::before {
+    content: "";
+    width: 10px;
+    height: 41px;
+    position: absolute;
+    top: 0px;
+    right: -8px;
+    background: #ccc;
+    z-index: 2;
+    /*     border-bottom:1px solid black; */
+}
+
+.sidebar form > div:first-child::after {
+    content: "";
+    position: absolute;
+    top: 32px;
+    right: -6px;
+    /* background:silver; */
+    border: 7px solid transparent;
+    border-left: 7px solid #aaaaaa;
+    transform: rotate(-493deg);
+    z-index: 1;
+}
+
+/* ---------------------------------------------- */
+
+
+
+.tpc-header > span::before {
+    content: "";
+    width: 10px;
+    height: 41px;
+    position: absolute;
+    top: 0px;
+    right: -8px;
+    background: #ccc;
+    z-index: 2;
+    /*     border-bottom:1px solid black; */
+}
+
+.tpc-header > span::after {
+    content: "";
+    position: absolute;
+    top: 32px;
+    right: -6px;
+    /* background:silver; */
+    border: 7px solid transparent;
+    border-left: 7px solid #aaaaaa;
+    transform: rotate(-493deg);
+    z-index: 1;
+}
+
+/* ---------------------------------------------- */
+
+
+/* ---------------------------------------------- */
+
+
+
+.rpc-header > span::before {
+    content: "";
+    width: 10px;
+    height: 41px;
+    position: absolute;
+    top: 0px;
+    right: -8px;
+    background: #ccc;
+    z-index: 2;
+    /*     border-bottom:1px solid black; */
+}
+
+.rpc-header > span::after {
+    content: "";
+    position: absolute;
+    top: 32px;
+    right: -6px;
+    /* background:silver; */
+    border: 7px solid transparent;
+    border-left: 7px solid #aaaaaa;
+    transform: rotate(-493deg);
+    z-index: 1;
+}
+
+/* ---------------------------------------------- */
+
 
 .sidebar form div label::before {
     content: "";
@@ -793,7 +882,7 @@ input.add-new-option:focus {
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
     /* transition: 1s ease; */
-    transition: all .3s linear;
+    transition: all .3s cubic-bezier(0, 0.33, 0, 1.68);
 }
 
 .poll-info-box .right .right {
@@ -804,7 +893,7 @@ input.add-new-option:focus {
     float: left;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
-    transition: all .3s linear;
+    transition: all .3s cubic-bezier(0, 0.33, 0, 1.68);
 }
 
 .poll-info-box .left img {
@@ -986,7 +1075,7 @@ textarea {
     padding: 5px;
     border-radius: 3px;
     font-size: 13px;
-    width: 227px;
+    width: 90%;
     resize: vertical;
     word-spacing: 0px;
 }
@@ -1134,6 +1223,20 @@ textarea:focus {
     position: relative;
     animation: showHoot .35s ease 0s 1;
     box-shadow: 46px 49px 44px #5a5a5a;
+
+}
+
+.whoVotted-overlay .whoVotted-footer {
+    background: white;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    padding: 15px 15px 10px 30px;
+    /* border-top: 1px solid #eee; */
+    background: linear-gradient(to right,white,rgb(241, 253, 255));
+    color: #545454;
+    font-size: 15px;
+    font-weight: bold;
+    text-align:right;
 }
 
 @keyframes showHoot {
@@ -1217,7 +1320,7 @@ textarea:focus {
     overflow: auto;
     /* border: 1px solid lightcoral; */
     border-top: none;
-    border-radius: 7px;
+    /* border-radius: 7px; */
     background: white;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
@@ -1257,7 +1360,10 @@ textarea:focus {
     border-radius: 4px!important;
     border: 1px solid #aaa!important;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-weight: bold;
+    font-size: 17px;
+    transform: unset;
+    margin-left: 60%;
+    padding: 5px 30px;
 }
 
 #shootButton:active {
@@ -1370,7 +1476,7 @@ textarea:focus {
 .loader-text {
     width: 350px;
     background: black;
-    display: none;
+    /* display: none; */
     font-size: 28px;
     color: white;
     border-radius: 5px;
@@ -1378,9 +1484,9 @@ textarea:focus {
     z-index: 101;
     opacity: 1;
     position: absolute;
-    top: 0px;
+    /* top: 0px; */
     left: 50%;
-    /* bottom: 50px; */
+    bottom: 50px;
     transform: translateX(-50%);
     text-align: center;
 }
@@ -1484,7 +1590,7 @@ textarea:focus {
 
 @media screen and (max-width: 1500px) {
     .container {
-        width: 80%;
+        width: 97%;
         /* max-width: 334px; */
     }
 

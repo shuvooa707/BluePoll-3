@@ -114,7 +114,7 @@
                                         $poll_status = "Public";
                                     } else {
                                         $bgcolor = "red";
-                                        $poll_status = "Private";
+                                        $poll_status = "Private <i class='flaticon-padlock'></i>";
                                     }
                                     echo "                                        
                                         <tr  class='poll' data-poll-id='".$poll['poll_id']."'>                                        
@@ -147,7 +147,9 @@
                                             </td>
                                             <td  style='max-width:200px!important'>
                                                 <button class='delete' onclick='deletePollConf(this.parentElement.parentElement)'>Delete</button>   
-                                                <button class='private' style='width:74px; padding:5px 0px;background:$bgcolor;' onclick='changeVisibility(this.parentElement.parentElement,this)'>".$poll_status."</button>
+                                                <button class='private' style='width:74px; padding:5px 0px;background:$bgcolor;' onclick='changeVisibility(this.parentElement.parentElement,this)'>
+                                                    ".$poll_status."
+                                                </button>
                                                 <br>
                                                 <button class='edit' onclick='editConf()'>Edit</button>
                                                 <button class='analyze' onclick='analyze(this.parentElement.parentElement)'>Analyze</button>
@@ -204,7 +206,9 @@
                                                 <a href='poll.php?pollid=$poll_id'>$poll_name</a>
                                             </td>
                                             <td>
-                                                <button class='delete' onclick='deleteComment(this.parentElement.parentElement)'>Delete</button>   
+                                                <button class='delete' onclick='deleteComment(this.parentElement.parentElement)'>
+                                                    Delete
+                                                </button>   
                                             </td>
                                         </tr>
                                     ";

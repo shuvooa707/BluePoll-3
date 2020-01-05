@@ -3,7 +3,7 @@
         The Hidden Polls Can Be Found In <a href="dashboard.php">Dashboard</a>
     </div>
 
-<div class="container">
+<mian class="container">
     <div class="main-content">
         <div id="onload-overlay">
             <div class="loader-text">
@@ -22,7 +22,7 @@
     </div>
     <?php require_once("sidebar.php"); ?>
     
-</div>
+</main>
 
 
 <script>
@@ -45,6 +45,9 @@
                         </a>
                         <strong title='Shuvo Sarker'><a href="user.php?userid=4">Shuvo Sarker</a></strong>
                     </div> -->
+                </div>            
+                <div class="whoVotted-footer">
+                    34                    
                 </div>
             </div>
         </div>
